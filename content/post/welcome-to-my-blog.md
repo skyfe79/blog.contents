@@ -7,7 +7,7 @@ draft: false
 안녕하세요
 
 $$
-f \rightarrow g
+f \circ g
 $$
 
 ```kotlin
