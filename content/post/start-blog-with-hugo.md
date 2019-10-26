@@ -2,7 +2,6 @@
 title: "Hugo로 블로그 시작하기"
 date: 2019-10-26T13:57:42+09:00
 draft: false
-categories: ["Bloggin"]
 tags: ["Hugo", ""Custom Domain", "fqdn"]
 ---
 
