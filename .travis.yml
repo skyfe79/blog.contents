@@ -13,5 +13,6 @@ deploy:
   github_token: $GITHUB_TOKEN
   email: skyfe79@gmail.com
   name: "skyfe79"
+  fqdn: "blog.burt.pe.kr"
   on:
     branch: master
