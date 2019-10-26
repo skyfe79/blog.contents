@@ -2,7 +2,8 @@
 title: "Hugo로 블로그 시작하기"
 date: 2019-10-26T13:57:42+09:00
 draft: false
-tags: ["Hugo", ""Custom Domain", "fqdn"]
+categories: ["Blogging"]
+tags: ["Hugo", "Custom Domain", "fqdn"]
 ---
 
 오랫동안 묵혀두었던 Jekyll 기반 블로그를 지우고 Hugo로 블로그를 열어 보았습니다. Hugo로 블로그를 개설할 때 다음 글에서 많은 도움을 받았습니다.
