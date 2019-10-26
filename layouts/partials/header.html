@@ -6,6 +6,7 @@
     {{ hugo.Generator }}
     {{ partial "meta.html" . }}
     {{ partial "favicon.html" . }}
+    {{ partial "mathjax-header.html" . }}
     <title>{{ .Title }} :: {{ .Site.Title }}</title>
 
     {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
@@ -18,6 +19,7 @@
     <link href="{{"css/atom-one-dark-reasonable.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     <link href="{{"css/theme.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     <link href="{{"css/hugo-theme.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
+    <link href="{{"css/theme-mine.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     {{with .Site.Params.themeVariant}}
       <link href="{{(printf "css/theme-%s.css" .) | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
     {{end}}
