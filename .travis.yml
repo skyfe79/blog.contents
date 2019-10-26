@@ -6,7 +6,7 @@ script:
   - hugo
 deploy:
   local_dir: public
-  repo: skyfe79.github.io
+  repo: skyfe79/skyfe79.github.io
   target_branch: master
   provider: pages
   skip_cleanup: true
