@@ -6,12 +6,12 @@ script:
   - hugo
 deploy:
   local_dir: public
-  repo: [name].github.io
+  repo: skyfe79.github.io
   target_branch: master
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  email: [email]
-  name: [name]
+  email: skyfe79@gmail.com
+  name: "skyfe79"
   on:
     branch: master
