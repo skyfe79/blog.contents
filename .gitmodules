@@ -1,0 +1,3 @@
+[submodule "themes/grav"]
+	path = themes/grav
+	url = https://github.com/skyfe79/hugo-theme-learn.git
