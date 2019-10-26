@@ -1,5 +1,5 @@
 baseURL = "https://blog.burt.pe.kr/"
 languageCode = "ko-kr"
 defaultContentLanguage = "en-us"
-title = "Burt.K"
+title = "철이의 컴노리"
 theme = "grav"
