@@ -1,4 +1,5 @@
 baseURL = "https://blog.burt.pe.kr/"
-languageCode = "en-us"
+languageCode = "ko-kr"
+defaultContentLanguage = "en-us"
 title = "Burt.K"
 theme = "grav"
