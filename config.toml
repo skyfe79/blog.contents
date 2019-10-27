@@ -16,7 +16,7 @@ paginate = 10
 
 [params]
     # Blog subtitle which appears below blog title. Supports markdown.
-    subtitle = "철이의 컴노리"
+    subtitle = "Awesome Discovery"
 
     # Content types which are included in home page recent posts list.
     mainSections = ["post"]
