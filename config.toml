@@ -19,7 +19,7 @@ paginate = 10
     subtitle = "철이의 컴노리"
 
     # Content types which are included in home page recent posts list.
-    mainSections = ["posts"]
+    mainSections = ["post"]
 
     # Content types which are excludes Disqus comments.
     disableDisqusTypes = ["page"]
@@ -53,7 +53,7 @@ weight = 1
 
 [[menu.main]]
 name = "Posts"
-url = "/posts"
+url = "/post"
 weight = 2
 
 [[menu.main]]
