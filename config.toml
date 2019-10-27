@@ -1,7 +1,7 @@
 baseURL = "https://blog.burt.pe.kr/"
 languageCode = "ko-kr"
 defaultContentLanguage = "en-us"
-title = "철이의 컴노리"
+title = "Awesome Discovery"
 theme = "ezhil"
 
 copyright = "© Copyright notice"
@@ -16,7 +16,7 @@ paginate = 10
 
 [params]
     # Blog subtitle which appears below blog title. Supports markdown.
-    subtitle = "Awesome Discovery"
+    subtitle = "철이의 컴노리"
 
     # Content types which are included in home page recent posts list.
     mainSections = ["posts"]
@@ -47,22 +47,22 @@ paginate = 10
 
 # Main menu which appears below site header.
 [[menu.main]]
-name = "처음"
+name = "Home"
 url = "/"
 weight = 1
 
 [[menu.main]]
-name = "모든글"
+name = "Posts"
 url = "/posts"
 weight = 2
 
 [[menu.main]]
-name = "소개"
+name = "About"
 url = "/about"
 weight = 3
 
 [[menu.main]]
-name = "태그"
+name = "Tags"
 url = "/tags"
 weight = 4
 
