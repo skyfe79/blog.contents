@@ -1,7 +1,7 @@
 baseURL = "https://blog.burt.pe.kr/"
 languageCode = "ko-kr"
 defaultContentLanguage = "en-us"
-title = "Awesome Discovery"
+title = "Burt.K"
 theme = "ezhil"
 
 copyright = "© Copyright notice"
