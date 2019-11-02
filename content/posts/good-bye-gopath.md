@@ -23,7 +23,7 @@ $ go mod init awesome
 go: creating new go.mod: module awesome
 ```
 
-그러면 `mod.go` 파일이 생성된다.
+그러면 `go.mod` 파일이 생성된다.
 
 ```
 $ l
