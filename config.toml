@@ -4,7 +4,9 @@ defaultContentLanguage = "en-us"
 title = "Burt.K"
 theme = "ezhil"
 
-copyright = "© Copyright notice"
+copyright = "© Copyright Sungcheol Kim"
+
+googleAnalytics = "UA-151403685-1"
 
 # Enable syntax highlighting.
 pygmentsstyle = "github"
@@ -66,20 +68,20 @@ name = "Talks"
 url = "/talks"
 weight = 4
 
-[[menu.main]]
-name = "PL"
-url = "/pl"
-weight = 5
+# [[menu.main]]
+# name = "PL"
+# url = "/pl"
+# weight = 5
 
 [[menu.main]]
 name = "About"
 url = "/about"
-weight = 6
+weight = 5
 
 [[menu.main]]
 name = "Tags"
 url = "/tags"
-weight = 7
+weight = 6
 
 # Social media links which shows up on site header.
 # Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
