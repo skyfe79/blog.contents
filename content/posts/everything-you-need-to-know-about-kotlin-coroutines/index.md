@@ -7,7 +7,7 @@ tags: ["kotlin", "coroutine", "아마추어 번역"]
 
 `알림` 이 글은 [Everything you need to know about kotlin coroutines](https://medium.com/swlh/everything-you-need-to-know-about-kotlin-coroutines-b3d94f2bc982)을 번역한 글임을 알려드립니다.
 
-이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다. 
+이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.
 
 * `Job`과 `Deferred`, `launch`와 `async`의 차이점은 무엇인가?
 * 어떤 코루틴 빌더를 사용해야 하는가?
@@ -81,18 +81,18 @@ fun main() {
         thread {
             print(".")
         }
-    } 
+    }
 }
 ```
 
 ```
 .....................................................계속되다가 Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread
- at java.lang.Thread.start0 (Thread.java:-2) 
- at java.lang.Thread.start (Thread.java:714) 
- at kotlin.concurrent.ThreadsKt.thread (Thread.kt:42) 
- at kotlin.concurrent.ThreadsKt.thread$default (Thread.kt:25) 
- at FileKt.main (File.kt:6) 
- at FileKt.main (File.kt:-1) 
+ at java.lang.Thread.start0 (Thread.java:-2)
+ at java.lang.Thread.start (Thread.java:714)
+ at kotlin.concurrent.ThreadsKt.thread (Thread.kt:42)
+ at kotlin.concurrent.ThreadsKt.thread$default (Thread.kt:25)
+ at FileKt.main (File.kt:6)
+ at FileKt.main (File.kt:-1)
 Target platform: JVMRunning on kotlin v. 1.3.50
 ```
 
@@ -100,7 +100,7 @@ Target platform: JVMRunning on kotlin v. 1.3.50
 
 ## 코루틴 스코프 빌더
 
-`CoroutineScope`는 `coroutineContext`라는 하나의 추상 속성만 있는 인터페이스입니다. 
+`CoroutineScope`는 `coroutineContext`라는 하나의 추상 속성만 있는 인터페이스입니다.
 
 ```kotlin
 public interface CoroutineScope {
@@ -144,6 +144,28 @@ public fun CoroutineScope(context: CoroutineContext): CoroutineScope = ContextSc
 
 다음은 CorotuineScope 만드는 예제입니다. 외부에서 Job을 전달하지 않지만 내부에서 Job을 생성합니다. 구조를 갖춘 동시성을 엿볼 수 있습니다. 자식 코루틴(Child-A)은 100 밀리세컨드 지연 후 예외를 던지기 때문에 다른 자식 코루틴(Child-B)는 첫 println()문을 실행한뒤 대기하다가 취소됩니다.
 
+```kotlin
+val scope = CoroutineScope(CoroutineName("Parent"))
+// New job gets created if not provided explicitely
+if (scope.coroutineContext[Job] != null) {
+    println("New job is created!")
+}
+
+scope.launch {
+    launch(CoroutineName("Child-A")) {
+        delay(100)
+        println("${Thread.currentThread().name} throwing exception")
+        throw MyException
+    }
+
+    launch(CoroutineName("Child-B")) {
+        println("${Thread.currentThread().name} before exception...")
+        delay(500)
+        println("${Thread.currentThread().name} after exception...")
+    }
+}
+```
+
 ```
 New job is created!
 DefaultDispatcher-worker-2 @Child-B#3 before exception...
@@ -155,7 +177,7 @@ Exception in thread "DefaultDispatcher-worker-2 @Child-B#3" MyException: Dummy e
 
 이 함수는 일시 중단 함수(suspending function)입니다. 코루틴 스코프를 생성하면서 새로운 Job을 만들고 일시 중단 된 블럭을 이 스코프에서 호출합니다. 이 함수는 외부 스코프에서 코루틴 스코프를 상속하고 컨텍스트의 Job을 재정의합니다.
 
-기억할 점은 이 함수가 일시 중단 함수라는 것과 `join` 및 `await`을 하지 않아도 주어진 블럭과 스코프의 모든 자식 코루틴이 실행을 완료하면 반환된다는 것입니다. 
+기억할 점은 이 함수가 일시 중단 함수라는 것과 `join` 및 `await`을 하지 않아도 주어진 블럭과 스코프의 모든 자식 코루틴이 실행을 완료하면 반환된다는 것입니다.
 
 ```kotlin
 public suspend fun <R> coroutineScope(block: suspend CoroutineScope.() -> R): R
@@ -198,7 +220,7 @@ println(doTask())
 
 #### [GlobalScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/)
 
-`GlobalScope`는 싱글톤입니다. 그 어떤 Job에도 연결되어 있지 않습니다. 
+`GlobalScope`는 싱글톤입니다. 그 어떤 Job에도 연결되어 있지 않습니다.
 
 `GlobalScope`는 최상위 레벨에서 코루틴을 시작합니다. 그렇기 때문에 구조화 된 동시성에서 얻을 수 있는 모든 이점이 사라집니다. `GlobalScope`는 되도록이면 사용하지 않는 것이 좋습니다.
 
@@ -313,7 +335,7 @@ A, B, C라는 3개의 Job이 있다고 생각 해 봅시다. Job B와 C는 Job A
 
 ### [Deferred](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/)
 
-문서에서 지연된 값(Deferred value)을 차단되지 않는(non-blocking) 취소 가능한 Future로 결과를 가지고 있는 Job으로 설명하고 있습니다. 
+문서에서 지연된 값(Deferred value)을 차단되지 않는(non-blocking) 취소 가능한 Future로 결과를 가지고 있는 Job으로 설명하고 있습니다.
 
 `Deferred`는 완료된 결과를 `successful` 또는 `exceptional` 로 얻을 수 있게 Job에 몇가지 메서드를 추가한 인터페이스입니다.
 
@@ -444,7 +466,7 @@ counter = 50
 
 ## Suspend
 
-이 글에서 `suspend` 키워드를 이미 여러 번 사용했습니다. 일시 중단 함수를 자세히 살펴봅니다! 
+이 글에서 `suspend` 키워드를 이미 여러 번 사용했습니다. 일시 중단 함수를 자세히 살펴봅니다!
 
 `suspend`는 kotlin 키워드로, 함수를 일시 중단했다가 나중에 재시작할 수 있음을 나타냅니다. 일시 중단 함수를 사용하여 메인스레드를 차단하지 않고 장시간 실행되는 계산을 호출 할 수 있습니다.
 
@@ -460,14 +482,14 @@ Kotlin 코드는 JVM 바이트 코드로 변환됩니다. JVM에는 일시 중�
 ```
 // kotlin
 suspend fun updateUserInfo(
-    name: String, 
+    name: String,
     id: Long
 ): User
 
 // JVM
 public final Object updateUserInfo(
-    String name, 
-    long id, 
+    String name,
+    long id,
     Continuation<User> $completion
 )
 ```
@@ -483,7 +505,7 @@ public interface Continuation<in T> {
 }
 ```
 
-> `참고` `v1.3`부터 `Continuation`에는 1개의 `resumeWith(result)` 메서드만 있습니다. 이전 버전에서는 ` usedresume(value: T)`와 `resumeWithException(exception: Throwable)`가 있었습니다. 
+> `참고` `v1.3`부터 `Continuation`에는 1개의 `resumeWith(result)` 메서드만 있습니다. 이전 버전에서는 ` usedresume(value: T)`와 `resumeWithException(exception: Throwable)`가 있었습니다.
 >
 > [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html)는 T타입 값으로 `success` 또는 Throwable타입 예외로 `failure`를 모델링합니다.
 
@@ -498,7 +520,7 @@ public interface Continuation<in T> {
 이 강연에서 Roman Elizarov는 다음과 같이 말했습니다.
 
 > Continuation은 제네릭 콜백 인터페이스입니다.
-> 
+>
 > 일시 중단 함수를 호출할 때마다 실제로 콜백을 호출합니다. 콜백은 암시적이므로 코드에 표시되지 않습니다. 배후에서 콜백을 사용하여 멋진 스타일로 바로 코딩할 수 있습니다.
 
 ## 참고 자료
