@@ -18,5 +18,3 @@ Hugo에 글을 쉽게 쓰는 법을 찾았다. 바로 메일앱을 사용하는 
 ![](./images/img05.jpg)
 ![](./images/img02.jpg)
 ![](./images/img04.jpg)
-
-
