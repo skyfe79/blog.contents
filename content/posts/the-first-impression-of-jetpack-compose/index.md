@@ -65,6 +65,78 @@ fun NewsStory() {
 
 하지만 코드는 매우 쉽게 읽힌다. 안드로이드의 기존 UI 작업에 비교하면 정말 감사할 따름이다 :) 
 
+```kotlin
+package com.github.skyfe79.android.hellocompose
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.compose.Composable
+import androidx.compose.unaryPlus
+import androidx.ui.core.*
+import androidx.ui.engine.geometry.Shape
+import androidx.ui.foundation.DrawImage
+import androidx.ui.foundation.shape.corner.RoundedCornerShape
+import androidx.ui.layout.*
+import androidx.ui.material.MaterialTheme
+import androidx.ui.material.themeTextStyle
+import androidx.ui.material.withOpacity
+import androidx.ui.res.imageResource
+import androidx.ui.text.style.TextOverflow
+import androidx.ui.tooling.preview.Preview
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            NewStory()
+        }
+    }
+}
+
+@Composable
+fun NewStory() {
+
+    val image = +imageResource(R.drawable.header)
+
+    MaterialTheme {
+        Column(
+                crossAxisSize = LayoutSize.Expand,
+                modifier = Spacing(16.dp)
+        ) {
+            Container(expanded = true, height = 180.dp) {
+                Clip(shape = RoundedCornerShape(8.dp)) {
+                    DrawImage(image = image)
+                }
+            }
+
+            HeightSpacer(height = 16.dp)
+
+            Text("A day wandering through the sandhills in Shark " +
+                    "Fin Cove, and a few of the sights I saw",
+                    maxLines = 2, overflow = TextOverflow.Fade,
+                    style = (+themeTextStyle { h6 }).withOpacity(0.87f))
+            Text("Davenport, California",
+                    style = (+themeTextStyle { body2 }).withOpacity(0.87f))
+            Text("December 2018",
+                    style = (+themeTextStyle { body2 }).withOpacity(0.6f))
+        }
+    }
+    
+}
+
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    NewStory()
+}
+```
+
 공식 튜토리얼에서 List와 Navigation 부분이 없어서 약간 아쉽다. 이제 슬슬 Jetpack Compose를 다뤄봐야겠다.
 
 흥미로운 글은 코멘트로 계속해서...
