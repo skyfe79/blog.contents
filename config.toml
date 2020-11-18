@@ -68,11 +68,6 @@ name = "Talks"
 url = "/talks"
 weight = 4
 
-# [[menu.main]]
-# name = "PL"
-# url = "/pl"
-# weight = 5
-
 [[menu.main]]
 name = "About"
 url = "/about"
