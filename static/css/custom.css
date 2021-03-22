@@ -2,8 +2,10 @@ body {
     font-family: "ubuntu",sans-serif;
     font-weight: 400;
     color: #333;
-    line-height: 1.6;
-    font-size: 16px;
+    line-height: 1.8;
+    font-size: 18px;
+    letter-spacing: 1px;
+    word-spacing: 1px;
 }
 
 a, a:hover {
@@ -94,10 +96,12 @@ a:hover {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: raleway,sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     line-height: 1.2;
     color: #333;
-    font-weight: 200;
+    font-weight: 400;
+    margin-top: 48px;
+    margin-bottom: 16px;
 }
 
 h1 {
@@ -174,6 +178,11 @@ ul {
 .site-title a {
 	color: #333;
 	text-decoration: none !important;
+    font-family: 'Raleway', sans-serif !important;
+    line-height: 1.2;
+    color: #333;
+    font-weight: 150;
+    font-style: italic;
 }
 
 .post ul li {
@@ -184,21 +193,29 @@ ul {
     display: inline;
 }
 
+p {
+    margin-bottom: 24px;
+}
+
 p code {
     display: inline-block;
     border: 0px solid rgb(205, 205, 205, 0.5);
-    background-color: rgb(205, 205, 205, 0.3);
+    background-color: rgb(205, 205, 205, 0.2);
     border-radius: 4px;
-    padding: 0px 6px;
-    color: rgb(0, 0, 0);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #333;
     line-height: 22px;
     text-decoration: none;
-    margin: 0 1px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .highlight pre {
-    margin-bottom: 0;
-    margin-top: 0;
+    margin-bottom: 16px;
+    margin-top: 16px;
     padding: 20px;
     background-color: transparent !important;
 }
@@ -261,6 +278,10 @@ p code {
 .header .site-description {
     display: flex;
     justify-content: space-between;
+    font-family: 'Raleway', sans-serif !important;
+    line-height: 1.2;
+    color: #333;
+    font-style: italic;
 }
 
 .header .site-description nav {
@@ -404,9 +425,14 @@ p code {
     text-align: right;
 }
 
+#TableOfContents > ul {
+    margin-bottom: 100px;
+}
+
 #TableOfContents > ul li {
     list-style: none;
-    margin: 0;
+    margin-top: 4px;
+    margin-bottom: 4px;
     padding: 2px;
     line-height: 1.1;
 }
@@ -420,7 +446,9 @@ p code {
   line-height: 20px;
   font-size: 12px;
   text-decoration: none;
-  margin: 0 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 2px;
 }
 
 @media (max-width: 767px) {
