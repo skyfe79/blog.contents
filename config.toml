@@ -92,4 +92,4 @@ url = "https://twitter.com/skyfe79"
 
 # Enable tags.
 [taxonomies]
-   tag = "tags"
+tag = "tags"
