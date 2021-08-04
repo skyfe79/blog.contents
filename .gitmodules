@@ -1,0 +1,6 @@
+[submodule "public"]
+	path = public
+	url = https://github.com/skyfe79/skyfe79.github.io.git
+[submodule "themes/ezhil"]
+	path = themes/ezhil
+	url = https://github.com/skyfe79/ezhil.git
