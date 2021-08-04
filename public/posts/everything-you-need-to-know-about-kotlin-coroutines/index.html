@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>코틀린 코루틴 소개 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="코틀린 코루틴 소개" />
+<meta property="og:description" content="알림 이 글은 Everything you need to know about kotlin coroutines을 번역한 글임을 알려드립니다.
+이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.
+ Job과 Deferred, launch와 async의 차이점은 무엇인가? 어떤 코루틴 빌더를 사용해야 하는가? 코루틴에서 예외가 발생하면 어떻게 될까? 고수준의 구조화 된 동시성을 어떻게 만들 수 있을까? 변경 가능한 상태를 싱글스레드 디스패처를 사용해 스레드 안전하게 공유. 코루틴을 사용한 IO 및 CPU 바인딩 작업.  코루틴 작동 방식을 이해하고 실제 애플리케이션에서 효과적으로 사용하려면 핵심 개념을 먼저 이해해야 합니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/" />
+<meta property="article:published_time" content="2019-11-03T23:50:17+09:00" />
+<meta property="article:modified_time" content="2019-11-03T23:50:17+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="코틀린 코루틴 소개"/>
+<meta name="twitter:description" content="알림 이 글은 Everything you need to know about kotlin coroutines을 번역한 글임을 알려드립니다.
+이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.
+ Job과 Deferred, launch와 async의 차이점은 무엇인가? 어떤 코루틴 빌더를 사용해야 하는가? 코루틴에서 예외가 발생하면 어떻게 될까? 고수준의 구조화 된 동시성을 어떻게 만들 수 있을까? 변경 가능한 상태를 싱글스레드 디스패처를 사용해 스레드 안전하게 공유. 코루틴을 사용한 IO 및 CPU 바인딩 작업.  코루틴 작동 방식을 이해하고 실제 애플리케이션에서 효과적으로 사용하려면 핵심 개념을 먼저 이해해야 합니다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">코틀린 코루틴 소개</h1>
+			<div class="meta">Posted at &mdash; Nov 3, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#소개">소개</a>
+<ul>
+<li><a href="#100-000-코루틴">100_000 코루틴</a></li>
+<li><a href="#100-000-스레드">100_000 스레드</a></li>
+</ul></li>
+<li><a href="#코루틴-스코프-빌더">코루틴 스코프 빌더</a>
+<ul>
+<li><a href="#coroutinescope를-만드는-방법">CoroutineScope를 만드는 방법</a>
+<ul>
+<li><a href="#mainscope-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-main-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-main-scope.html">MainScope</a></a></li>
+<li><a href="#coroutinescope-ctx-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-coroutine-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope.html">CoroutineScope(ctx)</a></a></li>
+<li><a href="#coroutinescope-block-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-coroutine-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/coroutine-scope.html">coroutineScope(block)</a></a></li>
+<li><a href="#globalscope-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-global-scope"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/">GlobalScope</a></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#coroutinecontext">CoroutineContext</a>
+<ul>
+<li><a href="#문제">문제</a></li>
+<li><a href="#job-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-job-과-구조를-갖춘-동시성-https-kotlinlang-org-docs-reference-coroutines-basics-html-structured-concurrency"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/">Job</a>과 <a href="https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurrency">구조를 갖춘 동시성</a></a></li>
+<li><a href="#deferred-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-deferred"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/">Deferred</a></a></li>
+</ul></li>
+<li><a href="#코루틴-빌더-coroutine-builders">코루틴 빌더(Coroutine Builders)</a>
+<ul>
+<li><a href="#launch-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-launch-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html">Launch</a></a></li>
+<li><a href="#async-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-async-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html">Async</a></a></li>
+<li><a href="#withcontext-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-with-context-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html">withContext</a></a></li>
+<li><a href="#runblocking-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-run-blocking-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html">runBlocking</a></a></li>
+</ul></li>
+<li><a href="#suspend">Suspend</a></li>
+<li><a href="#continuation">Continuation</a></li>
+<li><a href="#참고-자료">참고 자료</a></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<p><code>알림</code> 이 글은 <a href="https://medium.com/swlh/everything-you-need-to-know-about-kotlin-coroutines-b3d94f2bc982">Everything you need to know about kotlin coroutines</a>을 번역한 글임을 알려드립니다.</p>
+
+<p>이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.</p>
+
+<ul>
+<li><code>Job</code>과 <code>Deferred</code>, <code>launch</code>와 <code>async</code>의 차이점은 무엇인가?</li>
+<li>어떤 코루틴 빌더를 사용해야 하는가?</li>
+<li>코루틴에서 예외가 발생하면 어떻게 될까?</li>
+<li>고수준의 구조화 된 동시성을 어떻게 만들 수 있을까?</li>
+<li>변경 가능한 상태를 싱글스레드 디스패처를 사용해 스레드 안전하게 공유.</li>
+<li>코루틴을 사용한 <code>IO</code> 및 <code>CPU</code> 바인딩 작업.</li>
+</ul>
+
+<p>코루틴 작동 방식을 이해하고 실제 애플리케이션에서 효과적으로 사용하려면 핵심 개념을 먼저 이해해야 합니다. 이를 위해 다음 주제를 설명합니다.</p>
+
+<ul>
+<li>코루틴 스코프 빌더(Coroutine Scope Builders)
+
+<ul>
+<li>MainScope</li>
+<li>CoroutineScope</li>
+<li>coroutineScope</li>
+<li>GlobalScope, etc.</li>
+</ul></li>
+<li>코루틴 컨텍스트(CoroutineContext)
+
+<ul>
+<li>Job</li>
+<li>Deferred, etc.</li>
+</ul></li>
+<li>코루틴 빌더(Coroutine Builders)
+
+<ul>
+<li>launch</li>
+<li>async</li>
+<li>withContext</li>
+<li>runBlocking, etc.</li>
+</ul></li>
+<li>구조를 갖춘 동시성(Structured concurrency)</li>
+<li>일시 중단(Suspend)</li>
+<li>연속성(Continuation)</li>
+</ul>
+
+<h2 id="소개">소개</h2>
+
+<p>코루틴은 경량 스레드로 코루틴을 만드는 비용은 매우 저렴합니다. 코루틴은 스레드에 비해 매우 빠르게 만들고 파괴되기 때문에 네이티브 OS 스레드에 직접 매핑되지 않습니다. 스레드는 컨텍스트 전환시 추가 오버헤드가 발생하지만 코루틴은 그렇지 않습니다. 그래서 수천, 수만개의 코루틴을 사용할 수 있습니다. 스레드 한 개가 수천개의 코루틴을 운영할 수도 있습니다.</p>
+
+<p>새로운 코루틴을 생성(create), 시작(start), 실행(run)하기 위해서 <code>코루틴 스코프</code>와 <code>코루틴 빌더</code>입니다. 코루틴 생성에 가장 중요한 두 가지 빌딩 블럭입니다.</p>
+
+<p>코루틴 빌더는 새로운 코루틴을 만들 때 사용하고 코루틴 스코프는 코루틴 실행을 위해 필요한 조건을 구성합니다. 예를 들어, 코루틴이 어느 스레드에서 실행될지 구성할 수 있습니다.</p>
+
+<p>스레드와 비교해 보면, 코루틴 빌더는 <code>Runnable</code> 인스턴스를 만드는 팩토리이며 코루틴 스코프는 Java의 <code>ExecutorService</code> 입니다.</p>
+
+<blockquote>
+<p>그러나 코루틴 스코프는 <code>ExecutorService</code> 보다 더 좋습니다.</p>
+</blockquote>
+
+<p>코루틴이 가볍다는 것을 입증하기 위해서 코루틴 10만개와 스레드 10만개를 만들고 각각 <code>print(&quot;.&quot;)</code>를 실행하는 예제를 만들어 보겠습니다.</p>
+
+<h3 id="100-000-코루틴">100_000 코루틴</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">main</span>() = runBlocking {
+    <span style="color:#998;font-style:italic">// 100_000개 코루틴을 만들고 &#34;.&#34;을 출력합니다.
+</span><span style="color:#998;font-style:italic"></span>    repeat(<span style="color:#099">100</span>_000) {
+        launch {
+            print(<span style="color:#d14">&#34;.&#34;</span>)
+        }
+    }
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">.......................................................계속됨</pre></div>
+<blockquote>
+<p>위의 앱은 크래시 없이 점(.) 100_000개를 출력합니다.</p>
+</blockquote>
+
+<p><code>참고</code> 예제에서 사용한 <code>launch</code> 및 <code>runBlocking</code>은 글의 뒷부분에서 자세히 설명합니다. 간략하게 적어보면, <code>runBlocking</code>은 코루틴을 실행하기 위한 환경을 설정하는 것으로 볼 수 있고 <code>launch</code>는 새로운 코루틴을 생성하고 앞서 만든 환경에서 실행되도록 예약하는 코루틴 빌더입니다.</p>
+
+<h3 id="100-000-스레드">100_000 스레드</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">main</span>() {
+    <span style="color:#998;font-style:italic">// c100_000 threads and print &#34;.&#34;
+</span><span style="color:#998;font-style:italic"></span>    repeat(<span style="color:#099">100</span>_000) {
+        thread {
+            print(<span style="color:#d14">&#34;.&#34;</span>)
+        }
+    }
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">.....................................................계속되다가 Exception in thread &#34;main&#34; java.lang.OutOfMemoryError: unable to create new native thread
+ at java.lang.Thread.start0 (Thread.java:-2)
+ at java.lang.Thread.start (Thread.java:714)
+ at kotlin.concurrent.ThreadsKt.thread (Thread.kt:42)
+ at kotlin.concurrent.ThreadsKt.thread$default (Thread.kt:25)
+ at FileKt.main (File.kt:6)
+ at FileKt.main (File.kt:-1)
+Target platform: JVMRunning on kotlin v. 1.3.50</pre></div>
+<blockquote>
+<p>위의 앱은 <code>java.lang.OutOfMemoryError: unable to create new native thread</code> 예외가 발생하면서 크래시됩니다.</p>
+</blockquote>
+
+<h2 id="코루틴-스코프-빌더">코루틴 스코프 빌더</h2>
+
+<p><code>CoroutineScope</code>는 <code>coroutineContext</code>라는 하나의 추상 속성만 있는 인터페이스입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">interface</span> <span style="color:#458;font-weight:bold">CoroutineScope</span> {
+    <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">val</span> coroutineContext: CoroutineContext
+}</code></pre></div>
+<p><code>CoroutineScope</code>는 <code>CoroutineContext</code>입니다. 유일한 차이점은 사용 목적입니다. Roman Elizarov는 그의 블로그에서 이에 대해서 자세히 설명하고 있습니다.</p>
+
+<p><a href="https://medium.com/@elizarov/coroutine-context-and-scope-c8b255d59055">Coroutine Context and Scope</a></p>
+
+<p>기억해야 할 중요한 내용은 새로운 코루틴 스코프가 생성될 때마다 새로운 Job이 생성되어 만들어진 코루틴 스코프와 연관 지어진다는 것입니다.</p>
+
+<p>이 스코프를 사용하여 생성한 모든 코루틴은 이 Job의 자식이 됩니다. 이런 식으로 코루틴 간의 부모-자식 관계가 만들어집니다.</p>
+
+<p>자식 코루틴 중 하나가 처리되지 않은 예외를 던지면 부모 Job이 취소되어 결국 모든 자식 코루틴이 취소됩니다.이것을 <code>구조를 갖춘 동시성</code>이라고 합니다. 이 주제에 대한 자세한 내용은 <a href="https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/">Notes on structured concurrency, or: Go statement considered harmful</a> 글에 있습니다. 일독을 권장합니다.</p>
+
+<h3 id="coroutinescope를-만드는-방법">CoroutineScope를 만드는 방법</h3>
+
+<h4 id="mainscope-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-main-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-main-scope.html">MainScope</a></h4>
+
+<p><code>MainScope</code>는 UI 컴포넌트를 위한 스코프입니다. <code>MainScope</code>는 <code>SupervisorJob</code>을 생성하고 이 스코프에서 만들어진 모든 코루틴을 <code>Main</code>스레드에서 실행합니다. <code>SupervisorJob</code>을 생성하기 때문에 <code>구조를 갖춘 동시성</code>에서 언급한 것과 달리 하나의 코루틴이 예외를 던지면서 실패해도 다른 코루틴들은 취소되지 않습니다. 자식 코루틴의 실패는 CoroutineExceptionHandler를 사용하여 처리 할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">MainScope</span>(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.Main)</code></pre></div>
+<p><code>참고</code> <code>Main</code> 디스패처를 사용하려면 플랫폼 별로 프로젝트에 추가해야 하는 디펜던시가 서로 다릅니다.</p>
+
+<ul>
+<li>kotlinx-coroutines-android - 안드로이드 Main 스레드 디스패처</li>
+<li>kotlinx-coroutines-javafx - JavaFx 애플리케이션 스레드 디스패처</li>
+<li>kotlinx-coroutines-swing - Swing EDT 디스패처</li>
+</ul>
+
+<h4 id="coroutinescope-ctx-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-coroutine-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope.html">CoroutineScope(ctx)</a></h4>
+
+<p>CoroutineScope(ctx) 함수는 제공된 코루틴 컨텍스트(ctx)에서 새로운 코루틴 스코프를 생성합니다. 그리고 생성된 Job을 스코프와 연관 짓습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">CoroutineScope</span>(context: CoroutineContext): CoroutineScope = ContextScope(<span style="color:#000;font-weight:bold">if</span> (context[Job] != <span style="color:#000;font-weight:bold">null</span>) context <span style="color:#000;font-weight:bold">else</span> context + Job())</code></pre></div>
+<p>다음은 CorotuineScope 만드는 예제입니다. 외부에서 Job을 전달하지 않지만 내부에서 Job을 생성합니다. 구조를 갖춘 동시성을 엿볼 수 있습니다. 자식 코루틴(Child-A)은 100 밀리세컨드 지연 후 예외를 던지기 때문에 다른 자식 코루틴(Child-B)는 첫 println()문을 실행한뒤 대기하다가 취소됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">val</span> scope = CoroutineScope(CoroutineName(<span style="color:#d14">&#34;Parent&#34;</span>))
+<span style="color:#998;font-style:italic">// New job gets created if not provided explicitely
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">if</span> (scope.coroutineContext[Job] != <span style="color:#000;font-weight:bold">null</span>) {
+    println(<span style="color:#d14">&#34;New job is created!&#34;</span>)
+}
+
+scope.launch {
+    launch(CoroutineName(<span style="color:#d14">&#34;Child-A&#34;</span>)) {
+        delay(<span style="color:#099">100</span>)
+        println(<span style="color:#d14">&#34;${Thread.currentThread().name} throwing exception&#34;</span>)
+        <span style="color:#000;font-weight:bold">throw</span> MyException
+    }
+
+    launch(CoroutineName(<span style="color:#d14">&#34;Child-B&#34;</span>)) {
+        println(<span style="color:#d14">&#34;${Thread.currentThread().name} before exception...&#34;</span>)
+        delay(<span style="color:#099">500</span>)
+        println(<span style="color:#d14">&#34;${Thread.currentThread().name} after exception...&#34;</span>)
+    }
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">New job is created!
+DefaultDispatcher-worker-2 @Child-B#3 before exception...
+DefaultDispatcher-worker-1 @Child-A#2 throwing exception
+Exception in thread &#34;DefaultDispatcher-worker-2 @Child-B#3&#34; MyException: Dummy exception</pre></div>
+<h4 id="coroutinescope-block-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-coroutine-scope-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/coroutine-scope.html">coroutineScope(block)</a></h4>
+
+<p>이 함수는 일시 중단 함수(suspending function)입니다. 코루틴 스코프를 생성하면서 새로운 Job을 만들고 일시 중단 된 블럭을 이 스코프에서 호출합니다. 이 함수는 외부 스코프에서 코루틴 스코프를 상속하고 컨텍스트의 Job을 재정의합니다.</p>
+
+<p>기억할 점은 이 함수가 일시 중단 함수라는 것과 <code>join</code> 및 <code>await</code>을 하지 않아도 주어진 블럭과 스코프의 모든 자식 코루틴이 실행을 완료하면 반환된다는 것입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">suspend</span> <span style="color:#000;font-weight:bold">fun</span> &lt;R&gt; <span style="color:#900;font-weight:bold">coroutineScope</span>(block: <span style="color:#000;font-weight:bold">suspend</span> CoroutineScope.() -&gt; R): R</code></pre></div>
+<p>예를 들어, 여러개의 비동기 작업이 있고 모든 작업이 완료되고 결과가 나올 때까지 대기한 다음 어떤 일을 수행해야 한다고 생각해 봅시다.</p>
+
+<p>이 경우 coroutineScope를 사용하여 모든 작업을 동시에 병렬로 시작하고 결과를 기다릴 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#998;font-style:italic">// simulate some compute sensitive task
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">suspend</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">task1</span>(): Int {
+    delay(<span style="color:#099">100</span>)
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">10</span>
+}
+
+<span style="color:#998;font-style:italic">// simulate some compute sensitive task
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">suspend</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">task2</span>(): Int {
+    delay(<span style="color:#099">200</span>)
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">20</span>
+}
+
+<span style="color:#998;font-style:italic">// 1. performs tasks parallely
+</span><span style="color:#998;font-style:italic">// 2. waits for all tasks to finish
+</span><span style="color:#998;font-style:italic">// 3. usage computed results of all tasks and returns addition of those
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">suspend</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">doTask</span>() = coroutineScope {
+    <span style="color:#000;font-weight:bold">val</span> result1 = async { task1() }
+    <span style="color:#000;font-weight:bold">val</span> result2 = async { task2() }
+    result1.await() + result2.await()
+}
+
+println(doTask())</code></pre></div>
+<p>출력 결과</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">30</pre></div>
+<h4 id="globalscope-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-global-scope"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/">GlobalScope</a></h4>
+
+<p><code>GlobalScope</code>는 싱글톤입니다. 그 어떤 Job에도 연결되어 있지 않습니다.</p>
+
+<p><code>GlobalScope</code>는 최상위 레벨에서 코루틴을 시작합니다. 그렇기 때문에 구조화 된 동시성에서 얻을 수 있는 모든 이점이 사라집니다. <code>GlobalScope</code>는 되도록이면 사용하지 않는 것이 좋습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">object</span> <span style="color:#458;font-weight:bold">GlobalScope</span> : CoroutineScope {
+    <span style="color:#000;font-weight:bold">override</span> <span style="color:#000;font-weight:bold">val</span> coroutineContext: CoroutineContext <span style="color:#000;font-weight:bold">get</span>() =      EmptyCoroutineContext
+}</code></pre></div>
+<p>다음 블로그 글은 <code>GlobalScope</code>를 사용하지 말아야 하는 이유를 설명하고 있습니다.</p>
+
+<p><a href="https://medium.com/@elizarov/the-reason-to-avoid-globalscope-835337445abc">The reason to avoid GlobalScope</a></p>
+
+<p>다음은 <code>GlobalScope</code>에 연결된 Job이 없음을 보여주는 예입니다. <code>GlobalScope</code>를 사용하는 코루틴에서 예외를 발생해도 다른 코루틴에 영향을 미치지 않습니다. 구조를 갖춘 동시성을 느슨하게 한다는 것을 알 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">val</span> job = GlobalScope.coroutineContext[Job]
+<span style="color:#000;font-weight:bold">if</span> (job == <span style="color:#000;font-weight:bold">null</span>) {
+    println(<span style="color:#d14">&#34;No Job associated with GlobalScope!&#34;</span>)
+}
+
+<span style="color:#998;font-style:italic">// exception thrown in this coroutine does not affect other coroutines
+</span><span style="color:#998;font-style:italic"></span>GlobalScope.launch {
+    delay(<span style="color:#099">500</span>)
+    println(<span style="color:#d14">&#34;throwing exception&#34;</span>)
+    <span style="color:#000;font-weight:bold">throw</span> MyException
+}
+
+GlobalScope.launch {
+    println(<span style="color:#d14">&#34;before exception...&#34;</span>)
+    delay(<span style="color:#099">1000</span>)
+    println(<span style="color:#d14">&#34;after exception...&#34;</span>)
+}</code></pre></div>
+<p>출력 결과</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">No Job associated with GlobalScope!
+before exception...
+throwing exception
+Exception in thread &#34;DefaultDispatcher-worker-2 @coroutine#1&#34; MyException: Dummy exception
+after exception...</pre></div>
+<h2 id="coroutinecontext">CoroutineContext</h2>
+
+<p><code>CoroutineContext</code>는 <code>키(Key)</code>와 <code>엘리먼트(Element)</code>를 연결하는 간단한 <code>map</code>입니다.</p>
+
+<ul>
+<li>키 - <code>CoroutineContext</code>타입인 엘러먼트를 위한 키</li>
+<li>엘리먼트 - <code>CoroutineContext</code>의 하위 타입. 예를 들어, Job, Deferred, CoroutineDispacher, ActorCoroutine 등.</li>
+</ul>
+
+<h3 id="문제">문제</h3>
+
+<p>변경 가능한 상태가 있습니다. 서로 다른 코루틴에서 동시에 접근할 수 있을 때, 우리는 이 상태를 스레드로부터 안전하게 만들려고 합니다. 어떻게 하는게 좋을까요?</p>
+
+<blockquote>
+<p>이를 달성하는 여러 가지 방법이 있지만 이 글에서는 싱글스레드 실행 서비스(single-threaded executor service)를 사용하는 방법을 보여 드리겠습니다.</p>
+</blockquote>
+
+<p>다음은 1000개의 코루틴이 동시에 생성되고 각 코루틴이 카운터 값을 증가시키는 예제입니다. 실행 결과로 1000이 나오면 이 풀이 방법에 경쟁 조건(race condition)이 없음을 증명하는 것입니다.</p>
+
+<p>incrementAsync 함수에서 스레드 이름을 출력하여 모든 코루틴이 동일한 스레드에서 실행되는 것을 직접 확인할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#998;font-style:italic">// 1. create single threaded dispacher
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">val</span> ec: ExecutorService = Executors.newSingleThreadExecutor()
+<span style="color:#000;font-weight:bold">val</span> dispatcher: ExecutorCoroutineDispatcher = ec.asCoroutineDispatcher()
+
+<span style="color:#998;font-style:italic">// 2. bind coroutine scope with single threaded dispatcher
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">val</span> scope = CoroutineScope(dispatcher)
+<span style="color:#000;font-weight:bold">var</span> counter = <span style="color:#099">0</span>
+<span style="color:#000;font-weight:bold">val</span> jobs = mutableListOf&lt;Job&gt;()
+
+<span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">incrementAsync</span>() = scope.launch { counter += <span style="color:#099">1</span> }
+
+<span style="color:#998;font-style:italic">// 3. launch 1000 coroutines to increment counter
+</span><span style="color:#998;font-style:italic"></span>repeat(<span style="color:#099">1000</span>) {
+    jobs += incrementAsync()
+}
+
+<span style="color:#998;font-style:italic">// 4. wait for all the coroutines to finish
+</span><span style="color:#998;font-style:italic"></span>jobs.joinAll()
+println(<span style="color:#d14">&#34;Counter = $counter&#34;</span>)</code></pre></div>
+<p>출력 결과</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Counter = 1000</pre></div>
+<h3 id="job-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-job-과-구조를-갖춘-동시성-https-kotlinlang-org-docs-reference-coroutines-basics-html-structured-concurrency"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/">Job</a>과 <a href="https://kotlinlang.org/docs/reference/coroutines/basics.html#structured-concurrency">구조를 갖춘 동시성</a></h3>
+
+<p><code>백그라운드 Job</code>은 <code>side-effect</code>를 단독으로 담당하는 Job입니다. 개념적으로 Job은 취소할 수 있는 것이며 생명주기와 연결되어 있습니다.</p>
+
+<p>코루틴은 Job 인터페이스를 구현하여 코루틴의 생명주기를 관리합니다. Job은 부모-자식 관계를 갖도록 설계되어 있어 구조를 갖춘 동시성을 실현하는데 큰 도움이 됩니다.</p>
+
+<p>A, B, C라는 3개의 Job이 있다고 생각 해 봅시다. Job B와 C는 Job A의 자식입니다.</p>
+
+<p>예를 들어, Job C가 <code>CancellationException</code> 이외의 예외를 던지고 실패하면 상위 Job A는 알림을 받습니다. 이 경우 A는 다른 자식 Job(이 경우에는 B)에게 즉시 종료 알림을 보냅니다. 이렇게 하여 구조를 갖춘 동시성이 만들어집니다.</p>
+
+<p><img src="./images/img01.png" alt="Job Cancellation(Abnormal)" /></p>
+
+<p><code>참고</code> 취소 원인이 <code>CancellationExcpetion</code>인 경우, 정상적으로 취소된 것으로 간주되기 때문에 이 경우 부모 Job은 다른 자식 Job에게 종료 알림을 보낼 필요가 없습니다.</p>
+
+<p>부모-자식 관계는 서로 다음과 같은 영향을 미칩니다.</p>
+
+<ul>
+<li><code>cancel</code> 또는 예외로 인한 완료(즉, 실패)로 부모가 취소되면 모든 자식이 즉시 취소됩니다.</li>
+<li>부모는 모든 자식이 완료 될 때까지 완료 할 수 없습니다.</li>
+<li>부모는 모든 자식이 <code>완료</code> 또는 <code>취소</code> 상태로 완료 될 때까지 기다립니다.</li>
+<li>자식에서 catch하여 처리하지 않은 예외는 부모를 취소합니다. 특히, <code>launch</code>, <code>CoroutineScope.launch</code> 코루틴 빌더로 생성한 자식 코루틴에 적용됩니다.</li>
+<li><code>async</code>, <code>CoroutineScope.async</code> 및 future와 비슷한 다른 코루틴 빌더는 캐치되지 않는 예외가 없음을 기억해야 합니다. 모든 예외가 catch되어 결과에 캡슐화 되기 때문입니다.</li>
+</ul>
+
+<h3 id="deferred-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-deferred"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/">Deferred</a></h3>
+
+<p>문서에서 지연된 값(Deferred value)을 차단되지 않는(non-blocking) 취소 가능한 Future로 결과를 가지고 있는 Job으로 설명하고 있습니다.</p>
+
+<p><code>Deferred</code>는 완료된 결과를 <code>successful</code> 또는 <code>exceptional</code> 로 얻을 수 있게 Job에 몇가지 메서드를 추가한 인터페이스입니다.</p>
+
+<h2 id="코루틴-빌더-coroutine-builders">코루틴 빌더(Coroutine Builders)</h2>
+
+<p>다양한 요구 사항에 따라 코루틴을 만들 수 있는 여러 가지 방법이 있습니다. 이 섹션에서 그중 몇 가지를 살펴보겠습니다.</p>
+
+<p>가장 일반적으로 사용되는 두 가지 코루틴 빌더는 <code>launch</code>와 <code>async</code>입니다.</p>
+
+<p>이들은 CoroutineScope의 확장으로 코루틴 스코프가 있어야 새로운 코루틴을 생성할 수 있습니다.</p>
+
+<h3 id="launch-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-launch-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html">Launch</a></h3>
+
+<p><code>launch</code>는 새로운 코루틴을 만들고 코루틴에 대한 레퍼런스를 Job으로 반환합니다. 이 핸들을 사용하면 Job에서 사용 가능한 <code>cancel</code> 메서드를 사용하여 시작된 코루틴을 개발자가 직접 취소 할 수 있습니다.</p>
+
+<p><code>launch</code>는 비동기 작업을 수행하지만 결과에는 관심이 없는 경우에 주로 사용합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">CoroutineScope</span>.launch(
+  context: CoroutineContext = EmptyCoroutineContext,
+  start: CoroutineStart = CoroutineStart.DEFAULT,
+  block: <span style="color:#000;font-weight:bold">suspend</span> CoroutineScope.() -&gt; Unit
+): Job</code></pre></div>
+<h3 id="async-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-async-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html">Async</a></h3>
+
+<p><code>async</code>는 새로운 코루틴을 만들고 코루틴에 대한 레퍼런스를 <code>Deferred</code>로 반환합니다. 이 핸들을 사용하면 Deferred에서 사용 가능한 <code>cancel</code> 메서드를 사용하여 시작된 코루틴을 개발자가 직접 취소 할 수 있습니다.</p>
+
+<p><code>async</code>는 미래의 계산 결과가 예상되는 비동기 작업을 실행할 때 사용합니다. 결과를 얻게 되면, 이 결과를 사용하여 다른 작업을 수행합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">fun</span> &lt;T&gt; <span style="color:#900;font-weight:bold">CoroutineScope</span>.async(
+  context: CoroutineContext = EmptyCoroutineContext,
+  start: CoroutineStart = CoroutineStart.DEFAULT,
+  block: <span style="color:#000;font-weight:bold">suspend</span> CoroutineScope.() -&gt; T
+): Deferred&lt;T&gt;</code></pre></div>
+<p>이러한 구성을 사용하여 코루틴을 실행하면 새로운 Job이 생성된다는 점을 반드시 기억해야 합니다. 현재 코루틴이 실행된 부모 Job과 코루틴 컨텍스트를 상속합니다. 새로 생성된 Job은 자식 노드로 부모에 연결됩니다.</p>
+
+<p>다음은 <code>launch</code>와 <code>async</code>의 기본 동작입니다.</p>
+
+<ul>
+<li>코루틴 시작(start)는 즉시 실행됩니다.</li>
+<li>코루틴을 시작할 때 다른 <a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-start/">CoroutineStart</a> 매개변수를 전달하여 이 동작을 재정의 할 수 있습니다. 예를 들어, <code>start = CoroutineStart.LAZY</code>를 줄 수 있습니다.</li>
+<li>코루틴에서 예외가 발생하면 컨텐스트 내에서 부모 Job이 취소되고 다른 모든 자식 코루틴이 취소됩니다.</li>
+<li><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html">CoroutineScope</a>를 생성할 때 명시적인 <a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-supervisor-job.html">SupervisorJob</a>을 재공하여 이 동작을 재정의 할 수 있지만 이 내용은 이 글에서 다루지 않겠습니다.</li>
+<li>코루틴은 <a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html">Default</a> <a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html">CoroutineDispatcher</a>에서 실행됩니다. 이것은 스레드 공유 풀에 의해 유지되며, 최대 스레드 수는 CPU 코어 갯수(최소 2개)와 같습니다. 어떤 IO 작업을 수행한다고 예를 들면, <code>context = Dispatchers.IO</code>와 같은 커스텀 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a>를 전달하여 이 동작을 재정의할 수 있습니다.</li>
+</ul>
+
+<h3 id="withcontext-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-with-context-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html">withContext</a></h3>
+
+<p>CPU와 IO에 모두 바인딩 된 작업을 수행하려는 경우가 많습니다. 이 때, CPU 바운드(스레드 = CPU 코어 수)와 다른 스레드 풀(경우에 따라서는 언 바운드)에서 IO 바운드 작업을 수행하는 것이 매우 중요합니다. <a href="https://gist.github.com/djspiewak/46b543800958cf61af6efa8e072bfd5c">Thread Pools</a>라는 글에서 이러한 분리가 필요한 이유에 대한 자세한 내용을 확인할 수 있습니다.</p>
+
+<p><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html">withContext</a> 문법은 이러한 목적으로 설계되었습니다. 다음은 <code>withContext</code>를 사용하는 방법을 보여주는 예제입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#998;font-style:italic">// 1. create new coroutine scope with default dispatcher
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">val</span> scope = CoroutineScope(Dispatchers.Default)
+
+
+scope.launch {
+    <span style="color:#998;font-style:italic">// 2. do some cpu bound operations, runs on Default thread pool
+</span><span style="color:#998;font-style:italic"></span>    println(<span style="color:#d14">&#34;${Thread.currentThread().name} doing CPU work...&#34;</span>)
+
+    <span style="color:#998;font-style:italic">// 3. shifts to IO thread pool
+</span><span style="color:#998;font-style:italic"></span>    withContext(Dispatchers.IO) {
+        <span style="color:#998;font-style:italic">// 4. do some io operations like file read, network calls  etc
+</span><span style="color:#998;font-style:italic"></span>        println(<span style="color:#d14">&#34;${Thread.currentThread().name} doing IO work...&#34;</span>)
+    }
+
+    <span style="color:#998;font-style:italic">// 5. shifts back to Default thread pool
+</span><span style="color:#998;font-style:italic"></span>    println(<span style="color:#d14">&#34;${Thread.currentThread().name} back to doing CPU work...&#34;</span>)
+}</code></pre></div>
+<p>실행 결과</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">DefaultDispatcher-worker-1 @coroutine#1 doing CPU work...
+DefaultDispatcher-worker-1 @coroutine#1 doing IO work...
+DefaultDispatcher-worker-2 @coroutine#1 back to doing CPU work...</pre></div>
+<p>위 예제에서 <code>withContext</code>는 새로운 컨텍스트에서 <code>Dispatcher</code>를 사용합니다. 새로운 디스패처가 지정된 경우, 블럭의 실생을 다른 스레드로 이동하고 완료되면 원래의 디스패처로 다시 되돌아옵니다.</p>
+
+<p>출력의 처음 두 줄을 보면 모두 동일한 스레드에서 실행되었지만 세 번째 줄은 다른 스레드에서 실행되었습니다. 이것은 IO 디스패처가 Default 디스패처와 스레드를 공유하기 때문에 <code>withContext(Dispatchers.IO)</code>를 사용해도 실제로 다른 스레드로 전환되지 않고 동일한 스레드에서 실행이 계속됩니다. 이렇게 하면 스레드 전환 비용을 없앨 수 있습니다. 그러나 해당 스레드는 <code>IO</code> 스레드로 표시되고 스레드 풀에서 제거됩니다. 그렇기 때문에 세 번째 출력문은 다른 스레드에서 실행된 것입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">========= Output =======
+DefaultDispatcher-worker-1 @coroutine#1 doing CPU work…
+DefaultDispatcher-worker-1 @coroutine#1 doing IO work…
+DefaultDispatcher-worker-2 @coroutine#1 back to doing CPU work…</pre></div>
+<h3 id="runblocking-https-kotlin-github-io-kotlinx-coroutines-kotlinx-coroutines-core-kotlinx-coroutines-run-blocking-html"><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html">runBlocking</a></h3>
+
+<p><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html">runBlocking</a>의 유즈케이스는 매우 한정되어 있어 사용을 권장하지 않습니다. <code>runBlocking</code>이 여러분 문제의 마지막 해결이며, 여러분이 무엇을 하고 있는지 정확히 알고 있는 경우에만 사용해야 합니다.</p>
+
+<p><code>runBlocking</code>은 새로운 코루틴을 시작하고 코루틴이 완료될 때까지 현재 스레드를 차단합니다. 일시 중단 및 논블록킹 스타일로 작성된 일반 블록 코드와 라이브러리를 연결하도록 설계되었습니다. 유즈케이스는 매우 한정되어 있습니다. 예를 들면,</p>
+
+<ul>
+<li>메인 애플리케이션을 차단하기 위해서 <code>runBlocking</code>을 사용할 수 있습니다. 메인 애플리케이션에서 실행 된 모든 코루틴이 정상적으로 또는 비정상적으로 완료 될 때까지 메인 애플리케이션이 종료되지 않도록 <code>runBlocking</code>을 사용하여 차단할 수 있습니다.</li>
+
+<li><p><code>runBlocking</code>은 테스트에 매우 유용합니다. <code>runBlocking</code>에 테스트를 담을 수 있습니다. 이렇게 하면 테스트 코드가 동일한 스레드에서 순차적으로 실행되고 모든 코루틴이 완료 될 때까지 종료되지 않습니다. 명시적으로 코루틴을 <code>join</code> 또는 <code>await</code>할 필요가 없습니다. 테스트는 동기화 코드의 테스트와 비슷합니다. 다음은 비동기 및 논블록 스타일로 작성한 <code>incrment</code> 함수를 테스트하는 예제입니다. <code>incrment</code>는 <code>counter</code>를 1씩 증가시킵니다. 테스트는 카운터를 증가할 수 있어야 합니다. <code>incrment</code> 함수를 50번 호출하고 <code>counter == 50</code> 으로 <code>assert</code>합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#998;font-style:italic">// ==== SUT: System Under Test ====
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> counter = <span style="color:#099">0</span>
+<span style="color:#000;font-weight:bold">suspend</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">incrment</span>() {
+delay(<span style="color:#099">10</span>)
+counter += <span style="color:#099">1</span>
+}
+<span style="color:#998;font-style:italic">// ================================
+</span><span style="color:#998;font-style:italic"></span>
+@Test
+<span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">`should able to increment counter`</span>() = runBlocking {
+repeat(<span style="color:#099">50</span>) { incrment() }
+println(<span style="color:#d14">&#34;counter = $counter&#34;</span>)
+assert(counter == <span style="color:#099">50</span>) { <span style="color:#d14">&#34;Assertion failed, expected=50 but actual=$counter&#34;</span> }
+}</code></pre></div></li>
+</ul>
+
+<p>출력 결과</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">counter = 50</pre></div>
+<p>자세한 내용은 <a href="https://stackoverflow.com/questions/52331373/kotlin-coroutines-runblocking">이 글</a>을 참고합니다.</p>
+
+<h2 id="suspend">Suspend</h2>
+
+<p>이 글에서 <code>suspend</code> 키워드를 이미 여러 번 사용했습니다. 일시 중단 함수를 자세히 살펴봅니다!</p>
+
+<p><code>suspend</code>는 kotlin 키워드로, 함수를 일시 중단했다가 나중에 재시작할 수 있음을 나타냅니다. 일시 중단 함수를 사용하여 메인스레드를 차단하지 않고 장시간 실행되는 계산을 호출 할 수 있습니다.</p>
+
+<p>일시 중단 함수 호출 규칙:</p>
+
+<ul>
+<li>다른 일시 중단 함수에서 호출할 수 있습니다.</li>
+<li>코루틴에서 호출할 수 있습니다. 일시 중단 함수가 호출된 코루틴에서 코루틴 컨텍스트를 상속합니다.</li>
+</ul>
+
+<p>Kotlin 코드는 JVM 바이트 코드로 변환됩니다. JVM에는 일시 중지인 suspend 키워드의 개념이 없습니다. 내부에서 Kotlin 컴파일러는 일시 중단 함수(suspend function)를 suspend 키워드 없는 다른 함수로 변환합니다. 이 함수는 함수 콜백인 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/index.html">Continuation</a>을 추가 매개변수로 받습니다.</p>
+
+<p>다음은 Kotlin의 일시 중단 함수와 JVM으로 컴파일된 함수를 보여주는 예제입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">// kotlin
+suspend fun updateUserInfo(
+    name: String,
+    id: Long
+): User
+
+// JVM
+public final Object updateUserInfo(
+    String name,
+    long id,
+    Continuation&lt;User&gt; $completion
+)</pre></div>
+<h2 id="continuation">Continuation</h2>
+
+<p><code>Continuation</code>은 Kotlin 표준 라이브러리에 정의 된 간단한 인터페이스입니다. <code>resumeWith(result)</code>메서드만 정의하고 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">interface</span> <span style="color:#458;font-weight:bold">Continuation</span>&lt;<span style="color:#000;font-weight:bold">in</span> T&gt; {
+    <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">val</span> context: CoroutineContext
+    <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">resumeWith</span>(result: Result&lt;T&gt;)
+}</code></pre></div>
+<blockquote>
+<p><code>참고</code> <code>v1.3</code>부터 <code>Continuation</code>에는 1개의 <code>resumeWith(result)</code> 메서드만 있습니다. 이전 버전에서는 <code>usedresume(value: T)</code>와 <code>resumeWithException(exception: Throwable)</code>가 있었습니다.</p>
+
+<p><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>는 T타입 값으로 <code>success</code> 또는 Throwable타입 예외로 <code>failure</code>를 모델링합니다.</p>
+</blockquote>
+
+<p><code>참고</code> Result 모나드에 대한 내용은 <a href="https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-1/">모나드와 함수형 아키텍처</a> 글을 참고합니다.</p>
+
+<p><code>Result</code>를 사용하여 <code>onSuccess</code>와 <code>onFailure</code> 같은 메서드가 있는 콜백 스타일의 프로그래밍과 잘 연결할 수 있습니다.</p>
+
+<p>이 모든 것이 내부에서 어떻게 작동하는지 알고 싶다면 <code>Roman Elizarov talk — Deep Dive into Coroutines.</code> 영상을 보는 것이 좋습니다.</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/YrrUCSi72E8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>이 강연에서 Roman Elizarov는 다음과 같이 말했습니다.</p>
+
+<blockquote>
+<p>Continuation은 제네릭 콜백 인터페이스입니다.</p>
+
+<p>일시 중단 함수를 호출할 때마다 실제로 콜백을 호출합니다. 콜백은 암시적이므로 코드에 표시되지 않습니다. 배후에서 콜백을 사용하여 멋진 스타일로 바로 코딩할 수 있습니다.</p>
+</blockquote>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<ul>
+<li><a href="https://github.com/kpritam/kotlin-coroutines/tree/master/blog/src/main/kotlin/blog/scopes">이 글에서 작성한 모든 예제</a></li>
+<li><a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html">코루틴 공식 가이드</a></li>
+<li><a href="https://kotlin.github.io/kotlinx.coroutines/">코루틴 API 문서</a></li>
+<li><a href="https://www.youtube.com/watch?v=_hfBv0a09Jc&amp;list=PLwDsAAKWJGqcuj3CD8gBEabOituAAYrp3">코루틴 유튜브 플레이리스트</a></li>
+<li><a href="https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/">구조를 갖춘 동시성</a></li>
+<li><a href="https://medium.com/@elizarov/coroutine-context-and-scope-c8b255d59055">코루틴 컨텍스트와 스코프</a></li>
+<li><a href="https://medium.com/@elizarov/the-reason-to-avoid-globalscope-835337445abc">Global Scope를 쓰지 말아야 하는 이유</a></li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/kotlin">kotlin</a></li>
+								
+								<li><a href="/tags/coroutine">coroutine</a></li>
+								
+								<li><a href="/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4-%EB%B2%88%EC%97%AD">아마추어 번역</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

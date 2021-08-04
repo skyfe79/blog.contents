@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>모나드와 함수형 아키텍처 1장. 시작하기 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="모나드와 함수형 아키텍처 1장. 시작하기" />
+<meta property="og:description" content="안녕하세요. 데이블에서 모바일 서비스를 개발하고 있는 김성철입니다. 이 글은 모나드와 함수형 프로그래밍을 이해하기 위해서 지난 1년여간을 생각하고 정리한 내용을 담은 것입니다. 총 5장으로 구성되어 있으며 6장에는 글의 흐름과 약간 관련 없는 내용을 추가로 담고 있습니다. 어떤 부분은 부족할 것이고 어떤 부분은 과장 되었을지도 모릅니다. 그러나 모나드에 관한 글을 꼭 한번 써보고 싶었습니다. 모나드를 생각하고 정리하면서 저 자신도 많이 성장한 것 같습니다. 주실 피드백이 있으시다면 sungcheol@dable.io 또는 skyfe79@gmail.com으로 보내주세요.
+1장. 시작하기 모나드를 얘기하기 전에 몇 가지를 정리하려고 합니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-1/" />
+<meta property="article:published_time" content="2019-11-01T21:55:51+09:00" />
+<meta property="article:modified_time" content="2019-11-01T21:55:51+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모나드와 함수형 아키텍처 1장. 시작하기"/>
+<meta name="twitter:description" content="안녕하세요. 데이블에서 모바일 서비스를 개발하고 있는 김성철입니다. 이 글은 모나드와 함수형 프로그래밍을 이해하기 위해서 지난 1년여간을 생각하고 정리한 내용을 담은 것입니다. 총 5장으로 구성되어 있으며 6장에는 글의 흐름과 약간 관련 없는 내용을 추가로 담고 있습니다. 어떤 부분은 부족할 것이고 어떤 부분은 과장 되었을지도 모릅니다. 그러나 모나드에 관한 글을 꼭 한번 써보고 싶었습니다. 모나드를 생각하고 정리하면서 저 자신도 많이 성장한 것 같습니다. 주실 피드백이 있으시다면 sungcheol@dable.io 또는 skyfe79@gmail.com으로 보내주세요.
+1장. 시작하기 모나드를 얘기하기 전에 몇 가지를 정리하려고 합니다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">모나드와 함수형 아키텍처 1장. 시작하기</h1>
+			<div class="meta">Posted at &mdash; Nov 1, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#1장-시작하기">1장. 시작하기</a>
+<ul>
+<li><a href="#1-1-타입">1-1. 타입</a></li>
+<li><a href="#1-2-함수">1-2. 함수</a></li>
+<li><a href="#1-3-합성">1-3. 합성</a></li>
+<li><a href="#1-4-사이드이펙트">1-4. 사이드이펙트</a></li>
+<li><a href="#1-5-정리">1-5. 정리</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<p>안녕하세요. <a href="https://dable.io">데이블</a>에서 모바일 서비스를 개발하고 있는 김성철입니다. 이 글은 모나드와 함수형 프로그래밍을 이해하기 위해서 지난 1년여간을 생각하고 정리한 내용을 담은 것입니다. 총 5장으로 구성되어 있으며 6장에는 글의 흐름과 약간 관련 없는 내용을 추가로 담고 있습니다. 어떤 부분은 부족할 것이고 어떤 부분은 과장 되었을지도 모릅니다. 그러나 모나드에 관한 글을 꼭 한번 써보고 싶었습니다. 모나드를 생각하고 정리하면서 저 자신도 많이 성장한 것 같습니다. 주실 피드백이 있으시다면 <a href="mailto:sungcheol@dable.io">sungcheol@dable.io</a> 또는 <a href="mailto:skyfe79@gmail.com">skyfe79@gmail.com</a>으로 보내주세요.</p>
+
+<h2 id="1장-시작하기">1장. 시작하기</h2>
+
+<p>모나드를 얘기하기 전에 몇 가지를 정리하려고 합니다.</p>
+
+<h3 id="1-1-타입">1-1. 타입</h3>
+
+<p>타입. 우리가 코드를 작성할 때 늘 사용하는 그 타입이 맞습니다. string, int, float, double 등. 원시타입(Primitive type) 이외에도 enum, struct, class 등을 사용하여 우리가 원하는 타입을 추상화를 통해 만들 수 있습니다. 이 글에서는 이렇게 만들어진 타입을 집합으로 생각합니다.</p>
+
+<p><img src="./images/type_x.png" alt="" /></p>
+
+<p>네. 타입은 고등학교 수학에서 제일 처음에 나오는 그 집합입니다.</p>
+
+<p>$$
+Boolean = { False, True }
+$$</p>
+
+<p>$$
+Int = { &hellip; -2, -1, 0, 1, 2, &hellip; }
+$$</p>
+
+<p>$$
+Double = { &hellip; 0.9, 0.99, 0.999 &hellip; 1.0 &hellip; }
+$$</p>
+
+<p>$$
+String = { &ldquo;&rdquo;, &ldquo;a&rdquo;, &ldquo;aa&rdquo;, &ldquo;aaa&rdquo;, &hellip; &ldquo;b&rdquo; &hellip; }
+$$</p>
+
+<p>집합 원소 간에 연산할 때, 닫힘과 열림이라는 중요한 얘기가 나옵니다. 이에 대한 내용은 이 글 후반부인 <code>닫힘과 열림</code>에서 다루겠습니다. 지금은 <code>타입은 집합이다.</code>라고 생각합니다.</p>
+
+<h3 id="1-2-함수">1-2. 함수</h3>
+
+<p>MS-DOS에서 터보 C를 사용하여 프로그래밍을 공부할 때, 함수는 명령어 집합 또는 작은 프로그램 단위라고 배웠습니다. 어떤 기능을 하는 코드들을 묶어 하나의 명령어처럼 사용할 수 있도록 함수를 정의했습니다. 함수를 이렇게 생각할 수 있지만, 이 내용은 수학에서 정의하는 함수와 거리가 멉니다. 하지만 함수형 프로그래밍에서 함수는 수학적 정의를 따르고 있습니다. <code>함수는 두 집합을 연결하여 관계를 만들어 주는 연산</code>으로 정의합니다.</p>
+
+<p><img src="./images/function.png" alt="" /></p>
+
+<p>$$
+f: X    \rightarrow Y
+$$</p>
+
+<p>함수 $f$ 는 $X$와 $Y$를 연결하여 관계를 만들어 주는 함수입니다. 이러한 관계를 앞으로 $f: X \rightarrow Y $ 라고 표현하겠습니다. 이 관계에는 $ g: X \rightarrow X $ 도 있고 $ h: Y \rightarrow Y $ 도 있습니다. 우리가 매일 접하는 일상에서 예를 찾아보면, 웹사이트의 링크가 좋을 것 같습니다. 스마트폰에서 구글, 네이버 또는 다음과 같은 사이트에 접속하여 관심 있는 내용의 링크를 클릭하면 해당 내용을 다루는 사이트로 이동합니다. 링크를 사이트를 연결해주는 함수로 생각할 수 있습니다. 링크에는 같은 페이지 내에서 이동하는 Anchor 링크가 있고 다른 페이지로 이동하는 아웃 링크가 있습니다. 아웃 링크는 $f: X \rightarrow Y $ 라고 볼 수 있고 앵커 링크는 $ g: X \rightarrow X $ 또는 $ h: Y \rightarrow Y $ 라고 할 수 있습니다.</p>
+
+<h3 id="1-3-합성">1-3. 합성</h3>
+
+<p>함수 $f$, $g$가 아래와 같을 때,</p>
+
+<p>$$
+f: X \rightarrow Y
+$$</p>
+
+<p>$$
+g: Y \rightarrow Z
+$$</p>
+
+<p>두 함수를 합성한 합성 함수가 존재합니다.</p>
+
+<p>$$
+g \circ f: X \rightarrow Z
+$$</p>
+
+<p><img src="./images/compose.png" alt="" /></p>
+
+<p>함수 합성은 정말 중요한 개념입니다. 함수를 합성할 수 있어야 <code>확장</code>이라는 개념을 만들 수 있기 때문입니다. 개인적으로도 함수 합성을 이해했을 때 그 설렘을 잊을 수 없습니다. 마치 빅뱅처럼 느껴졌기 때문입니다. 그리고 함수를 합성할 수 있어야 큰 문제를 작은 단위로 쪼개어 해결한 후 그 결과들을 모아 큰 문제를 해결할 수 있습니다.</p>
+
+<p>인터넷을 생각해 봅시다. 인터넷이 폭발적으로 성장할 수 있었던 이유는 <code>링크</code>가 존재했기 때문입니다. 링크는 웹사이트 문서에서 다른 웹사이트 문서로 연결하는 방법입니다. 링크는 함수의 관계를 의미하며 링크를 계속 클릭하여 웹사이트를 계속 탐험하는 것은 함수 합성으로 이해할 수 있습니다.</p>
+
+<p>$$
+link: site \rightarrow site
+$$</p>
+
+<p>$$
+web: link \circ link \circ link \circ &hellip; link \circ link
+$$</p>
+
+<p>우스갯소리로 수학자가 타임머신을 만드는 방법은 무엇일까요?</p>
+
+<p>$$
+T: Present \rightarrow Future
+$$</p>
+
+<p>바로 현재에서 미래로 연결해 주는 함수를 찾으면 됩니다. 함수 $T$는 아래처럼 무수한 함수로 합성되어 있을 것입니다.</p>
+
+<p>$$
+T: z \circ x \circ y \circ &hellip; c \circ b \circ a
+$$</p>
+
+<p>그러나 함수 $T$ 를 찾거나 개발하는 일은 불가능하거나 몹시 어려운 일이 될 것입니다. 왜 그럴까요? 그것은 Side Effect(이하 사이드이펙트) 때문입니다.</p>
+
+<p>수학에서 다루는 함수는 모두 Pure Function(이하 순수함수)입니다. 함수 $T$를 구성하는 모든 함수가 순수함수이어야 함을 의미합니다. 어떻게 하여 현재에서 미래로 한번 이동했다고 해도 항상 성공할 수 없다면 그 방법은 순수함수가 될 수 없습니다.</p>
+
+<p>함수 $ f: X \rightarrow Y $ 에 집합 $X$의 원소를 함수 $f$에 대입하면 집합 $Y$의 원소가 나옵니다. 그리고 함수 $f$가 항상 이러한 성질을 유지할 때, 함수 $f$를 순수함수라고 부릅니다.</p>
+
+<h3 id="1-4-사이드이펙트">1-4. 사이드이펙트</h3>
+
+<p>순수함수는 동일한 인자가 주어졌을 때 항상 동일한 결과를 반환해야 하고 외부의 상태를 변경하지 않는 함수입니다. 외부 상태를 변경하지 않는다는 것은 외부에 있는 무엇을 변경하거나 의지하지 않는다는 것을 의미합니다. 순수함수는 외부상태에서 독립한 독립함수이어야 합니다. 함수 $f$가 외부 상태를 변경하지 않고 다른 함수 $g$가 외부상태를  변경했을 때, 함수 $f$에 같은 인자를 주었지만 다른 결과값을 반환하면 함수 $f$는 순수함수가 아닙니다. 외부환경 변화에 의해 변화를 받았기 때문입니다. 함수 $f$가 외부상태를 읽어 사용하여 자신이 만드는 결과에 영향을 준다면 외부 상태에 의존하고 있는 것입니다.</p>
+
+<p>사이드이펙트는 어떤 함수가 존재할 때, 이 함수가 순수함수가 될 수 없게 만드는 모든 것을 의미합니다. 우리가 출근하거나 학교에 가는 길을 생각해 봅시다. 출근길이나 등굣길에 걸리는 시간을 교통수단의 합성으로 표현해 보겠습니다. 각 교통수단은 한 장소에서 다른 장소로 이동하는 함수입니다.</p>
+
+<p>$$
+교통수단: 장소A \rightarrow 장소B
+$$</p>
+
+<p>$$
+출근시간: 도보 \circ 지하철 \circ 버스 \circ 도보
+$$</p>
+
+<p>우리는 매일 같은 방법으로 출근하고 등교하지만 출근 시간이나 등교 시간을 항상 일정하게 맞출 수가 없습니다. 다만 예측할 수 있을 뿐입니다. 그 이유는 도보 속도가 매일 다를 것이고 버스가 오는 시간도 매일 다를 것이고 지하철이 오는 시간도 매일 다를 것이기 때문입니다. 즉, 위 함수들이 순수함수가 아니기 때문에 그 합성으로 이루어진 출근 시간도 순수함수가 아닌 것이 됩니다. 사이드이펙트 때문입니다.</p>
+
+<p>프로그래밍에서 말하는 사이드이펙트는 무엇이 있을까요? 함수가 반환해야 하는 결과를 반환하지 못하게 하는 모든 것을 의미합니다. 파일 이름을 주면 해당 이름을 갖는 파일 포인터를 반환하는 함수를 생각해 봅시다.</p>
+
+<p>$$
+f: Name \rightarrow FILE
+$$</p>
+
+<p>파일 이름에 해당하는 파일이 없을 때는 FILE을 반환할 수 없습니다. 이번에는 네트워크 API 요청을 생각해 봅시다.</p>
+
+<p>$$
+g: Request \rightarrow Response
+$$</p>
+
+<p>우리는 요청 $Request$를 보냈을 때 항상 응답 $Response$를 받을 수 없음을 잘 알고 있습니다. 서버 코드에 버그가 있을 수도 있고 통신이 안되는 음영지역에서 요청을 보낼 수도 있고 때로는 서버 머신을 호스팅하는 곳에 정전이 발생할 수도 있습니다. 이러한 점도 클라이언트와 서버에게는 사이드이펙트가 됩니다.</p>
+
+<p>간단한 예로 객체지향 언어에서 발생하는 사이드이펙트를 살펴봅시다. 객체지향 언어는 class 내부에 멤버 함수와 멤버 변수를 정의할 수 있습니다. 멤버 함수는 this 포인터를 통해 멤버 변수를 사용하는 경우가 많습니다. 이 경우 this 포인터를 사용하는 것 자체가 외부환경에 의존하는 것입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">SomeClass</span> {
+    <span style="color:#000;font-weight:bold">var</span> factor: Int = <span style="color:#099">1</span>
+    
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">calc</span>(value: Int): Int {
+        <span style="color:#000;font-weight:bold">return</span> value * <span style="color:#000;font-weight:bold">this</span>.factor     
+    }
+}</code></pre></div>
+<p>calc(value:) 함수에 동일한 인자가 주어졌을 때 동일한 결과값을 반환하는 것은 factor 멤버 변수가 어떻게 관리되는냐에 달려 있습니다. 위의 코드는 좋지 않은 코드입니다. 위와 같은 상황에서는 아래처럼 변경하는 것이 좋습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">SomeClass</span> {
+    <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">val</span> factor: Int = <span style="color:#099">1</span>
+    
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">calc</span>(value: Int): Int {
+        <span style="color:#000;font-weight:bold">return</span> value * <span style="color:#000;font-weight:bold">this</span>.factor     
+    }
+}</code></pre></div>
+<p>즉, factor를 외부에서 접근할 수 없게 하고 상수로 정의하여 값이 수정될 가능성을 제거했습니다. 상수는 클래스의 모든 인스턴스에서 동일하므로 Kotlin에서 static 성격을 갖는 companion object의 멤버로 만들어주어야 합니다.(사실 Kotlin에서는 이러한 이유로 각 클래스마다 동일한 const val 을 가질 수 없습니다. 위 코드는 컴파일되지 않습니다.)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">SomeClass</span> {
+    <span style="color:#000;font-weight:bold">companion</span> <span style="color:#000;font-weight:bold">object</span> {
+        <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">val</span> FACTOR: Int = <span style="color:#099">1</span>
+    }
+    
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">calc</span>(value: Int): Int {
+        <span style="color:#000;font-weight:bold">return</span> value * FACTOR     
+    }
+}</code></pre></div>
+<p>만약 calc(value:)함수에 다른 factor를 적용해야 하면 factor를 인자로 받는 것이 좋습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">SomeClass</span> {
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">calc</span>(value: Int, factor: Int): Int {
+        <span style="color:#000;font-weight:bold">return</span> value * factor     
+    }
+}</code></pre></div>
+<p>이렇게 하면 calc 함수를 사용하는 쪽에서 값과 factor 값을 주어 결과값을 예상할 수 있고 테스트할 수 있습니다. 그렇다면 사이드이펙트가 나쁜 것일까요? 사실 사이드이펙트는 좋고 나쁜 것이 아닙니다. 시간이 흐르면 자연스럽게 증가하는 엔트로피처럼 시간이 흐를수록 사이드이펙트는 증가합니다.</p>
+
+<p>자연에서는 사이드이펙트가 당연하지만 정확한 계산 결과를 만들어야 하는 컴퓨터 프로그램에서는 가능한 줄여야 합니다. 사이드이펙트는 시간이 지남에 따라 증가하기 때문에 소프트웨어를 구현한 후에도 지속해서 관리해 주어야 합니다.</p>
+
+<h3 id="1-5-정리">1-5. 정리</h3>
+
+<p>지금까지 배운 내용을 정리하면 아래와 같습니다.</p>
+
+<ul>
+<li>타입은 집합이다.</li>
+<li>함수는 집합과 집합을 연결하는 연산이다.</li>
+<li>함수 합성으로 인해 확장이 가능하다.</li>
+<li>사이드이펙트는 자연스러운 것이다.</li>
+<li>그러나 정확한 결과를 만들어야 하는 컴퓨터 프로그램에서는 줄여야 한다.</li>
+</ul>
+
+<p><code>알림</code> 이 글은 <a href="https://teamdable.github.io/techblog/Moand-and-Functional-Architecture">데이블 기술블로그</a>에 올린 글을 제 블로그에 다시 올린 글임을 알려드립니다.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">함수형 프로그래밍</a></li>
+								
+								<li><a href="/tags/%EB%AA%A8%EB%82%98%EB%93%9C">모나드</a></li>
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">함수형 아키텍처</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

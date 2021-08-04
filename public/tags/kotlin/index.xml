@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kotlin on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/kotlin/</link>
+    <description>Recent content in kotlin on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sun, 03 Nov 2019 23:50:17 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>코틀린 코루틴 소개</title>
+      <link>https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/</link>
+      <pubDate>Sun, 03 Nov 2019 23:50:17 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/</guid>
+      <description>알림 이 글은 Everything you need to know about kotlin coroutines을 번역한 글임을 알려드립니다.
+이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.
+ Job과 Deferred, launch와 async의 차이점은 무엇인가? 어떤 코루틴 빌더를 사용해야 하는가? 코루틴에서 예외가 발생하면 어떻게 될까? 고수준의 구조화 된 동시성을 어떻게 만들 수 있을까? 변경 가능한 상태를 싱글스레드 디스패처를 사용해 스레드 안전하게 공유. 코루틴을 사용한 IO 및 CPU 바인딩 작업.  코루틴 작동 방식을 이해하고 실제 애플리케이션에서 효과적으로 사용하려면 핵심 개념을 먼저 이해해야 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

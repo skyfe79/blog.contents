@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>A* 데모 프로그램 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="A* 데모 프로그램" />
+<meta property="og:description" content=" 알림 이 글은 제 네이버 블로그 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.
+github https://github.com/skyfe79/AStar
+ J모 게임 회사에 면접을 볼 때 만들었던 Astar 데모 프로그램. 다른 회사에 오긴 했지만 만들면서 꽤 재미있는 시간을 보낸 기억이&hellip; 지금은 HPA* HAA* 등을 공부하면서 항상 개선점이 발생하고 해결하면서 멋진 솔루션이 탄생함을 깨닫는다. 이런 개선점과 해결방법을 고민하는 자세를 가져야겠다.
+  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/astar-story/" />
+<meta property="article:published_time" content="2010-01-23T18:19:21+09:00" />
+<meta property="article:modified_time" content="2010-01-23T18:19:21+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A* 데모 프로그램"/>
+<meta name="twitter:description" content=" 알림 이 글은 제 네이버 블로그 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.
+github https://github.com/skyfe79/AStar
+ J모 게임 회사에 면접을 볼 때 만들었던 Astar 데모 프로그램. 다른 회사에 오긴 했지만 만들면서 꽤 재미있는 시간을 보낸 기억이&hellip; 지금은 HPA* HAA* 등을 공부하면서 항상 개선점이 발생하고 해결하면서 멋진 솔루션이 탄생함을 깨닫는다. 이런 개선점과 해결방법을 고민하는 자세를 가져야겠다.
+  "/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">A* 데모 프로그램</h1>
+			<div class="meta">Posted at &mdash; Jan 23, 2010</div>
+		</div>
+
+		
+
+
+
+
+
+
+
+		<div class="markdown">
+			<blockquote>
+<p><code>알림</code> 이 글은 제 <a href="http://blog.naver.com/softdna">네이버 블로그</a> 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.</p>
+
+<p><code>github</code> <a href="https://github.com/skyfe79/AStar">https://github.com/skyfe79/AStar</a></p>
+</blockquote>
+
+<p><img src="./images/astar_softdna.png" alt="" /></p>
+
+<p>J모 게임 회사에 면접을 볼 때 만들었던 Astar 데모 프로그램.
+다른 회사에 오긴 했지만 만들면서 꽤 재미있는 시간을 보낸 기억이&hellip;
+지금은 HPA* HAA* 등을 공부하면서 항상 개선점이 발생하고 해결하면서
+멋진 솔루션이 탄생함을 깨닫는다. 이런 개선점과 해결방법을 고민하는 자세를 가져야겠다.</p>
+
+<div align="center">
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/Jf7TFzPYl6jshK" width="720" height="480" frameborder="0"> </iframe>
+</div>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">프로젝트</a></li>
+								
+								<li><a href="/tags/%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4">오픈소스</a></li>
+								
+								<li><a href="/tags/a">A*</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

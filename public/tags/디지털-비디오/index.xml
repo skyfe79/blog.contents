@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>디지털 비디오 on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/%EB%94%94%EC%A7%80%ED%84%B8-%EB%B9%84%EB%94%94%EC%98%A4/</link>
+    <description>Recent content in 디지털 비디오 on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Fri, 01 Dec 2017 18:31:34 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/%EB%94%94%EC%A7%80%ED%84%B8-%EB%B9%84%EB%94%94%EC%98%A4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>디지털 비디오 기술 이해하기</title>
+      <link>https://blog.burt.pe.kr/posts/digital-video-tech/</link>
+      <pubDate>Fri, 01 Dec 2017 18:31:34 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/digital-video-tech/</guid>
+      <description>[001]
+ 동영상 인코딩이 무엇이고 왜하고 어떻게 하는지 살펴 보겠습니다.  [002]
+ 강의 Github repo는 https://github.com/leandromoreira/digital_video_introduction 입니다. 제안해 주실 의견이 있다면 주십시오. 언제든지 환영합니다. 컴퓨터를 잘 알고 특히 오디오와 비디오에 대해 잘 아는 분에게는 처음 부분이 지루할 수 있습니다. 그러나 어느 부분에 이르면 반드시 도움이 될 내용을 찾을 수 있을 것입니다.  [003]
+ 시작해 봅시다.  [004]
+ 우리는 이미지를 단순한 2차원 정수 배열로 볼 수 있습니다. 회색인 경우 1개의 평면만 필요하고 컬러인 경우 더 많은 평면을 사용해 3차원 배열을 만듭니다.</description>
+    </item>
+    
+  </channel>
+</rss>

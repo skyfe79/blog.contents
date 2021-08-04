@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Compose on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/compose/</link>
+    <description>Recent content in Compose on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sun, 10 Nov 2019 22:11:47 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/compose/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jetpack Compose 첫느낌</title>
+      <link>https://blog.burt.pe.kr/posts/the-first-impression-of-jetpack-compose/</link>
+      <pubDate>Sun, 10 Nov 2019 22:11:47 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/the-first-impression-of-jetpack-compose/</guid>
+      <description>Android Studio 4.0 Canary 1이 배포된 이후로 Jetpack Compose에 대한 내용이 하나둘씩 채워지고 있다. Jetpack Compose에 대한 공식 튜토리얼이 나와서 따라해 보았다.
+ Jetpack Compose 공식 튜토리얼  우선은 SwiftUI와 비슷하게 Compose로 구성한 앱을 시뮬레이터나 디바이스에 직접 심지 않고 미리 보기를 통해 레이아웃을 확인할 수 있다. 미리 보기를 위해서 @Preview 어노테이션을 제공한다. 단, @Preview로 설정한 함수는 매개변수를 받을 수 없다. 매개변수가 필요한 @Compose함수라면 임의의 매개변수를 제공하여 미리 보기 함수를 구성해야 한다.</description>
+    </item>
+    
+  </channel>
+</rss>

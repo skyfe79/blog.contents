@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/actions/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/deploy/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/github/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/deploy-hugo-with-github-actions/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/hugo/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/</loc>
+    <lastmod>2021-08-04T21:15:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/</loc>
+    <lastmod>2020-02-09T09:52:48+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EC%95%84%EC%B9%A8%EA%B1%B7%EA%B8%B0/</loc>
+    <lastmod>2020-02-09T09:52:48+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/talks-2020-02-09-09-52/</loc>
+    <lastmod>2020-02-09T09:52:48+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/talks-2020-02-02-08-22/</loc>
+    <lastmod>2020-02-02T08:22:37+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/talks-2020-02-01-08-30/</loc>
+    <lastmod>2020-02-01T08:30:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/awesome-python/</loc>
+    <lastmod>2019-11-11T23:39:57+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/android/</loc>
+    <lastmod>2019-11-10T22:11:47+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/compose/</loc>
+    <lastmod>2019-11-10T22:11:47+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/jetpack/</loc>
+    <lastmod>2019-11-10T22:11:47+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/the-first-impression-of-jetpack-compose/</loc>
+    <lastmod>2019-11-10T22:11:47+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/go/</loc>
+    <lastmod>2019-11-10T17:35:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/local-package-with-go-module/</loc>
+    <lastmod>2019-11-10T17:35:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/local-package/</loc>
+    <lastmod>2019-11-10T17:35:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/modules/</loc>
+    <lastmod>2019-11-10T17:35:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/direnv/</loc>
+    <lastmod>2019-11-10T14:10:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</loc>
+    <lastmod>2019-11-10T14:10:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/gopath/</loc>
+    <lastmod>2019-11-10T14:10:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4-%EB%B2%88%EC%97%AD/</loc>
+    <lastmod>2019-11-10T14:10:12+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/talks-2019-11-09-10-30/</loc>
+    <lastmod>2019-11-09T10:30:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/the-way-to-work-2019-11-05/</loc>
+    <lastmod>2019-11-05T23:07:15+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/jogging-2019-11-03/</loc>
+    <lastmod>2019-11-04T00:03:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/coroutine/</loc>
+    <lastmod>2019-11-03T23:50:17+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/kotlin/</loc>
+    <lastmod>2019-11-03T23:50:17+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/</loc>
+    <lastmod>2019-11-03T23:50:17+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/gomodule/</loc>
+    <lastmod>2019-11-02T20:14:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/good-bye-gopath/</loc>
+    <lastmod>2019-11-02T20:14:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/talks-2019-11-02-12-23/</loc>
+    <lastmod>2019-11-02T12:23:37+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/talks/short-writing/</loc>
+    <lastmod>2019-11-02T01:39:31+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/about/</loc>
+    <lastmod>2019-11-02T01:04:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/</loc>
+    <lastmod>2019-11-01T23:00:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EB%AA%A8%EB%82%98%EB%93%9C/</loc>
+    <lastmod>2019-11-01T23:00:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-6/</loc>
+    <lastmod>2019-11-01T23:00:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%ED%95%A8%EC%88%98%ED%98%95-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98/</loc>
+    <lastmod>2019-11-01T23:00:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</loc>
+    <lastmod>2019-11-01T23:00:32+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-5/</loc>
+    <lastmod>2019-11-01T22:56:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-4/</loc>
+    <lastmod>2019-11-01T22:53:14+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-3/</loc>
+    <lastmod>2019-11-01T22:43:36+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-2/</loc>
+    <lastmod>2019-11-01T22:40:05+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-1/</loc>
+    <lastmod>2019-11-01T21:55:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/custom-domain/</loc>
+    <lastmod>2019-10-26T13:57:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/fqdn/</loc>
+    <lastmod>2019-10-26T13:57:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/start-blog-with-hugo/</loc>
+    <lastmod>2019-10-26T13:57:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EB%94%94%EC%A7%80%ED%84%B8-%EB%B9%84%EB%94%94%EC%98%A4/</loc>
+    <lastmod>2017-12-01T18:31:34+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/digital-video-tech/</loc>
+    <lastmod>2017-12-01T18:31:34+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4%EB%B2%88%EC%97%AD/</loc>
+    <lastmod>2017-12-01T18:31:34+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/oop/</loc>
+    <lastmod>2017-05-18T19:03:14+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/protocol-oriented-programming/</loc>
+    <lastmod>2017-05-18T19:03:14+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/pop/</loc>
+    <lastmod>2017-05-18T19:03:14+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/a/</loc>
+    <lastmod>2010-01-23T18:19:21+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/astar-story/</loc>
+    <lastmod>2010-01-23T18:19:21+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4/</loc>
+    <lastmod>2010-01-23T18:19:21+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/</loc>
+    <lastmod>2010-01-23T18:19:21+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/posts/sgl-story/</loc>
+    <lastmod>2009-12-01T18:10:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.burt.pe.kr/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EB%A0%8C%EB%8D%94%EB%9F%AC/</loc>
+    <lastmod>2009-12-01T18:10:13+09:00</lastmod>
+  </url>
+  
+</urlset>

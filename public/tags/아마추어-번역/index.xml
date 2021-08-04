@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>아마추어 번역 on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4-%EB%B2%88%EC%97%AD/</link>
+    <description>Recent content in 아마추어 번역 on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sun, 10 Nov 2019 14:10:12 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4-%EB%B2%88%EC%97%AD/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>direvn로 $GOPATH 다루기</title>
+      <link>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</link>
+      <pubDate>Sun, 10 Nov 2019 14:10:12 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</guid>
+      <description>Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 $GOPATH를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 direnv를 발견하여 관련 내용을 정리해 봅니다.
+direnv direnv는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 $GOPATH를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 .bash_profile이나 .zshrc 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&amp;hellip; 음&amp;hellip;
+파이썬에는 virtualenv같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 $GOPATH로 설정해 주어야 할 때 direnv를 사용하면 아주 편리합니다.</description>
+    </item>
+    
+    <item>
+      <title>코틀린 코루틴 소개</title>
+      <link>https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/</link>
+      <pubDate>Sun, 03 Nov 2019 23:50:17 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/everything-you-need-to-know-about-kotlin-coroutines/</guid>
+      <description>알림 이 글은 Everything you need to know about kotlin coroutines을 번역한 글임을 알려드립니다.
+이 블로그 포스트의 목표는 다양한 코우틴 용어를 숙지하고 다음 질문에 답하는 것입니다.
+ Job과 Deferred, launch와 async의 차이점은 무엇인가? 어떤 코루틴 빌더를 사용해야 하는가? 코루틴에서 예외가 발생하면 어떻게 될까? 고수준의 구조화 된 동시성을 어떻게 만들 수 있을까? 변경 가능한 상태를 싱글스레드 디스패처를 사용해 스레드 안전하게 공유. 코루틴을 사용한 IO 및 CPU 바인딩 작업.  코루틴 작동 방식을 이해하고 실제 애플리케이션에서 효과적으로 사용하려면 핵심 개념을 먼저 이해해야 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

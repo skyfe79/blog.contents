@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>direnv on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/direnv/</link>
+    <description>Recent content in direnv on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sun, 10 Nov 2019 14:10:12 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/direnv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>direvn로 $GOPATH 다루기</title>
+      <link>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</link>
+      <pubDate>Sun, 10 Nov 2019 14:10:12 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</guid>
+      <description>Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 $GOPATH를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 direnv를 발견하여 관련 내용을 정리해 봅니다.
+direnv direnv는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 $GOPATH를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 .bash_profile이나 .zshrc 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&amp;hellip; 음&amp;hellip;
+파이썬에는 virtualenv같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 $GOPATH로 설정해 주어야 할 때 direnv를 사용하면 아주 편리합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

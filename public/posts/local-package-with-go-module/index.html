@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Go 로컬 패지키 모듈 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Go 로컬 패지키 모듈" />
+<meta property="og:description" content="Go modules를 사용하면 $GOPATH를 신경쓰지 않고 Go 프로젝트를 시작할 수 있습니다. 이미 오픈되어 있는 Go모듈을 사용할 경우에는 아래처럼 go.mod파일에 패키지의 주소와 버전을 기입하면 패키지를 모듈로 사용할 수 있습니다.
+module star go 1.13 require ( github.com/fogleman/gg v1.3.0 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect 	golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8 // indirect ) 로컬패키지 그렇다면 로컬에 존재하는 패키지는 어떻게 go.mod파일에 기입할 수 있을까요? 아래와 같은 폴더 구조를 가지는 프로젝트를 생각해 보겠습니다.
+hellogo ├── constants └── logics hellogo 폴더 하위에 모듈로 constants와 logics를 가지고 있습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/local-package-with-go-module/" />
+<meta property="article:published_time" content="2019-11-10T17:35:24+09:00" />
+<meta property="article:modified_time" content="2019-11-10T17:35:24+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go 로컬 패지키 모듈"/>
+<meta name="twitter:description" content="Go modules를 사용하면 $GOPATH를 신경쓰지 않고 Go 프로젝트를 시작할 수 있습니다. 이미 오픈되어 있는 Go모듈을 사용할 경우에는 아래처럼 go.mod파일에 패키지의 주소와 버전을 기입하면 패키지를 모듈로 사용할 수 있습니다.
+module star go 1.13 require ( github.com/fogleman/gg v1.3.0 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect 	golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8 // indirect ) 로컬패키지 그렇다면 로컬에 존재하는 패키지는 어떻게 go.mod파일에 기입할 수 있을까요? 아래와 같은 폴더 구조를 가지는 프로젝트를 생각해 보겠습니다.
+hellogo ├── constants └── logics hellogo 폴더 하위에 모듈로 constants와 logics를 가지고 있습니다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">Go 로컬 패지키 모듈</h1>
+			<div class="meta">Posted at &mdash; Nov 10, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#로컬패키지">로컬패키지</a></li>
+<li><a href="#constants-go">constants.go</a></li>
+<li><a href="#logics-go">logics.go</a></li>
+<li><a href="#main-go">main.go</a></li>
+<li><a href="#go-build">go build</a></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<p>Go modules를 사용하면 <code>$GOPATH</code>를 신경쓰지 않고 Go 프로젝트를 시작할 수 있습니다. 이미 오픈되어 있는 Go모듈을 사용할 경우에는 아래처럼 <code>go.mod</code>파일에 패키지의 주소와 버전을 기입하면 패키지를 모듈로 사용할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module star
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span>
+
+<span style="color:#900;font-weight:bold">require</span> (
+	github.com<span style="color:#000;font-weight:bold">/</span>fogleman<span style="color:#000;font-weight:bold">/</span>gg v1<span style="color:#099">.3.0</span>
+	github.com<span style="color:#000;font-weight:bold">/</span>golang<span style="color:#000;font-weight:bold">/</span>freetype v0<span style="color:#099">.0.0</span><span style="color:#000;font-weight:bold">-</span><span style="color:#099">20170609003504</span><span style="color:#000;font-weight:bold">-</span>e2365dfdc4a0 <span style="color:#998;font-style:italic">// indirect
+</span><span style="color:#998;font-style:italic"></span>	golang.org<span style="color:#000;font-weight:bold">/</span>x<span style="color:#000;font-weight:bold">/</span>image v0<span style="color:#099">.0.0</span><span style="color:#000;font-weight:bold">-</span><span style="color:#099">20191009234506</span><span style="color:#000;font-weight:bold">-</span>e7c1f5e7dbb8 <span style="color:#998;font-style:italic">// indirect
+</span><span style="color:#998;font-style:italic"></span>)</code></pre></div>
+<h2 id="로컬패키지">로컬패키지</h2>
+
+<p>그렇다면 로컬에 존재하는 패키지는 어떻게 <code>go.mod</code>파일에 기입할 수 있을까요? 아래와 같은 폴더 구조를 가지는 프로젝트를 생각해 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hellogo
+├── constants
+└── logics</pre></div>
+<p>hellogo 폴더 하위에 모듈로 constants와 logics를 가지고 있습니다. 각 디렉토리로 진입하여 go 파일을 생성합니다. 그리고 <code>go mod init &lt;MODULE NAME&gt;</code>을 실행합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ cd constants
+$ touch constants.go
+$ go mod init constants</pre></div>
+<p>logics폴더로 진입하여 같은 작업을 합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ cd logics
+$ touch logics.go
+$ go mod init logics</pre></div>
+<p>지금까지 한 것은 각 모듈을 <code>go modules</code>를 사용해 초기화한 것입니다. 이 모듈들을 사용하려면 메인 모듈에서 모듈 설정을 해 주어야 합니다.</p>
+
+<p><code>hellogo</code>폴더에서 <code>go mod init</code>을 실행합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ go mod init hellogo</pre></div>
+<p>그리고 편집기로 <code>go.mod</code>파일을 엽니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ vi go.mod</pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module hellogo
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span></code></pre></div>
+<p>사용할 로컬 패키지를 기입합니다. 로컬 패지지를 입력할 때 <code>도메인주소/패키지명 버전</code>형식으로 입력해야 합니다. 도메인주소를 생략하면 go 버전에 따라서 오류가 발생할 수도 있습니다. 아래처럼 임의의 도메인 주소를 붙여 패키지를 기입합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module hellogo
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span>
+
+<span style="color:#900;font-weight:bold">require</span> (
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>constants v0<span style="color:#099">.0.0</span>
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>logics v0<span style="color:#099">.0.0</span>
+)</code></pre></div>
+<p>패키지 주소와 버전을 임의로 붙였습니다. 실제 위 주소에 패키지가 없을 것입니다. 그래서 <code>replace</code>를 사용해서 패키지 주소를 로컬 패스로 변경해 주어야 합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module hellogo
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span>
+
+<span style="color:#900;font-weight:bold">require</span> (
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>constants v0<span style="color:#099">.0.0</span>
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>logics v0<span style="color:#099">.0.0</span>
+)
+
+<span style="color:#900;font-weight:bold">replace</span> (
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>constants v0<span style="color:#099">.0.0</span> =&gt; .<span style="color:#000;font-weight:bold">/</span>constants
+	hellogo.com<span style="color:#000;font-weight:bold">/</span>logics v0<span style="color:#099">.0.0</span> =&gt; .<span style="color:#000;font-weight:bold">/</span>logics
+)</code></pre></div>
+<p>위처럼 하면 hellogo 를 만들기 위한 모듈 구성이 끝난 것입니다. 이제 각 모듈을 사용해 보기 위해서 go 파일에 코드를 작성해 봅시다.</p>
+
+<h2 id="constants-go">constants.go</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> constants
+
+<span style="color:#000;font-weight:bold">const</span> (
+	NAME = <span style="color:#d14">&#34;Burt.K&#34;</span>
+	AGE  = <span style="color:#099">29</span>
+)</code></pre></div>
+<h2 id="logics-go">logics.go</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> logics
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;fmt&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">Greeting</span>(name <span style="color:#458;font-weight:bold">string</span>, age <span style="color:#458;font-weight:bold">int</span>) {
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(name, age)
+}</code></pre></div>
+<h2 id="main-go">main.go</h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;hellogo.com/constants&#34;</span>
+	<span style="color:#d14">&#34;hellogo.com/logics&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	logics.<span style="color:#900;font-weight:bold">Greeting</span>(constants.NAME, constants.AGE)
+}</code></pre></div>
+<h2 id="go-build">go build</h2>
+
+<p>이제 터미널에서 빌드를 수행합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ go build</pre></div>
+<p>결과 실행파일을 실행하면 원하는 결과가 출력됨을 알 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ ./hellogo
+Burt.K 29</pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/go">Go</a></li>
+								
+								<li><a href="/tags/modules">modules</a></li>
+								
+								<li><a href="/tags/local-package">local package</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

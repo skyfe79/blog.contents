@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>deploy on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/deploy/</link>
+    <description>Recent content in deploy on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Wed, 04 Aug 2021 21:15:20 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Github Actions로 Hugo 배포하기</title>
+      <link>https://blog.burt.pe.kr/posts/deploy-hugo-with-github-actions/</link>
+      <pubDate>Wed, 04 Aug 2021 21:15:20 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/deploy-hugo-with-github-actions/</guid>
+      <description>travis-ci.org를 사용해 Hugo를 배포해 오다가 travis-ci.org가 유료로 변경되어 Github actions로 배포 방법을 변경했다. utterances 로 코멘트를 관리하기 때문에 코멘트 이슈를 관리하기 위해 레포를 2개로 분리하여 사용하고 있다.
+ 이슈 관리를 위한 hugo 레포 publish 대상인 블로그 레포  peaceiris/actions-hugo@v2를 사용해 쉽게 배포 워크플로우를 작성할 수 있었다.
+다른 레포에 접근하기 위해서 레포에 접근하기 위한 토큰을 만들어 디플로이를 하면 된다.
+...-name:Deployuses:peaceiris/actions-gh-pages@v3if:${{github.ref==&amp;#39;refs/heads/master&amp;#39;}}with:personal_token:${{secrets.PERSONAL_TOKEN}}external_repository:skyfe79/skyfe79.github.iopublish_branch:masterpublish_dir:./publiccname:blog.burt.pe.kr 워크플로우 전체 내용은 여기에서 확인할 수 있다.</description>
+    </item>
+    
+  </channel>
+</rss>

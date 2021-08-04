@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>모나드와 함수형 아키텍처 4장. Monad 실전 예제 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="모나드와 함수형 아키텍처 4장. Monad 실전 예제" />
+<meta property="og:description" content="4장. Monad 실전 예제 4부에서는 1부, 2부, 3부에서 배운 이론을 바탕으로 여러 모나드를 만들어 보겠습니다. 구현언어로 Kotlin을 사용하겠습니다.
+4-1. Optional Optional 모나드를 구현해 보겠습니다. Optional은 Swift, Kotlin에서 null이 가능한 타입입니다. 주로 Int? 처럼 구체타입에 ? 를 붙여서 표현합니다.
+우선 타입과 map, flatMap을 정의합니다.
+sealed class Optional&lt;T&gt; { class None&lt;T&gt;: Optional&lt;T&gt;() data class Some&lt;T&gt;(val value: T): Optional&lt;T&gt;() } infix fun &lt;T, R&gt; Optional&lt;T&gt;.map(functor: (value: T) -&gt; R): Optional&lt;R&gt; { return this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-4/" />
+<meta property="article:published_time" content="2019-11-01T22:53:14+09:00" />
+<meta property="article:modified_time" content="2019-11-01T22:53:14+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모나드와 함수형 아키텍처 4장. Monad 실전 예제"/>
+<meta name="twitter:description" content="4장. Monad 실전 예제 4부에서는 1부, 2부, 3부에서 배운 이론을 바탕으로 여러 모나드를 만들어 보겠습니다. 구현언어로 Kotlin을 사용하겠습니다.
+4-1. Optional Optional 모나드를 구현해 보겠습니다. Optional은 Swift, Kotlin에서 null이 가능한 타입입니다. 주로 Int? 처럼 구체타입에 ? 를 붙여서 표현합니다.
+우선 타입과 map, flatMap을 정의합니다.
+sealed class Optional&lt;T&gt; { class None&lt;T&gt;: Optional&lt;T&gt;() data class Some&lt;T&gt;(val value: T): Optional&lt;T&gt;() } infix fun &lt;T, R&gt; Optional&lt;T&gt;.map(functor: (value: T) -&gt; R): Optional&lt;R&gt; { return this."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">모나드와 함수형 아키텍처 4장. Monad 실전 예제</h1>
+			<div class="meta">Posted at &mdash; Nov 1, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#4장-monad-실전-예제">4장. Monad 실전 예제</a>
+<ul>
+<li><a href="#4-1-optional">4-1. Optional</a></li>
+<li><a href="#4-2-result">4-2. Result</a></li>
+<li><a href="#4-3-either">4-3. Either</a></li>
+<li><a href="#4-4-future">4-4. Future</a></li>
+<li><a href="#4-5-정리">4-5. 정리</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<h2 id="4장-monad-실전-예제">4장. Monad 실전 예제</h2>
+
+<p>4부에서는 1부, 2부, 3부에서 배운 이론을 바탕으로 여러 모나드를 만들어 보겠습니다. 구현언어로 Kotlin을 사용하겠습니다.</p>
+
+<h3 id="4-1-optional">4-1. Optional</h3>
+
+<p>Optional 모나드를 구현해 보겠습니다. Optional은 Swift, Kotlin에서 null이 가능한 타입입니다. 주로 Int? 처럼 구체타입에 ? 를 붙여서 표현합니다.</p>
+
+<p>우선 타입과 map, flatMap을 정의합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">sealed</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Optional</span>&lt;T&gt; {
+    <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">None</span>&lt;T&gt;: Optional&lt;T&gt;()
+    <span style="color:#000;font-weight:bold">data</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Some</span>&lt;T&gt;(<span style="color:#000;font-weight:bold">val</span> value: T): Optional&lt;T&gt;()
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;T, R&gt; <span style="color:#900;font-weight:bold">Optional</span>&lt;T&gt;.map(functor: (value: T) -&gt; R): Optional&lt;R&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.flatMap { value -&gt;
+        Optional.Some(functor(value))
+    }
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;T, R&gt; <span style="color:#900;font-weight:bold">Optional</span>&lt;T&gt;.flatMap(functor: (value: T) -&gt; Optional&lt;R&gt;): Optional&lt;R&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">when</span> (<span style="color:#000;font-weight:bold">this</span>) {
+        <span style="color:#000;font-weight:bold">is</span> Optional.Some -&gt; {
+            functor(<span style="color:#000;font-weight:bold">this</span>.value)
+        }
+        <span style="color:#000;font-weight:bold">is</span> Optional.None -&gt; {
+            Optional.None()
+        }
+    }
+}</code></pre></div>
+<p>Result 타입과 크게 다르지 않습니다. 정의한 Optional 모나드를 사용해 파일을 열고 콘텐츠인 텍스트 읽기를 구현해 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">testOptional</span>() {
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">openFile</span>(fileName: String): Optional&lt;File&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            Optional.Some(File(fileName))
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Optional.None()
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">readFile</span>(file: File): Optional&lt;String&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            Optional.Some(file.inputStream().bufferedReader().use { it.readText() })
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Optional.None()
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">val</span> content = openFile(<span style="color:#d14">&#34;greeting.txt&#34;</span>) flatMap <span style="color:#000;font-weight:bold">::</span>readFile
+
+    <span style="color:#000;font-weight:bold">when</span> (content) {
+        <span style="color:#000;font-weight:bold">is</span> Optional.Some -&gt; println(content.value)
+        <span style="color:#000;font-weight:bold">is</span> Optional.None -&gt; println(<span style="color:#d14">&#34;There is no file.&#34;</span>)
+    }
+}</code></pre></div>
+<p>위에서 우리는 파일을 열고 파일 내용을 반환하는 작업을 두 개의 함수로 나누었습니다. 함수가 단 하나의 역할만 하도록 잘게 쪼갠 것입니다. 이렇게 함수를 최소 단위로 나누면 단위 테스트가 쉬워져서 좋습니다. 그리고 유지보수도 쉬워집니다.</p>
+
+<p>프로그램이 실행되는 곳에 <code>greeting.txt</code> 파일이 없다면 <code>There is no file.</code>이 출력될 것이고 파일이 있다면 파일의 내용이 출력될 것입니다. 아래와 같이 파일 내용을 만들어 <code>greeting.txt</code> 이름으로 파일을 저장합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Hello! It&#39;s me!</pre></div>
+<p>다시 실행해 보면 이제는 파일의 내용이 출력되는 것을 확인할 수 있습니다. 만약 요구사항이 추가되어 모든 문자를 대문자로 출력하고 싶을 때는 어떻게 해야 할까요? map을 적용하면 그만입니다. 아래처럼 함수를 추가합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">testOptional</span>() {
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">openFile</span>(fileName: String): Optional&lt;File&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            Optional.Some(File(fileName))
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Optional.None()
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">readFile</span>(file: File): Optional&lt;String&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            Optional.Some(file.inputStream().bufferedReader().use { it.readText() })
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Optional.None()
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">uppercase</span>(value: String): String {
+        <span style="color:#000;font-weight:bold">return</span> value.toUpperCase()
+    }
+
+    <span style="color:#000;font-weight:bold">val</span> content = openFile(<span style="color:#d14">&#34;greeting.txt&#34;</span>) flatMap <span style="color:#000;font-weight:bold">::</span>readFile map <span style="color:#000;font-weight:bold">::</span>uppercase
+
+    <span style="color:#000;font-weight:bold">when</span> (content) {
+        <span style="color:#000;font-weight:bold">is</span> Optional.Some -&gt; println(content.value)
+        <span style="color:#000;font-weight:bold">is</span> Optional.None -&gt; println(<span style="color:#d14">&#34;There is no file.&#34;</span>)
+    }
+}</code></pre></div>
+<p>아래처럼 출력됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">HELLO! IT&#39;S ME!</pre></div>
+<p>중요한 것은 기존 함수는 수정하지 않고 새로운 함수를 추가하여 문제를 해결한 점입니다. 함수를 잘게 나누어 프로그램을 개발하면 기존 로직의 수정과 삭제는 최대한 줄이고 새로운 함수만 추가하여 개발할 수 있습니다. 유지보수 문제가 무척 쉬워지는 것입니다.</p>
+
+<h3 id="4-2-result">4-2. Result</h3>
+
+<p>Result 모나드는 3부에서 만든 모나드입니다. Kotlin으로 만든 것은 이미 보았으므로 여기서는 Swift로 구현해 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">enum</span> <span style="color:#458;font-weight:bold">Result</span>&lt;T&gt; {
+    <span style="color:#000;font-weight:bold">case</span> success(T)
+    <span style="color:#000;font-weight:bold">case</span> fail
+    
+    <span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">map</span>&lt;R&gt;(<span style="color:#000;font-weight:bold">_</span> functor: (T) -&gt; R) -&gt; Result&lt;R&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">self</span>.flatMap { value <span style="color:#000;font-weight:bold">in</span>
+            Result&lt;R&gt;.success(functor(value))
+        }
+    }
+    
+    <span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">flatMap</span>&lt;R&gt;(<span style="color:#000;font-weight:bold">_</span> functor: (T) -&gt; Result&lt;R&gt;) -&gt; Result&lt;R&gt; {
+        <span style="color:#000;font-weight:bold">switch</span> <span style="color:#000;font-weight:bold">self</span> {
+        <span style="color:#000;font-weight:bold">case</span> .success(<span style="color:#000;font-weight:bold">let</span> <span style="color:#008080">value</span>):
+            <span style="color:#000;font-weight:bold">return</span> functor(value)
+        <span style="color:#000;font-weight:bold">case</span> .fail:
+            <span style="color:#000;font-weight:bold">return</span> Result&lt;R&gt;.fail
+        }
+    }
+}</code></pre></div>
+<p>그리고 함수를 정의합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">a</span>(<span style="color:#000;font-weight:bold">_</span> value: <span style="color:#0086b3">Int</span>) -&gt; Result&lt;<span style="color:#0086b3">Int</span>&gt; {
+    <span style="color:#000;font-weight:bold">if</span> (value <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>) {
+        <span style="color:#000;font-weight:bold">return</span> .success(value <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span>)
+    } <span style="color:#000;font-weight:bold">else</span> {
+        <span style="color:#000;font-weight:bold">return</span> .fail
+    }
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">d</span>(<span style="color:#000;font-weight:bold">_</span> value: <span style="color:#0086b3">Int</span>) -&gt; <span style="color:#0086b3">Int</span> {
+    <span style="color:#000;font-weight:bold">return</span> value <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span>
+}</code></pre></div>
+<p>합성을 적용해 봅니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">testResultSuccess</span>() {
+    <span style="color:#000;font-weight:bold">let</span> <span style="color:#008080">result</span> = a(<span style="color:#099">10</span>).<span style="color:#999">map</span>(d).<span style="color:#999">map</span>(d).<span style="color:#999">map</span>(d).<span style="color:#999">map</span> { <span style="color:#d14">&#34;</span><span style="color:#d14">\(</span><span style="color:#008080">$0</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span><span style="color:#d14">)</span><span style="color:#d14">&#34;</span> }
+
+    <span style="color:#000;font-weight:bold">switch</span> result {
+    <span style="color:#000;font-weight:bold">case</span> .success(<span style="color:#000;font-weight:bold">let</span> <span style="color:#008080">value</span>):
+        <span style="color:#999">print</span>(<span style="color:#d14">&#34;SUCCESS :: </span><span style="color:#d14">\(</span>value<span style="color:#d14">)</span><span style="color:#d14">&#34;</span>)
+    <span style="color:#000;font-weight:bold">case</span> .fail:
+        <span style="color:#999">print</span>(<span style="color:#d14">&#34;failed&#34;</span>)
+    }
+}
+
+<span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">testResultFail</span>() {
+    <span style="color:#000;font-weight:bold">let</span> <span style="color:#008080">result</span> = a(<span style="color:#099">10</span>).<span style="color:#999">map</span>(d).<span style="color:#999">map</span>(d).flatMap { a(<span style="color:#008080">$0</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>) }.<span style="color:#999">map</span>(d).<span style="color:#999">map</span> { <span style="color:#d14">&#34;</span><span style="color:#d14">\(</span><span style="color:#008080">$0</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span><span style="color:#d14">)</span><span style="color:#d14">&#34;</span> }
+
+    <span style="color:#000;font-weight:bold">switch</span> result {
+    <span style="color:#000;font-weight:bold">case</span> .success(<span style="color:#000;font-weight:bold">let</span> <span style="color:#008080">value</span>):
+        <span style="color:#999">print</span>(<span style="color:#d14">&#34;SUCCESS :: </span><span style="color:#d14">\(</span>value<span style="color:#d14">)</span><span style="color:#d14">&#34;</span>)
+    <span style="color:#000;font-weight:bold">case</span> .fail:
+        <span style="color:#999">print</span>(<span style="color:#d14">&#34;failed&#34;</span>)
+    }
+}</code></pre></div>
+<p>실행하면 결과가 출력됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">testResultSuccess()
+testResultFail()
+
+<span style="color:#998;font-style:italic">//출력</span>
+SUCCESS :: <span style="color:#099">1000000</span>
+failed</code></pre></div>
+<h3 id="4-3-either">4-3. Either</h3>
+
+<p>Either 모나드를 구현해 봅시다. Either는 Optional과 비슷한 모나드로 Left, Right 두 개의 집합을 갖습니다. Optional의  None이 Left에 그리고 Some이 Right에 매칭됩니다. Optional과 다른 점은 예외나 오류가 발생했을 때 Left에 해당 정보를 담을 수 있다는 점입니다. 그리고 Either 모나드가 Left일 때에는 합성이 더 진행되지 않고 멈춘다는 것입니다. 우리가 예외가 발생했을 때 함수의 실행을 멈추는 것과 동일합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">sealed</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Either</span>&lt;<span style="color:#000;font-weight:bold">out</span> L, <span style="color:#000;font-weight:bold">out</span> R&gt; {
+    <span style="color:#000;font-weight:bold">data</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Left</span>&lt;<span style="color:#000;font-weight:bold">out</span> L&gt;(<span style="color:#000;font-weight:bold">val</span> value: L): Either&lt;L, Nothing&gt;()
+    <span style="color:#000;font-weight:bold">data</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Right</span>&lt;<span style="color:#000;font-weight:bold">out</span> R&gt;(<span style="color:#000;font-weight:bold">val</span> value: R): Either&lt;Nothing, R&gt;()
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;L, R, P&gt; <span style="color:#900;font-weight:bold">Either</span>&lt;L, R&gt;.map(functor: (value: R) -&gt; P): Either&lt;L, P&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.flatMap { value -&gt;
+        Either.Right(functor(value))
+    }
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;L, R, Q&gt; <span style="color:#900;font-weight:bold">Either</span>&lt;L, R&gt;.flatMap(functor: (value: R) -&gt; Either&lt;L, Q&gt;): Either&lt;L, Q&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">when</span> (<span style="color:#000;font-weight:bold">this</span>) {
+        <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; {
+            <span style="color:#000;font-weight:bold">return</span> Either.Left(<span style="color:#000;font-weight:bold">this</span>.value)
+        }
+        <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; {
+            functor(<span style="color:#000;font-weight:bold">this</span>.value)
+        }
+    }
+}</code></pre></div>
+<p>Either 모나드가 Left일 때 합성이 더 진행되지 않고 멈추는 이유는 flatMap 에서 Either.Right일 때만 functor를 실행하기 때문입니다. 예외가 발생했을 때 발생한 이후로 실행하지 않으려 할 때 Either를 사용하면 편리합니다.</p>
+
+<p>테스트해 봅시다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">testEither</span>() {
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">openFile</span>(fileName: String): Either&lt;Throwable, File&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            <span style="color:#000;font-weight:bold">val</span> file = File(fileName)
+            <span style="color:#000;font-weight:bold">if</span> (file.exists()) {
+                Either.Right(file)
+            } <span style="color:#000;font-weight:bold">else</span> {
+                Either.Left(FileNotFoundException())
+            }
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Either.Left(e)
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">readFile</span>(file: File): Either&lt;Throwable, String&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">try</span> {
+            Either.Right(file.inputStream().bufferedReader().use { it.readText() })
+        } <span style="color:#000;font-weight:bold">catch</span> (e: Throwable) {
+            Either.Left(e)
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">val</span> content = openFile(<span style="color:#d14">&#34;greeting.txt&#34;</span>) flatMap <span style="color:#000;font-weight:bold">::</span>readFile
+
+    <span style="color:#000;font-weight:bold">when</span> (content) {
+        <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; println(content.value)
+        <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; println(content.value)
+    }
+}</code></pre></div>
+<p>파일이 있다면 아래처럼 출력됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Hello! It&#39;s me!</pre></div>
+<p>파일이 없다면 아래처럼 출력됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">java.io.FileNotFoundException: greeting2.txt (No such file or directory)</pre></div>
+<h3 id="4-4-future">4-4. Future</h3>
+
+<p>Future 모나드는 비동기(async) 작업에 사용되는 모나드입니다. 비동기 작업(async task)은 동기 작업(sync task)과 다르게 값을 얻을 수 있는 시점을 알 수가 없습니다. 그래서 자주 사용되는 패턴이 Callback 패턴입니다. 비동기 작업이 완료되면 콜백을 호출해 값을 전해 줍니다. 그러나 콜백 패턴은 여러 비동기 작업을 체이닝하여 실행할 때 콜백지옥이 형성되어 코드 파악과 유지보수를 어렵게 합니다.</p>
+
+<p>Future 모나드 사용하면 콜백지옥 없이 비동기 작업을 체이닝할 수 있습니다. Javascript의 Promise도 Future와 비슷한 모나드입니다.</p>
+
+<p>여기서 구현하는 Future 모나드는 비동기 작업을 모나드로 추상화하는 개념을 보여주는 예제일 뿐입니다. 프로덕션 코드에 사용하시면 안 됩니다. :) 비동기 작업이 반환하는 값을 Future 모나드로 추상화하고 map과 flatMap으로 체이닝을 해 봅시다.</p>
+
+<p>구현 아이디어는 아주 간단합니다. 사실 콜백 패턴을 그대로 따르고 있습니다. 내부에 콜백과 구독자(Subscribers) 목록을 가지고 있습니다. 비동기 작업이 끝나면 구독자에게 콜백을 사용해 값을 전달합니다.</p>
+
+<p>우선 콜백타입을 정의합니다. 콜백은 Either 모나드를 사용해 오류 또는 값을 전달합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">typealias Callback&lt;Err, T&gt; = (Either&lt;Err, T&gt;) -&gt; Unit</code></pre></div>
+<p>이제 비동기 작업을 실행할 스케줄러를 정의합니다. RxJava 스타일을 만들기 위해 정의한 것입니다. 별 의미는 없습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">interface</span> <span style="color:#458;font-weight:bold">Scheduler</span> {
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">execute</span>(command: () -&gt; Unit)
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">shutdown</span>()
+}
+
+<span style="color:#000;font-weight:bold">object</span> <span style="color:#458;font-weight:bold">SchedulerIO</span>: Scheduler {
+    <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">var</span> executorService = Executors.newFixedThreadPool(<span style="color:#099">1</span>)
+    <span style="color:#000;font-weight:bold">override</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">execute</span>(command: () -&gt; Unit) {
+        <span style="color:#000;font-weight:bold">if</span> (executorService.isShutdown) {
+            executorService = Executors.newFixedThreadPool(<span style="color:#099">1</span>)
+        }
+        executorService.execute(command)
+    }
+
+    <span style="color:#000;font-weight:bold">override</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">shutdown</span>() {
+        <span style="color:#000;font-weight:bold">if</span> (!executorService.isShutdown) {
+            executorService.shutdown()
+        }
+    }
+}
+
+<span style="color:#000;font-weight:bold">object</span> <span style="color:#458;font-weight:bold">SchedulerMain</span>: Scheduler {
+    <span style="color:#000;font-weight:bold">override</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">execute</span>(command: () -&gt; Unit) {
+        Thread(command).run()
+    }
+    <span style="color:#000;font-weight:bold">override</span> <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">shutdown</span>() = Unit
+}</code></pre></div>
+<p>이제 Future 모나드를 구현해 봅시다. Future 모나드는 내부에 콜백 람다를 가지고 있습니다. 콜백이 실행되면 결과값을 cache에 담아 두었다가 모나드에서 구체타입의 값을 추출하는 subscribe에서 cache의 값을 사용합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Future</span>&lt;Err, V&gt;(<span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">var</span> scheduler: Scheduler = SchedulerIO) {
+    <span style="color:#000;font-weight:bold">var</span> subscribers: MutableList&lt;Callback&lt;Err, V&gt;&gt; = mutableListOf()
+    <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">var</span> cache: Optional&lt;Either&lt;Err, V&gt;&gt; = Optional.None()
+    <span style="color:#000;font-weight:bold">var</span> semaphore = Semaphore(<span style="color:#099">1</span>)
+
+    <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">var</span> callback: Callback&lt;Err, V&gt; = { value -&gt;
+        semaphore.acquire()
+        cache = Optional.Some(value)
+        <span style="color:#000;font-weight:bold">while</span> (subscribers.size &gt; <span style="color:#099">0</span>) {
+            <span style="color:#000;font-weight:bold">val</span> subscriber = subscribers.last()
+            subscribers = subscribers.dropLast(<span style="color:#099">1</span>).toMutableList()
+            scheduler.execute {
+                subscriber.invoke(value)
+            }
+        }
+        semaphore.release()
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">create</span>(f: (Callback&lt;Err, V&gt;) -&gt; Unit): Future&lt;Err, V&gt; {
+        scheduler.execute {
+            f(callback)
+        }
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>
+    }
+    
+    <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">subscribe</span>(cb: Callback&lt;Err, V&gt;): Disposable {
+        semaphore.acquire()
+        <span style="color:#000;font-weight:bold">when</span> (cache) {
+            <span style="color:#000;font-weight:bold">is</span> Optional.None -&gt; {
+                subscribers.add(cb)
+                semaphore.release()
+            }
+            <span style="color:#000;font-weight:bold">is</span> Optional.Some -&gt; {
+                semaphore.release()
+                <span style="color:#000;font-weight:bold">val</span> c = (cache <span style="color:#000;font-weight:bold">as</span> Optional.Some&lt;Either&lt;Err, V&gt;&gt;)
+                cb.invoke(c.value)
+            }
+        }
+        <span style="color:#000;font-weight:bold">return</span> Disposable()
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> &lt;P&gt; <span style="color:#900;font-weight:bold">map</span>(functor: (value: V) -&gt; P): Future&lt;Err, P&gt; {
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.flatMap { value -&gt;
+            Future&lt;Err, P&gt;().create { callback -&gt;
+                callback(Either.Right(functor(value)))
+            }
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">fun</span> &lt;Q&gt; <span style="color:#900;font-weight:bold">flatMap</span>(functor: (value: V) -&gt; Future&lt;Err, Q&gt;): Future&lt;Err, Q&gt; {
+        <span style="color:#000;font-weight:bold">return</span> Future&lt;Err, Q&gt;().create { callback -&gt;
+            <span style="color:#000;font-weight:bold">this</span>.subscribe { value -&gt;
+                <span style="color:#000;font-weight:bold">when</span> (value) {
+                    <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; {
+                        callback(Either.Left(value = value.value))
+                    }
+                    <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; {
+                        functor(value.value).subscribe(callback)
+                    }
+                }
+            }
+        }
+    }
+
+    <span style="color:#000;font-weight:bold">inner</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Disposable</span> {
+        <span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">dispose</span>() {
+            scheduler.shutdown()
+        }
+    }
+}</code></pre></div>
+<p>Future 모나드를 사용해 보기 위해서 비동기를 흉내 내는 count 함수를 정의합니다. 1초를 sleep하고 1을 증가시키는 함수입니다. 결과는 Future를 반환합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">count</span>(n: Int): Future&lt;Throwable, Int&gt; {
+    <span style="color:#000;font-weight:bold">return</span> Future&lt;Throwable, Int&gt;().create { callback -&gt;
+        Thread.sleep(<span style="color:#099">1000</span>)
+        callback.invoke(Either.Right(n + <span style="color:#099">1</span>))
+    }
+}</code></pre></div>
+<p>RxJava의 Single을 사용하는 것과 비슷합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">count</span>(n: Int): Single&lt;Int&gt; {
+    <span style="color:#000;font-weight:bold">return</span> Single.create { emitter -&gt; 
+        Thread.sleep(<span style="color:#099">1000</span>)
+        emitter.success(n + <span style="color:#099">1</span>)
+    }
+}</code></pre></div>
+<p>count 함수를 사용하여 5까지 카운트를 하도록 체이닝을 해 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">testFuture</span>(): Future&lt;Throwable, Int&gt; {
+    <span style="color:#000;font-weight:bold">return</span> Future&lt;Throwable, Int&gt;()
+        .create { callback -&gt;
+            Thread.sleep(<span style="color:#099">1000</span>)
+            callback.invoke(Either.Right(<span style="color:#099">1</span>))
+        }
+        .flatMap(<span style="color:#000;font-weight:bold">::</span>count)
+        .map { it + <span style="color:#099">1</span> }
+        .flatMap(<span style="color:#000;font-weight:bold">::</span>count)
+        .flatMap(<span style="color:#000;font-weight:bold">::</span>count)
+}</code></pre></div>
+<p>flatMap을 사용하여 비동기 작업을 계속해서 체이닝 할 수 있고 비동기 함수가 반환하는 값을 map을 사용하여 동기 스타일로 연산을 수행할 수 있음을 알 수 있습니다. 이 함수를 구독하는 함수는 아래와 같습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> <span style="color:#900;font-weight:bold">main</span>(args: Array&lt;String&gt;) {
+
+    <span style="color:#000;font-weight:bold">val</span> disposable = testFuture()
+        .subscribe {
+            <span style="color:#000;font-weight:bold">when</span> (it) {
+                <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; print(it.value)
+                <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; print(it.value)
+            }
+        }
+    Thread.sleep(<span style="color:#099">5000L</span>)
+    disposable.dispose()
+
+    <span style="color:#000;font-weight:bold">val</span> disposable2 = testFuture()
+        .subscribe {
+            <span style="color:#000;font-weight:bold">when</span> (it) {
+                <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; print(it.value)
+                <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; print(it.value)
+            }
+        }
+
+    Thread.sleep(<span style="color:#099">5000L</span>)
+    disposable2.dispose()
+}</code></pre></div>
+<p>아래처럼 출력되고 프로그램이 종료됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">5
+5
+
+Process finished with exit code 0</pre></div>
+<h3 id="4-5-정리">4-5. 정리</h3>
+
+<p>지금까지 여러 개의 모나드를 구현하고 사용해 보았습니다. 객체지향 시대에는 수많은 클래스와 함께했고 이제는 수많은 모나드와 함께하고 있습니다. 여러분도 함수의 인자 또는 결과를 구체 타입이 아닌 자신만의 모나드로 추상화해 보기를 권해 드립니다.</p>
+
+<p>모나드를 정의하고 map가 flatMap을 만든 것은 흐름을 만들기 위함이었습니다. 실제로는 flatMap이 흐름을 만들어 줍니다. Either[Left, Right] 모나드를 구현할 때, Right일 때만 흐름이 진행되었습니다. 다시 Either 모나드 정의 코드를 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">sealed</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Either</span>&lt;<span style="color:#000;font-weight:bold">out</span> L, <span style="color:#000;font-weight:bold">out</span> R&gt; {
+    <span style="color:#000;font-weight:bold">data</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Left</span>&lt;<span style="color:#000;font-weight:bold">out</span> L&gt;(<span style="color:#000;font-weight:bold">val</span> value: L): Either&lt;L, Nothing&gt;()
+    <span style="color:#000;font-weight:bold">data</span> <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Right</span>&lt;<span style="color:#000;font-weight:bold">out</span> R&gt;(<span style="color:#000;font-weight:bold">val</span> value: R): Either&lt;Nothing, R&gt;()
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;L, R, P&gt; <span style="color:#900;font-weight:bold">Either</span>&lt;L, R&gt;.map(functor: (value: R) -&gt; P): Either&lt;L, P&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.flatMap { value -&gt;
+        Either.Right(functor(value))
+    }
+}
+
+<span style="color:#000;font-weight:bold">infix</span> <span style="color:#000;font-weight:bold">fun</span> &lt;L, R, Q&gt; <span style="color:#900;font-weight:bold">Either</span>&lt;L, R&gt;.flatMap(functor: (value: R) -&gt; Either&lt;L, Q&gt;): Either&lt;L, Q&gt; {
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">when</span> (<span style="color:#000;font-weight:bold">this</span>) {
+        <span style="color:#000;font-weight:bold">is</span> Either.Left -&gt; {
+            <span style="color:#000;font-weight:bold">return</span> Either.Left(<span style="color:#000;font-weight:bold">this</span>.value)
+        }
+        <span style="color:#000;font-weight:bold">is</span> Either.Right -&gt; {
+            functor(<span style="color:#000;font-weight:bold">this</span>.value)
+        }
+    }
+}</code></pre></div>
+<p>위 코드에서 중요하게 기억해야 할 점은 flatMap에서 흐름을 진행할 타입에서 functor를 실행해 주는 것입니다. Either 모나드는 다른 Either 모나드가 Either.Right일 때만 아래처럼 흐름이 만들어집니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">val</span> content = openFile(<span style="color:#d14">&#34;greeting.txt&#34;</span>) flatMap <span style="color:#000;font-weight:bold">::</span>readFile map <span style="color:#000;font-weight:bold">::</span>uppercase</code></pre></div>
+<p>자신만의 모나드를 만들 때 이점을 기억하면서 만들면 됩니다. 4부에서 구현한 모나드의 구현 코드는 <a href="https://www.toptal.com/javascript/option-maybe-either-future-monads-js">Option/Maybe, Either, and Future Monads in JavaScript, Python, Ruby, Swift, and Scala</a> 글의 내용을 참고한 것입니다. 이 글에는 JavaScript, Python, Ruby, Swift 그리고 Scala로 지금까지 살펴본 모나드 구현 코드를 볼 수 있습니다. 단, Kotlin으로 구현된 코드가 없어서 4부에서는 Kotlin을 중심으로 구현해 보았습니다.</p>
+
+<p><code>알림</code> 이 글은 <a href="https://teamdable.github.io/techblog/Moand-and-Functional-Architecture">데이블 기술블로그</a>에 올린 글을 제 블로그에 다시 올린 글임을 알려드립니다.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">함수형 프로그래밍</a></li>
+								
+								<li><a href="/tags/%EB%AA%A8%EB%82%98%EB%93%9C">모나드</a></li>
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">함수형 아키텍처</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

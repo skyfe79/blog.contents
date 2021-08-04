@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>함수형 프로그래밍 on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+    <description>Recent content in 함수형 프로그래밍 on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Fri, 01 Nov 2019 23:00:32 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 6장. 부록</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-6/</link>
+      <pubDate>Fri, 01 Nov 2019 23:00:32 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-6/</guid>
+      <description>6장. 부록 6-1. 타입 캐스팅 - C언어 타입 캐스팅이 위험한 이유 타입을 집합이라고 했을 때, C언어의 타입 캐스팅 연산자가 왜 위험한지 알 수 있습니다. 그리고 모던 프로그래밍 언어에는 타입 캐스팅 연산자가 왜 여러 개가 존재하는지 알 수 있습니다.
+C언어의 타입 캐스팅은 아래와 같습니다.
+int ch = (int)&amp;#39;a&amp;#39;; 문자형인 char 타입에서 정수형인 int 타입으로 타입 캐스팅을 하였습니다. C언어의 타입 캐스팅은 가장 강력하면서도 무식한 연산자입니다. 강력하면 좋을 것 같은데 왜 위험한 것일까요?</description>
+    </item>
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 5장. 함수형 아키텍처</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-5/</link>
+      <pubDate>Fri, 01 Nov 2019 22:56:45 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-5/</guid>
+      <description>5장. 함수형 아키텍처 4부까지 모나드의 개념을 알아보고 몇 개의 간단한 모나드를 구현해 보았습니다. 이런 질문을 가질 수도 있습니다. 이렇게 배운 모나드 개념이 실제로 앱을 개발하거나 웹앱 그리고 백앤드 서비스 등을 만들 때 도움이 될 수 있을까? 5부에서는 이 질문에 대한 답을 찾아보려고 합니다.
+5-1. 프론트앤드 아키텍처 윈도우 운영체제가 GUI 운영체제로 일반 사용자들에게 익숙해져 있을 때, 개발자들은 MFC와 델파이의 VCL 프레임워크를 사용하여 윈도우용 프로그램을 개발했습니다. MFC는 Win32 API를 C++로 추상화한 프레임워크로 마이크로소프트가 개발하였고 VCL은 Win32 API를 Turbo Pascal로 추상화한 프레임워크로 볼랜드가 개발하였습니다.</description>
+    </item>
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 4장. Monad 실전 예제</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-4/</link>
+      <pubDate>Fri, 01 Nov 2019 22:53:14 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-4/</guid>
+      <description>4장. Monad 실전 예제 4부에서는 1부, 2부, 3부에서 배운 이론을 바탕으로 여러 모나드를 만들어 보겠습니다. 구현언어로 Kotlin을 사용하겠습니다.
+4-1. Optional Optional 모나드를 구현해 보겠습니다. Optional은 Swift, Kotlin에서 null이 가능한 타입입니다. 주로 Int? 처럼 구체타입에 ? 를 붙여서 표현합니다.
+우선 타입과 map, flatMap을 정의합니다.
+sealed class Optional&amp;lt;T&amp;gt; { class None&amp;lt;T&amp;gt;: Optional&amp;lt;T&amp;gt;() data class Some&amp;lt;T&amp;gt;(val value: T): Optional&amp;lt;T&amp;gt;() } infix fun &amp;lt;T, R&amp;gt; Optional&amp;lt;T&amp;gt;.map(functor: (value: T) -&amp;gt; R): Optional&amp;lt;R&amp;gt; { return this.</description>
+    </item>
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 3장. 모나드</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-3/</link>
+      <pubDate>Fri, 01 Nov 2019 22:43:36 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-3/</guid>
+      <description>3장. 모나드 $$ a \circ b \circ c \circ &amp;hellip; \circ x \circ y \circ z $$
+함수 합성식입니다. 모나드뿐 아니라 함수형 프로그래밍의 본질이 모두 담겨 있는 식입니다. 사실 모든 이야기는 여기서부터 시작됩니다. 수학에서 이렇게 함수를 합성할 수 있는 이유는 수학의 함수가 순수 함수이기 때문입니다. 1부. 시작하기에서 함수는 두 집합을 연결하여 관계를 만들어 주는 연산으로 정의했습니다. 두 집합을 연결할 때 닫힘과 열림이라는 중요한 얘기를 해야 합니다.
+3-1. 닫힘과 열림 집합 $A$에 대하여 이항연산을 수행할 때 연산 결과가 같은 집합 $A$의 원소이면 해당 이항연산은 집합 $A$에 닫혀 있다고 합니다.</description>
+    </item>
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 2장. 프로그래밍 패러다임</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-2/</link>
+      <pubDate>Fri, 01 Nov 2019 22:40:05 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-2/</guid>
+      <description>2장. 프로그래밍 패러다임 컴퓨터 프로그래밍 패러다임은 크게 구조적 프로그래밍, 객체지향 프로그래밍 그리고 함수형 프로그래밍으로 나눌 수 있습니다. 놀라운 사실은 이 패러다임들이 오래전에 모두 만들어졌다는 것입니다. 개발자들에게는 구조적 프로그래밍, 객체지향 프로그래밍, 함수형 프로그래밍 순으로 인식되고 사용되어 온 것 같습니다. 그 이유는 소프트웨어의 크기와 컴퓨터의 성능 때문이라고 생각합니다. 각 패러다임에서 중요하게 생각했던 내용을 살펴보겠습니다.
+2-1. 구조적 프로그래밍 구조적 프로그래밍이 주로 사용되던 시절은 컴퓨터 성능이 좋지 않았습니다. 그리고 통신의 속도도 빠르지 않았습니다. 통신 속도가 빠를수록 주고받는 데이터 또는 콘텐츠의 크기도 같이 커지기 마련입니다.</description>
+    </item>
+    
+    <item>
+      <title>모나드와 함수형 아키텍처 1장. 시작하기</title>
+      <link>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-1/</link>
+      <pubDate>Fri, 01 Nov 2019 21:55:51 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-1/</guid>
+      <description>안녕하세요. 데이블에서 모바일 서비스를 개발하고 있는 김성철입니다. 이 글은 모나드와 함수형 프로그래밍을 이해하기 위해서 지난 1년여간을 생각하고 정리한 내용을 담은 것입니다. 총 5장으로 구성되어 있으며 6장에는 글의 흐름과 약간 관련 없는 내용을 추가로 담고 있습니다. 어떤 부분은 부족할 것이고 어떤 부분은 과장 되었을지도 모릅니다. 그러나 모나드에 관한 글을 꼭 한번 써보고 싶었습니다. 모나드를 생각하고 정리하면서 저 자신도 많이 성장한 것 같습니다. 주실 피드백이 있으시다면 sungcheol@dable.io 또는 skyfe79@gmail.com으로 보내주세요.
+1장. 시작하기 모나드를 얘기하기 전에 몇 가지를 정리하려고 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

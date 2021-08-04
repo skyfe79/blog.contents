@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>POP on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/pop/</link>
+    <description>Recent content in POP on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Thu, 18 May 2017 19:03:14 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/pop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OOP와 POP(Protocol Oriented Programming)</title>
+      <link>https://blog.burt.pe.kr/posts/protocol-oriented-programming/</link>
+      <pubDate>Thu, 18 May 2017 19:03:14 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/protocol-oriented-programming/</guid>
+      <description>Swift 2.0 출시 이후, 스위프트 개발자들 사이에서 POP가 화두가 되어 왔습니다. POP는 Protocol Oriented Programming 약자입니다. OOP는 Object Oriented Programming 약자입니다. POP는 뜻 그대로 프로토콜 중심 프로그래밍이고 OOP는 객체 중심 프로그래밍입니다. POP와 OOP 차이가 무엇일까요? 차이가 무엇이길래 개발자들 사이에서 화두가 되고 있을까요?
+답을 생각해 보기 전에 OOP의 핵심이 무엇인지 알아야 합니다. OOP 핵심은 상속입니다. 상속을 통해 타입을 확장합니다. 하지만 여러 객체로부터 상속해야 할 경우 많은 문제가 발생합니다. 단일 상속이어도 클래스 상속 계층이 깊어질수록 문제가 커집니다.</description>
+    </item>
+    
+  </channel>
+</rss>

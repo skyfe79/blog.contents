@@ -1,0 +1,482 @@
+body {
+    font-family: "ubuntu",sans-serif;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.8;
+    font-size: 18px;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+}
+
+a, a:hover {
+    color: #b00;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+html,button,input,select,textarea {
+    color: #333;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+img {
+    margin: 10px auto 10px auto;
+    max-width: 100%;
+    display: block;
+}
+
+a img {
+    border:none;
+}
+
+figure {
+    margin: 0;
+    text-align: center;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+blockquote {
+    margin-left: 1rem;
+    font-size: 1.1rem;
+    font-style: unset;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-color: #d00;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+blockquote cite {
+    font-size: 70%;
+    opacity: .8;
+}
+
+blockquote em {
+    font-weight: 600;
+}
+
+a,a:hover {
+    color: #b00;
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.2;
+    color: #333;
+    font-weight: 400;
+    margin-top: 48px;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 2.75rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: .9rem;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.container {
+    max-width: 1000px;
+}
+
+ul {
+    padding-left: 15px;
+}
+
+ul.flat {
+    margin: 0;
+    padding: 0;
+}
+
+ul.flat li {
+    display: inline-block;
+    list-style: none;
+    margin-left: 0;
+}
+
+.prevent-collapse {
+    min-height: .1rem
+}
+
+.page-title {
+    margin: 0;
+}
+
+.smaller {
+    font-size: 70%;
+}
+
+ul {
+    list-style: disc inside;
+}
+
+.site-title a {
+	color: #333;
+	text-decoration: none !important;
+    font-family: 'Raleway', sans-serif !important;
+    line-height: 1.2;
+    color: #333;
+    font-weight: 150;
+    font-style: italic;
+}
+
+.post ul li {
+    margin-bottom: 10px;
+}
+
+.post ul li p {
+    display: inline;
+}
+
+p {
+    margin-bottom: 24px;
+}
+
+p code {
+    display: inline-block;
+    border: 0px solid rgb(205, 205, 205, 0.5);
+    background-color: rgb(205, 205, 205, 0.2);
+    border-radius: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #333;
+    line-height: 22px;
+    text-decoration: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.highlight pre {
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: transparent !important;
+}
+
+.highlight {
+    background: 0 0;
+    background-color: rgba(128, 128, 128, 0.1);
+    border-radius: 0.3rem;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(205, 205, 205, 0.5);
+    margin-bottom: 16px;
+}
+
+.wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.header {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.header h1,
+.header h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    line-height: 1.3em;
+}
+
+.header h2 {
+    font-size: 1.125rem;
+}
+
+.header nav {
+    margin-top: 20px;
+    border-top: 1px solid #f4f4f4;
+}
+
+.header nav ul,
+.header nav li {
+    margin: 0;
+}
+
+.header nav ul.flat {
+    padding: 0;
+}
+
+.header nav ul.flat li {
+    display: inline-block;
+    list-style: none;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    text-transform: capitalize;
+}
+
+.header .site-description {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Raleway', sans-serif !important;
+    line-height: 1.2;
+    color: #333;
+    font-style: italic;
+}
+
+.header .site-description nav {
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-width: 50px;
+    margin-left: 15px;
+}
+
+.header .site-description nav ul svg {
+    max-height: 15px;
+}
+
+.section .section-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.recent-posts .posts .post {
+    margin-bottom: 30px;
+}
+
+.recent-posts .posts .post .meta,
+.post .post-header .meta,
+.list .posts .post .meta {
+    font-size: 0.725rem;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.post .post-header {
+    margin-bottom: 30px;
+}
+
+.post .post-header .title {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.main-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.75)
+}
+
+.post-tags a {
+	margin-right: 5px;
+}
+
+.post .post-header .meta {
+    padding-left: 5px;
+    margin-top: 10px;
+}
+
+.post .draft-label {
+    color: #b00;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 6px;
+    background-color: #f9f2f4;
+}
+
+.post-tags .tags li {
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.post-tags .tags a {
+    display: inline-block;
+    border: 1px solid #b00;
+    border-radius: 4px;
+    padding: 0px 6px;
+    color: #b00;
+    line-height: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    margin: 0 1px;
+}
+
+.list .posts .post .meta {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.footer {
+    text-align: right;
+    font-size: 0.75em;
+    color: #999;
+    border-top: 1px solid #f4f4f4;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.page-title {
+    margin-bottom: 0;
+}
+
+.tag-cloud {
+    margin-top: 20px;
+}
+
+.tag-cloud a {
+    margin-right: 15px;
+}
+
+.pagination {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination li {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination .page-prev {
+    margin-right: 20px;
+    padding-right: 20px;
+}
+
+.pagination .page-item.page-prev {
+    text-align: left;
+}
+
+.pagination .page-item.page-next {
+    text-align: right;
+}
+
+#TableOfContents > ul {
+    margin-bottom: 100px;
+}
+
+#TableOfContents > ul li {
+    list-style: none;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 2px;
+    line-height: 1.1;
+}
+
+.toc-heading {
+  display: inline-block;
+  border: 1px solid #b00;
+  border-radius: 4px;
+  padding: 0px 6px;
+  color: #b00;
+  line-height: 20px;
+  font-size: 12px;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+}

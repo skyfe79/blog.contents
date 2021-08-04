@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Custom Domain on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/custom-domain/</link>
+    <description>Recent content in Custom Domain on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sat, 26 Oct 2019 13:57:42 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/custom-domain/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo로 블로그 시작하기</title>
+      <link>https://blog.burt.pe.kr/posts/start-blog-with-hugo/</link>
+      <pubDate>Sat, 26 Oct 2019 13:57:42 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/start-blog-with-hugo/</guid>
+      <description>오랫동안 묵혀두었던 Jekyll 기반 블로그를 지우고 Hugo로 블로그를 열어 보았습니다. Hugo로 블로그를 개설할 때 다음 글에서 많은 도움을 받았습니다.
+ 테마 Hugo 로 github 블로그 시작하기 TRAVIS CI 를 이용해서 HUGO 기반 웹사이트 배포 하기 Hosting a Hugo blog on GitHub Pages with Travis CI 블로그 구축기 2 Using Travis CI to publish to GitHub pages with custom domain  저처럼 Gtihub Page에 blog.burt.pe.kr 이라는 커스텀 도메인을 연결해 사용할 때, Travis-ci 로 배포를 하면 매번 커스텀 도메인 설정이 Reset되는 문제점이 있습니다.</description>
+    </item>
+    
+  </channel>
+</rss>

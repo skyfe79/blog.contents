@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Hugo로 블로그 시작하기 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Hugo로 블로그 시작하기" />
+<meta property="og:description" content="오랫동안 묵혀두었던 Jekyll 기반 블로그를 지우고 Hugo로 블로그를 열어 보았습니다. Hugo로 블로그를 개설할 때 다음 글에서 많은 도움을 받았습니다.
+ 테마 Hugo 로 github 블로그 시작하기 TRAVIS CI 를 이용해서 HUGO 기반 웹사이트 배포 하기 Hosting a Hugo blog on GitHub Pages with Travis CI 블로그 구축기 2 Using Travis CI to publish to GitHub pages with custom domain  저처럼 Gtihub Page에 blog.burt.pe.kr 이라는 커스텀 도메인을 연결해 사용할 때, Travis-ci 로 배포를 하면 매번 커스텀 도메인 설정이 Reset되는 문제점이 있습니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/start-blog-with-hugo/" />
+<meta property="article:published_time" content="2019-10-26T13:57:42+09:00" />
+<meta property="article:modified_time" content="2019-10-26T13:57:42+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo로 블로그 시작하기"/>
+<meta name="twitter:description" content="오랫동안 묵혀두었던 Jekyll 기반 블로그를 지우고 Hugo로 블로그를 열어 보았습니다. Hugo로 블로그를 개설할 때 다음 글에서 많은 도움을 받았습니다.
+ 테마 Hugo 로 github 블로그 시작하기 TRAVIS CI 를 이용해서 HUGO 기반 웹사이트 배포 하기 Hosting a Hugo blog on GitHub Pages with Travis CI 블로그 구축기 2 Using Travis CI to publish to GitHub pages with custom domain  저처럼 Gtihub Page에 blog.burt.pe.kr 이라는 커스텀 도메인을 연결해 사용할 때, Travis-ci 로 배포를 하면 매번 커스텀 도메인 설정이 Reset되는 문제점이 있습니다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">Hugo로 블로그 시작하기</h1>
+			<div class="meta">Posted at &mdash; Oct 26, 2019</div>
+		</div>
+
+		
+
+
+
+
+
+
+
+		<div class="markdown">
+			<p>오랫동안 묵혀두었던 Jekyll 기반 블로그를 지우고 Hugo로 블로그를 열어 보았습니다. Hugo로 블로그를 개설할 때 다음 글에서 많은 도움을 받았습니다.</p>
+
+<ul>
+<li><a href="https://themes.gohugo.io/theme/hugo-theme-learn/en">테마</a></li>
+<li><a href="https://wotjd.github.io/categories/blogging/">Hugo 로 github 블로그 시작하기</a></li>
+<li><a href="https://ironpark.github.io/2017/12/17/hugo-site-deploy-use-travis-ci/">TRAVIS CI 를 이용해서 HUGO 기반 웹사이트 배포 하기</a></li>
+<li><a href="https://medium.com/swlh/hosting-a-hugo-blog-on-github-pages-with-travis-ci-e74a1d686f10">Hosting a Hugo blog on GitHub Pages with Travis CI</a></li>
+<li><a href="https://ialy1595.github.io/post/blog-construct-2/">블로그 구축기 2</a></li>
+<li><a href="https://echorand.me/posts/github-pages-custom-domain-travis-ci/">Using Travis CI to publish to GitHub pages with custom domain</a></li>
+</ul>
+
+<p>저처럼 Gtihub Page에 blog.burt.pe.kr 이라는 커스텀 도메인을 연결해 사용할 때, Travis-ci 로 배포를 하면 매번 커스텀 도메인 설정이 Reset되는 문제점이 있습니다. 이 때에는 <code>.travis.yaml</code>에 <code>fqdn</code>을 설정해 주면 됩니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">install:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>wget<span style="color:#bbb"> </span>https://github.com/gohugoio/hugo/releases/download/v0<span style="color:#099">.59.0</span>/hugo_0<span style="color:#099">.59</span>.0_Linux-64bit.deb<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>dpkg<span style="color:#bbb"> </span>-i<span style="color:#bbb"> </span>hugo<span style="color:#999;font-weight:bold;font-style:italic">*.deb</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>hugo<span style="color:#bbb"> </span>version<span style="color:#bbb">
+</span><span style="color:#bbb"></span>script:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>hugo<span style="color:#bbb">
+</span><span style="color:#bbb"></span>deploy:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>local_dir:<span style="color:#bbb"> </span>public<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>repo:<span style="color:#bbb"> </span>skyfe79/skyfe79.github.io<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>target_branch:<span style="color:#bbb"> </span>master<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>provider:<span style="color:#bbb"> </span>pages<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>skip_cleanup:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>github_token:<span style="color:#bbb"> </span>$GITHUB_TOKEN<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>email:<span style="color:#bbb"> </span>skyfe79@gmail.com<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span><span style="color:#d14">&#34;skyfe79&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>fqdn:<span style="color:#bbb"> </span><span style="color:#d14">&#34;blog.burt.pe.kr&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>on:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>branch:<span style="color:#bbb"> </span>master</code></pre></div>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/hugo">Hugo</a></li>
+								
+								<li><a href="/tags/custom-domain">Custom Domain</a></li>
+								
+								<li><a href="/tags/fqdn">fqdn</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

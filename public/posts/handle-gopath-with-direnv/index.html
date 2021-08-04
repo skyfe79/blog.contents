@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>direvn로 $GOPATH 다루기 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="direvn로 $GOPATH 다루기" />
+<meta property="og:description" content="Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 $GOPATH를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 direnv를 발견하여 관련 내용을 정리해 봅니다.
+direnv direnv는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 $GOPATH를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 .bash_profile이나 .zshrc 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&hellip; 음&hellip;
+파이썬에는 virtualenv같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 $GOPATH로 설정해 주어야 할 때 direnv를 사용하면 아주 편리합니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/" />
+<meta property="article:published_time" content="2019-11-10T14:10:12+09:00" />
+<meta property="article:modified_time" content="2019-11-10T14:10:12+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="direvn로 $GOPATH 다루기"/>
+<meta name="twitter:description" content="Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 $GOPATH를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 direnv를 발견하여 관련 내용을 정리해 봅니다.
+direnv direnv는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 $GOPATH를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 .bash_profile이나 .zshrc 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&hellip; 음&hellip;
+파이썬에는 virtualenv같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 $GOPATH로 설정해 주어야 할 때 direnv를 사용하면 아주 편리합니다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">direvn로 $GOPATH 다루기</h1>
+			<div class="meta">Posted at &mdash; Nov 10, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#direnv">direnv</a>
+<ul>
+<li><a href="#direnv-설치">direnv 설치</a></li>
+<li><a href="#테스트">테스트</a></li>
+</ul></li>
+<li><a href="#mkgoproject-만들기">mkgoproject 만들기</a></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<p>Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 <code>$GOPATH</code>를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 <code>direnv</code>를 발견하여 관련 내용을 정리해 봅니다.</p>
+
+<h2 id="direnv">direnv</h2>
+
+<p><a href="https://direnv.net/">direnv</a>는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 <code>$GOPATH</code>를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 <code>.bash_profile</code>이나 <code>.zshrc</code> 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&hellip; 음&hellip;</p>
+
+<p>파이썬에는 <code>virtualenv</code>같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 <code>$GOPATH</code>로 설정해 주어야 할 때 <code>direnv</code>를 사용하면 아주 편리합니다.</p>
+
+<h3 id="direnv-설치">direnv 설치</h3>
+
+<p>이 글은 독자가 MacOSX 및 zsh을 사용하고 있다는 전제하에 작성하였습니다. direnv는 brew를 통해서 쉽게 설치할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ brew update
+$ brew install direnv
+$ echo &#39;eval &#34;$(direnv hook zsh)&#34;&#39; &gt;&gt; ~/.zshrc</pre></div>
+<p>설치와 설정을 마친 후 터미널을 종료했다가 다시 실행합니다. 다시 실행하지 않으면 direnv가 동작하지 않을 경우가 많더군요.</p>
+
+<h3 id="테스트">테스트</h3>
+
+<p><code>testgo</code>라는 폴더를 생성합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ mkdir testgo
+$ cd testgo
+$ echo &#39;export GOPATH=$(PWD):$GOPATH&#39; &gt;&gt; .envrc
+$ echo &#39;export PATH=$(PWD)/bin:$PATH&#39; &gt;&gt; .envrc 
+$ direnv allow</pre></div>
+<p>실행 도중에 <code>direnv: error .envrc is blocked. Run</code>direnv allow<code>to approve its content.</code> 오류를 만나도 무시하면 됩니다. <code>direnv allow</code>를 실행하지 않아서 발생하는 문제입니다. <code>direnv allow</code>를 실행하면 아래와 같이 <code>.envrc</code>환경 변수를 읽어서 <code>$PATH</code>에 <code>$GOPATH</code>를 추가한 것을 알 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">direnv: loading .envrc                                                                                                                                                          
+direnv: export +GOPATH ~PATH</pre></div>
+<p><code>$GOPATH</code>를 확인해 봅시다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ echo $GOPATH
+/Users/burt/testgo</pre></div>
+<p><code>$GOPATH</code>가 잘 변경된 것을 확인할 수 있습니다.</p>
+
+<h2 id="mkgoproject-만들기">mkgoproject 만들기</h2>
+
+<p><code>direnv</code>를 사용하더라더 매번 <code>.envrc</code>파일을 만드는 과정이 귀찮을 수 있습니다. zsh 에서 실행할 수 있는 쉘함수를 만들어 사용하면 귀차니즘을 쉽게 해결할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000;font-weight:bold">function</span> mkgoproject <span style="color:#000;font-weight:bold">{</span>
+  TRAPINT<span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+    print <span style="color:#d14">&#34;Caught SIGINT, aborting.&#34;</span>
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">$((</span> <span style="color:#099">128</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#008080">$1</span> <span style="color:#000;font-weight:bold">))</span>
+  <span style="color:#000;font-weight:bold">}</span>
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;Creating new Go project:&#39;</span>
+  <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -n <span style="color:#d14">&#34;</span><span style="color:#008080">$1</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]</span>; <span style="color:#000;font-weight:bold">then</span>
+    <span style="color:#008080">project</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$1</span>
+  <span style="color:#000;font-weight:bold">else</span>
+    <span style="color:#000;font-weight:bold">while</span> <span style="color:#000;font-weight:bold">[[</span> -z <span style="color:#d14">&#34;</span><span style="color:#008080">$project</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]]</span>; <span style="color:#000;font-weight:bold">do</span> 
+      vared -p <span style="color:#d14">&#39;what is your project name: &#39;</span> -c project; 
+    <span style="color:#000;font-weight:bold">done</span>
+  <span style="color:#000;font-weight:bold">fi</span>
+  <span style="color:#008080">namespace</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;github.com/skyfe79&#39;</span>
+  <span style="color:#000;font-weight:bold">while</span> true; <span style="color:#000;font-weight:bold">do</span> 
+    vared -p <span style="color:#d14">&#39;what is your project namespace: &#39;</span> -c namespace 
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">[</span> -n <span style="color:#d14">&#34;</span><span style="color:#008080">$namespace</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">]</span> ; <span style="color:#000;font-weight:bold">then</span> 
+       <span style="color:#0086b3">break</span>
+    <span style="color:#000;font-weight:bold">fi</span>
+  <span style="color:#000;font-weight:bold">done</span>
+  mkdir -p <span style="color:#008080">$project</span>/src/<span style="color:#008080">$namespace</span>/<span style="color:#008080">$project</span>
+  git init -q <span style="color:#008080">$project</span>/src/<span style="color:#008080">$namespace</span>/<span style="color:#008080">$project</span>
+  <span style="color:#008080">main</span><span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$project</span>/src/<span style="color:#008080">$namespace</span>/<span style="color:#008080">$project</span>/main.go
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;export GOPATH=$(PWD):$GOPATH&#39;</span> &gt;&gt; <span style="color:#008080">$project</span>/.envrc
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;export PATH=$(PWD)/bin:$PATH&#39;</span> &gt;&gt; <span style="color:#008080">$project</span>/.envrc
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;package main&#39;</span> &gt;&gt; <span style="color:#008080">$main</span> 
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;import &#34;fmt&#34;&#39;</span> &gt;&gt; <span style="color:#008080">$main</span>
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;func main() {&#39;</span> &gt;&gt; <span style="color:#008080">$main</span>
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;    fmt.Println(&#34;hello world&#34;)&#39;</span> &gt;&gt; <span style="color:#008080">$main</span> 
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#39;}&#39;</span> &gt;&gt; <span style="color:#008080">$main</span>
+  direnv allow <span style="color:#008080">$project</span>
+  <span style="color:#0086b3">echo</span> <span style="color:#d14">&#34;cd </span><span style="color:#008080">$project</span><span style="color:#d14">/src/</span><span style="color:#008080">$namespace</span><span style="color:#d14">/</span><span style="color:#008080">$project</span><span style="color:#d14"> #to start coding&#34;</span>
+<span style="color:#000;font-weight:bold">}</span></code></pre></div>
+<p>위 함수를 <code>.zshrc</code>에 정의한 다음, 터미널을 재시작 후 아래처럼 프로젝트를 생성합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ mkgoproject hellogo
+Creating new Go project:
+what is your project namespace: github.com/skyfe79
+엔터
+cd hellogo/src/github.com/skyfe79/hellogo #to start coding</pre></div>
+<p>그러면 위처럼 네임스페이스를 묻게 되고 설정 후 엔터를 누르면 아래와 같은 폴더 구조로 프로젝트를 생성합니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">hellogo
+└── src
+    └── github.com
+        └── skyfe79
+            └── hellogo
+                └── main.go
+
+4 directories, 1 file</pre></div>
+<p><code>알림</code> 이 글은 <a href="http://rachbelaid.com/handling-go-workspace-with-direnv/">Handling Go workspace with direnv</a>을 편역한 글입니다.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/go">Go</a></li>
+								
+								<li><a href="/tags/gopath">GOPATH</a></li>
+								
+								<li><a href="/tags/direnv">direnv</a></li>
+								
+								<li><a href="/tags/%EC%95%84%EB%A7%88%EC%B6%94%EC%96%B4-%EB%B2%88%EC%97%AD">아마추어 번역</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

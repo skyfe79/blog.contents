@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Github Actions로 Hugo 배포하기 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Github Actions로 Hugo 배포하기" />
+<meta property="og:description" content="travis-ci.org를 사용해 Hugo를 배포해 오다가 travis-ci.org가 유료로 변경되어 Github actions로 배포 방법을 변경했다. utterances 로 코멘트를 관리하기 때문에 코멘트 이슈를 관리하기 위해 레포를 2개로 분리하여 사용하고 있다.
+ 이슈 관리를 위한 hugo 레포 publish 대상인 블로그 레포  peaceiris/actions-hugo@v2를 사용해 쉽게 배포 워크플로우를 작성할 수 있었다.
+다른 레포에 접근하기 위해서 레포에 접근하기 위한 토큰을 만들어 디플로이를 하면 된다.
+...-name:Deployuses:peaceiris/actions-gh-pages@v3if:${{github.ref==&#39;refs/heads/master&#39;}}with:personal_token:${{secrets.PERSONAL_TOKEN}}external_repository:skyfe79/skyfe79.github.iopublish_branch:masterpublish_dir:./publiccname:blog.burt.pe.kr 워크플로우 전체 내용은 여기에서 확인할 수 있다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/deploy-hugo-with-github-actions/" />
+<meta property="article:published_time" content="2021-08-04T21:15:20+09:00" />
+<meta property="article:modified_time" content="2021-08-04T21:15:20+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Github Actions로 Hugo 배포하기"/>
+<meta name="twitter:description" content="travis-ci.org를 사용해 Hugo를 배포해 오다가 travis-ci.org가 유료로 변경되어 Github actions로 배포 방법을 변경했다. utterances 로 코멘트를 관리하기 때문에 코멘트 이슈를 관리하기 위해 레포를 2개로 분리하여 사용하고 있다.
+ 이슈 관리를 위한 hugo 레포 publish 대상인 블로그 레포  peaceiris/actions-hugo@v2를 사용해 쉽게 배포 워크플로우를 작성할 수 있었다.
+다른 레포에 접근하기 위해서 레포에 접근하기 위한 토큰을 만들어 디플로이를 하면 된다.
+...-name:Deployuses:peaceiris/actions-gh-pages@v3if:${{github.ref==&#39;refs/heads/master&#39;}}with:personal_token:${{secrets.PERSONAL_TOKEN}}external_repository:skyfe79/skyfe79.github.iopublish_branch:masterpublish_dir:./publiccname:blog.burt.pe.kr 워크플로우 전체 내용은 여기에서 확인할 수 있다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">Github Actions로 Hugo 배포하기</h1>
+			<div class="meta">Posted at &mdash; Aug 4, 2021</div>
+		</div>
+
+		
+
+
+
+
+
+
+
+		<div class="markdown">
+			<p><code>travis-ci.org</code>를 사용해 <code>Hugo</code>를 배포해 오다가 <code>travis-ci.org</code>가 유료로 변경되어 <code>Github actions</code>로 배포 방법을 변경했다. <code>utterances</code> 로 코멘트를 관리하기 때문에 코멘트 이슈를 관리하기 위해 레포를 2개로 분리하여 사용하고 있다.</p>
+
+<ul>
+<li>이슈 관리를 위한 hugo 레포</li>
+<li>publish 대상인 블로그 레포</li>
+</ul>
+
+<p><a href="https://github.com/peaceiris/actions-hugo">peaceiris/actions-hugo@v2</a>를 사용해 쉽게 배포 워크플로우를 작성할 수 있었다.</p>
+
+<p>다른 레포에 접근하기 위해서 레포에 접근하기 위한 토큰을 만들어 디플로이를 하면 된다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">...<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span>Deploy<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>uses:<span style="color:#bbb"> </span>peaceiris/actions-gh-pages@v3<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>if:<span style="color:#bbb"> </span>${{<span style="color:#bbb"> </span>github.ref<span style="color:#bbb"> </span>==<span style="color:#bbb"> </span><span style="color:#d14">&#39;refs/heads/master&#39;</span><span style="color:#bbb"> </span>}}<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>with:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>personal_token:<span style="color:#bbb"> </span>${{<span style="color:#bbb"> </span>secrets.PERSONAL_TOKEN<span style="color:#bbb"> </span>}}<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>external_repository:<span style="color:#bbb"> </span>skyfe79/skyfe79.github.io<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>publish_branch:<span style="color:#bbb"> </span>master<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>publish_dir:<span style="color:#bbb"> </span>./public<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>cname:<span style="color:#bbb"> </span>blog.burt.pe.kr</code></pre></div>
+<p>워크플로우 전체 내용은 <a href="https://github.com/skyfe79/blog.contents/blob/master/.github/workflows/deploy-hugo.yml">여기에서</a> 확인할 수 있다.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/hugo">hugo</a></li>
+								
+								<li><a href="/tags/github">github</a></li>
+								
+								<li><a href="/tags/actions">actions</a></li>
+								
+								<li><a href="/tags/deploy">deploy</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

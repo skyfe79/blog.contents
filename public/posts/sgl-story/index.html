@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>SGL:소프트웨어 3D 렌러러 이야기 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="SGL:소프트웨어 3D 렌러러 이야기" />
+<meta property="og:description" content="알림 이 글은 제 네이버 블로그 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.
+github https://github.com/skyfe79/SGL
+ 소프트웨어렌더러를 만들어 보자고 생각한 건 1년 전 쯤이었습니다. 게임 엔진 개발자를 꿈꾸는 저에게 소프트웨어 렌더러는 반드시 넘어야 할 첫 관문이라고 여겼기 때문이죠. 1년여의 시간동안 시간날 때마다 틈틈히 만들어 온 것이 구현하고자 했던 목표를 다 구현하게 되었습니다. 1년동안 프로젝트를 하면서 많은 정이 든 프로젝트이고 (도대체 갈아 엎기를 몇 번 ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/sgl-story/" />
+<meta property="article:published_time" content="2009-12-01T18:10:13+09:00" />
+<meta property="article:modified_time" content="2009-12-01T18:10:13+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SGL:소프트웨어 3D 렌러러 이야기"/>
+<meta name="twitter:description" content="알림 이 글은 제 네이버 블로그 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.
+github https://github.com/skyfe79/SGL
+ 소프트웨어렌더러를 만들어 보자고 생각한 건 1년 전 쯤이었습니다. 게임 엔진 개발자를 꿈꾸는 저에게 소프트웨어 렌더러는 반드시 넘어야 할 첫 관문이라고 여겼기 때문이죠. 1년여의 시간동안 시간날 때마다 틈틈히 만들어 온 것이 구현하고자 했던 목표를 다 구현하게 되었습니다. 1년동안 프로젝트를 하면서 많은 정이 든 프로젝트이고 (도대체 갈아 엎기를 몇 번 ?"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">SGL:소프트웨어 3D 렌러러 이야기</h1>
+			<div class="meta">Posted at &mdash; Dec 1, 2009</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#sgl4">SGL4</a></li>
+<li><a href="#sgl3">SGL3</a></li>
+<li><a href="#sgl2">SGL2</a></li>
+<li><a href="#sgl1">SGL1</a></li>
+</ul></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<blockquote>
+<p><code>알림</code> 이 글은 제 <a href="http://blog.naver.com/softdna">네이버 블로그</a> 에서 아카이빙을 위해 가져온 글입니다. 그 당시 svn 같은 소스 관리툴을 사용하지 않아서 코드 히스토리를 남기지 못한게 아쉽네요.</p>
+
+<p><code>github</code> <a href="https://github.com/skyfe79/SGL">https://github.com/skyfe79/SGL</a></p>
+</blockquote>
+
+<p>소프트웨어렌더러를 만들어 보자고 생각한 건 1년 전 쯤이었습니다. 게임 엔진 개발자를 꿈꾸는 저에게 소프트웨어 렌더러는 반드시 넘어야 할 첫 관문이라고 여겼기 때문이죠. 1년여의 시간동안 시간날 때마다 틈틈히 만들어 온 것이 구현하고자 했던 목표를 다 구현하게 되었습니다. 1년동안 프로젝트를 하면서 많은 정이 든 프로젝트이고 (도대체 갈아 엎기를 몇 번 ? ㅋㅋㅋ) 저에게 많은 도움을 준 프로젝트입니다. 특히 최적화 부분에 대해서 많은 것을 생각하게 해준 프로젝트였고 최적화라는 것이 얼마나 힘든 것인지 느꼈답니다&hellip; 아직도 많이 부족하지만 3D 그래픽스의 기초 원리를 배운 것에 만족하고 물리엔진, 캐릭터엔진, 지형엔진 개발로 발을 옮기려고 합니다. :)</p>
+
+<p>구현사항은 아래와 같습니다.</p>
+
+<ol>
+<li>깊이정렬</li>
+<li>클리핑 ( 오브젝트, 뷰잉공간, 이미지공간 )</li>
+<li>텍스춰매핑</li>
+<li>흉내만 낸 고러드 쉐이딩</li>
+<li>ambient 및 diffuse 라이팅 구현</li>
+<li>obj 모델 파일 렌더링</li>
+<li>md2 모델 파일 렌더링</li>
+</ol>
+
+<p>총 4번의 업그레이드를 지나오면서 위의 목표한 바를 구현하였습니다. <code>주의</code> 영상 소리 있음</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/wUCMvPbU6Ag" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+
+<p>SGL의 히스토리</p>
+
+<h3 id="sgl4">SGL4</h3>
+
+<ol>
+<li>좀 더 빠른 렌더링을 위해 DIBSECTION 대신 SDL 의 하드웨어 서피스를 사용.</li>
+<li>좀 더 세분화된 클리핑을 지원</li>
+<li>텍스춰 매핑 지원</li>
+<li>라이팅을 더 정확하게 구현</li>
+</ol>
+
+<p><img src="./images/sgl4_01_softdna.png" alt="" /></p>
+
+<h3 id="sgl3">SGL3</h3>
+
+<ol>
+<li>깊이정렬 구현</li>
+<li>벡페이스컬링 구현</li>
+</ol>
+
+<p><img src="./images/sgl3_01_softdna.png" alt="" />
+<img src="./images/sgl3_02_softdna.png" alt="" />
+<img src="./images/sgl3_03_softdna.png" alt="" /></p>
+
+<h3 id="sgl2">SGL2</h3>
+
+<ol>
+<li>OpenGL 의 인터페이스 흉내</li>
+<li>삼각형으로 오브젝트 정의</li>
+<li>플랫쉐이딩</li>
+<li>카메라무브</li>
+<li>단순한 라이팅</li>
+<li>단순한 클리핑( 이미지 공간 ) 등등 기본 적인 것들</li>
+</ol>
+
+<p><img src="./images/sgl2_01_softdna.png" alt="" />
+<img src="./images/sgl2_02_softdna.png" alt="" />
+<img src="./images/sgl2_03_softdna.png" alt="" />
+<img src="./images/sgl2_04_softdna.png" alt="" />
+<img src="./images/sgl2_05_softdna.png" alt="" /></p>
+
+<h3 id="sgl1">SGL1</h3>
+
+<ol>
+<li>소프트웨러렌더러를 처음 만들겠다고 마음 먹고 구현 했던 초 간단 버전</li>
+<li>첫 이름은 아톰3D 였어요. 3D 의 기본 Atom 이라고 생각해서 지은 이름이었답니다.</li>
+</ol>
+
+<p><img src="./images/sgl1_softdna.png" alt="" /></p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">프로젝트</a></li>
+								
+								<li><a href="/tags/%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4">오픈소스</a></li>
+								
+								<li><a href="/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EB%A0%8C%EB%8D%94%EB%9F%AC">소프트웨어렌더러</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

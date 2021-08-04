@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on Burt.K</title>
+    <link>https://blog.burt.pe.kr/tags/go/</link>
+    <description>Recent content in go on Burt.K</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>© Copyright Sungcheol Kim</copyright>
+    <lastBuildDate>Sun, 10 Nov 2019 17:35:24 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.burt.pe.kr/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go 로컬 패지키 모듈</title>
+      <link>https://blog.burt.pe.kr/posts/local-package-with-go-module/</link>
+      <pubDate>Sun, 10 Nov 2019 17:35:24 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/local-package-with-go-module/</guid>
+      <description>Go modules를 사용하면 $GOPATH를 신경쓰지 않고 Go 프로젝트를 시작할 수 있습니다. 이미 오픈되어 있는 Go모듈을 사용할 경우에는 아래처럼 go.mod파일에 패키지의 주소와 버전을 기입하면 패키지를 모듈로 사용할 수 있습니다.
+module star go 1.13 require ( github.com/fogleman/gg v1.3.0 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect 	golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8 // indirect ) 로컬패키지 그렇다면 로컬에 존재하는 패키지는 어떻게 go.mod파일에 기입할 수 있을까요? 아래와 같은 폴더 구조를 가지는 프로젝트를 생각해 보겠습니다.
+hellogo ├── constants └── logics hellogo 폴더 하위에 모듈로 constants와 logics를 가지고 있습니다.</description>
+    </item>
+    
+    <item>
+      <title>direvn로 $GOPATH 다루기</title>
+      <link>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</link>
+      <pubDate>Sun, 10 Nov 2019 14:10:12 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/handle-gopath-with-direnv/</guid>
+      <description>Go언어를 아직 많이 사용해 본 것은 아니지만 go modules를 사용할 때 로컬 패키지 처리가 번거러운 것 같아서 $GOPATH를 다루는 쉬운 방법이 없을까 찾아 보았습니다. 그러던 중 direnv를 발견하여 관련 내용을 정리해 봅니다.
+direnv direnv는 쉘의 환경 변수를 재정의하는 유틸리티입니다. Go언어는 $GOPATH를 워크스페이스마다 달리 설정해야 합니다. 하지만 매번 .bash_profile이나 .zshrc 같은 환경 파일을 편집해서 $GOPATH를 변경하는건 뭐랄까&amp;hellip; 음&amp;hellip;
+파이썬에는 virtualenv같은 가상의 개발 환경을 만들어주는 도구가 존재하지만 Go언어는 그렇지 않습니다. 워크스페이스 폴더를 $GOPATH로 설정해 주어야 할 때 direnv를 사용하면 아주 편리합니다.</description>
+    </item>
+    
+    <item>
+      <title>Hello Go module, Goodbye GOPATH</title>
+      <link>https://blog.burt.pe.kr/posts/good-bye-gopath/</link>
+      <pubDate>Sat, 02 Nov 2019 20:14:00 +0900</pubDate>
+      
+      <guid>https://blog.burt.pe.kr/posts/good-bye-gopath/</guid>
+      <description>Go언어를 접하면서 $GOPATH를 설정하는 점이 약간 부담스러웠다. 그러나 1.13 이후 버전부터는 go module기능을 사용하여 $GOPATH이외의 위치에서 프로젝트를 생성할 수 있다.
+시작하기 우선 프로젝트를 만들 폴더를 만든다. 예제로 AwesomeBin 폴더를 만들고 보자.
+$ mkdir AwesomeBin $ cd AwesomeBin AwesomeBin 폴더에 진입한 다음에 우리가 만들 모듈의 이름. main package가 있는 곳이면 실행 파일의 이름으로 모듈을 초기화한다. awesome 실행파일이라고 가정해 보자.
+$ go mod init awesome go: creating new go.mod: module awesome 그러면 go.</description>
+    </item>
+    
+  </channel>
+</rss>

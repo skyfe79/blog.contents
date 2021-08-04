@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>모나드와 함수형 아키텍처 6장. 부록 - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="모나드와 함수형 아키텍처 6장. 부록" />
+<meta property="og:description" content="6장. 부록 6-1. 타입 캐스팅 - C언어 타입 캐스팅이 위험한 이유 타입을 집합이라고 했을 때, C언어의 타입 캐스팅 연산자가 왜 위험한지 알 수 있습니다. 그리고 모던 프로그래밍 언어에는 타입 캐스팅 연산자가 왜 여러 개가 존재하는지 알 수 있습니다.
+C언어의 타입 캐스팅은 아래와 같습니다.
+int ch = (int)&#39;a&#39;; 문자형인 char 타입에서 정수형인 int 타입으로 타입 캐스팅을 하였습니다. C언어의 타입 캐스팅은 가장 강력하면서도 무식한 연산자입니다. 강력하면 좋을 것 같은데 왜 위험한 것일까요?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/series/monad-and-functional-architecture-part-6/" />
+<meta property="article:published_time" content="2019-11-01T23:00:32+09:00" />
+<meta property="article:modified_time" content="2019-11-01T23:00:32+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모나드와 함수형 아키텍처 6장. 부록"/>
+<meta name="twitter:description" content="6장. 부록 6-1. 타입 캐스팅 - C언어 타입 캐스팅이 위험한 이유 타입을 집합이라고 했을 때, C언어의 타입 캐스팅 연산자가 왜 위험한지 알 수 있습니다. 그리고 모던 프로그래밍 언어에는 타입 캐스팅 연산자가 왜 여러 개가 존재하는지 알 수 있습니다.
+C언어의 타입 캐스팅은 아래와 같습니다.
+int ch = (int)&#39;a&#39;; 문자형인 char 타입에서 정수형인 int 타입으로 타입 캐스팅을 하였습니다. C언어의 타입 캐스팅은 가장 강력하면서도 무식한 연산자입니다. 강력하면 좋을 것 같은데 왜 위험한 것일까요?"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">모나드와 함수형 아키텍처 6장. 부록</h1>
+			<div class="meta">Posted at &mdash; Nov 1, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#6장-부록">6장. 부록</a>
+<ul>
+<li><a href="#6-1-타입-캐스팅-c언어-타입-캐스팅이-위험한-이유">6-1. 타입 캐스팅 - C언어 타입 캐스팅이 위험한 이유</a></li>
+<li><a href="#6-2-이항연산과-컴퓨터-프래그래밍">6-2. 이항연산과 컴퓨터 프래그래밍</a></li>
+<li><a href="#6-3-빌더패턴-제네릭과-흐름">6-3. 빌더패턴, 제네릭과 흐름</a>
+<ul>
+<li><a href="#6-3-1-빌더패턴과-흐름">6-3-1. 빌더패턴과 흐름</a></li>
+<li><a href="#6-3-2-제네릭과-함수-합성">6-3-2. 제네릭과 함수 합성</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#글을-마치며">글을 마치며</a></li>
+<li><a href="#참고문헌">참고문헌</a></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<h2 id="6장-부록">6장. 부록</h2>
+
+<h3 id="6-1-타입-캐스팅-c언어-타입-캐스팅이-위험한-이유">6-1. 타입 캐스팅 - C언어 타입 캐스팅이 위험한 이유</h3>
+
+<p>타입을 집합이라고 했을 때, C언어의 타입 캐스팅 연산자가 왜 위험한지 알 수 있습니다. 그리고 모던 프로그래밍 언어에는 타입 캐스팅 연산자가 왜 여러 개가 존재하는지 알 수 있습니다.</p>
+
+<p>C언어의 타입 캐스팅은 아래와 같습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> ch <span style="color:#000;font-weight:bold">=</span> (<span style="color:#458;font-weight:bold">int</span>)<span style="color:#d14">&#39;a&#39;</span>;</code></pre></div>
+<p>문자형인 char 타입에서 정수형인 int 타입으로 타입 캐스팅을 하였습니다. C언어의 타입 캐스팅은 가장 강력하면서도 무식한 연산자입니다. 강력하면 좋을 것 같은데 왜 위험한 것일까요? 다음 예제를 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">사람은 죽는다.
+소크라테스는 사람이다.
+고로 소크라테스는 죽는다.</pre></div>
+<p>위 삼단 논법은 논리가 명확합니다. 윗글이 어떤 프로그램이라고 할 때, C언어의 타입 캐스팅을 적용해 보겠습니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">돌맹이 = (돌맹이)소크라테스
+
+사람은 죽는다.
+돌맹이는 사람이다.
+고로 돌맹이는 죽는다.</pre></div>
+<p>어떤가요? 말도 안 된다는 것을 알 수 있습니다. 즉, C언어의 타입 캐스팅은 프로그래밍 언어의 근간인 논리를 파괴하는 연산자입니다. 타입 캐스팅을 잘 못 하면 프로그램이 크래시가 발생하는 것은 부차적입니다. 프로그래밍은 논리의 언어인데 이 논리를 파괴하는 것이 더 큰 문제입니다. C언어가 이렇게 만들어진 이유는 오직 성능 때문입니다. 모던 프로그래밍 언어는 다양한 타입 캐스팅 연산자를 제공해 개발자가 프로그램의 논리를 파괴하지 않도록 도와줍니다. Kotlin만 보아도 <code>as</code>, <code>is</code> 그리고 toInt(), toString() 등 다양한 타입 캐스팅 연산자를 제공합니다. 그리고 각 타입 캐스팅 연산자마다 용도와 때가 정해져 있습니다. C언어처럼 A타입에서 B타입(예: Int와 Long) 간에 자동으로 캐스팅이 되는 경우는 없습니다.</p>
+
+<h3 id="6-2-이항연산과-컴퓨터-프래그래밍">6-2. 이항연산과 컴퓨터 프래그래밍</h3>
+
+<p>$1 + 45^{\circ}$은 이항 연산이 아닙니다. 수학의 이항 연산은 같은 집합의 두 원소 간의 연산이기 때문입니다. 따라서 $1 + 45^{\circ}$을 계산하려면 각도 집합으로 통일하던가 아니면 실수 집합으로 통일해서 연산해야 합니다. 컴퓨터 프로그래밍의 연산도 이러한 성질을 따릅니다. 서로 다른 타입 간에 연산은 정의되지 않는 것이 원칙입니다. C언어에서 정수 int 타입과 실수 Double 타입 간에 + 연산이 수행되는 이유는 정수 int 타입이 자동으로 Double 타입으로 변환되어 연산 되기 때문입니다. 하지만 이런 자동 형 변환은 좋지 않은 것이기 때문에 모던 프로그래밍 언어에서는 모두 직접 명시적으로 형 변환을 수행토록 하는 추세입니다.</p>
+
+<h3 id="6-3-빌더패턴-제네릭과-흐름">6-3. 빌더패턴, 제네릭과 흐름</h3>
+
+<h4 id="6-3-1-빌더패턴과-흐름">6-3-1. 빌더패턴과 흐름</h4>
+
+<p>이 글에서 살펴본 데이터의 흐름은 익숙한 모양새입니다. C++를 배웠다면 iostream의 입출력 연산자를 아래처럼 사용하는 것이 익숙할 것입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">std<span style="color:#000;font-weight:bold">::</span>cout <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#d14">&#34;2&#34;</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#099">3.0</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> std<span style="color:#000;font-weight:bold">::</span>endl
+</code></pre></div>
+<p>이렇게 쓸 수 있는 이유는 <code>&lt;&lt;</code> 연산자가 this 포인터를 반환하기 때문입니다. 그래서 this 포인터 체이닝을 구성할 수 있습니다. 이와 비슷한 패턴은 Builder 패턴입니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">val</span> builder = SomeType.Builder()
+
+builder
+    .setSomeValue(x)
+    .<span style="color:#000;font-weight:bold">set</span>....
+    .<span style="color:#000;font-weight:bold">set</span>....
+    .<span style="color:#000;font-weight:bold">set</span>...
+    .build()</code></pre></div>
+<p>빌더 패턴도 마찬가지로 각 메서드가 this포인터를 반환하여 위처럼 흐름을 구성할 수 있습니다. 모나드와 차이점은 this 포인터가 흐르는 것은 언제나 사이드이펙트가 발생할 수 있음을 암시하는 것입니다. 사이드이펙트를 줄이는 모나드와 달리 this 포인터를 흐르게 하는 것은 사이드이펙트를 부풀리는 것입니다.</p>
+
+<h4 id="6-3-2-제네릭과-함수-합성">6-3-2. 제네릭과 함수 합성</h4>
+
+<p>함수 합성식을 보면 모든 함수의 인자와 결과값을 제네릭 타입으로 설정하면 될 것처럼 느껴집니다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#000;font-weight:bold">fun</span> &lt;T&gt; <span style="color:#900;font-weight:bold">a</span>(value: T): T
+<span style="color:#000;font-weight:bold">fun</span> &lt;T&gt; <span style="color:#900;font-weight:bold">b</span>(value: T): T
+<span style="color:#000;font-weight:bold">fun</span> &lt;T&gt; <span style="color:#900;font-weight:bold">c</span>(value: T): T
+
+<span style="color:#000;font-weight:bold">val</span> result = c(b(a))</code></pre></div>
+<p>위처럼 함수를 작성할 수 있지만 내부 로직을 작성하는 일은 어렵습니다. 그 이유는 제네릭은 타입의 정보를 지우는 것에서 출발하기 때문입니다. 함수 a, b, c의 내용을 정의하려고 해도 타입 T가 클래스인지 원시타입인지 사칙 연산자는 지원하는지 등을 알 수 없기 때문에 함수의 로직을 작성하기가 어렵습니다. 그에 반해 모나드 Monad[T]는 감싸는 타입은 제네릭 타입이지만 자신의 타입은 그대로 유지합니다. 그리고 map과 flatMap을 실행할 때는 Monad[T]가 특정 타입으로 구체화 되어 있기 때문에 람다를 통해서 구체타입의 정보를 알 수 있어 원하는 연산을 수행할 수 있습니다.</p>
+
+<h2 id="글을-마치며">글을 마치며</h2>
+
+<p>지금까지 긴 글을 읽어 주셔서 감사합니다. 부족한 글이지만 모나드를 이해하는데 도움이 되었기를 바래봅니다. 수정할 내용 또는 피드백이 있으시다면 <a href="mailto:sungcheol@dable.io">sungcheol@dable.io</a> 또는 <a href="mailto:skyfe79@gmail.com">skyfe79@gmail.com</a>으로 보내주세요. 감사합니다.</p>
+
+<h2 id="참고문헌">참고문헌</h2>
+
+<ul>
+<li><a href="https://www.toptal.com/javascript/option-maybe-either-future-monads-js">Option/Maybe, Either, and Future Monads in JavaScript, Python, Ruby, Swift, and Scala</a></li>
+<li><a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">Category Theory for Programmers</a></li>
+<li><a href="http://www.yes24.com/Product/Goods/77283734?Acode=101">클린 아키텍처 - 소프트웨어 구조와 설계의 원칙, 로버트 C.마틴 지음</a></li>
+</ul>
+
+<p><code>알림</code> 이 글은 <a href="https://teamdable.github.io/techblog/Moand-and-Functional-Architecture">데이블 기술블로그</a>에 올린 글을 제 블로그에 다시 올린 글임을 알려드립니다.</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">함수형 프로그래밍</a></li>
+								
+								<li><a href="/tags/%EB%AA%A8%EB%82%98%EB%93%9C">모나드</a></li>
+								
+								<li><a href="/tags/%ED%95%A8%EC%88%98%ED%98%95-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">함수형 아키텍처</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>

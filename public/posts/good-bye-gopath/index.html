@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Hello Go module, Goodbye GOPATH - Burt.K</title><link rel="icon" type="image/png" href=images/favicon.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Hello Go module, Goodbye GOPATH" />
+<meta property="og:description" content="Go언어를 접하면서 $GOPATH를 설정하는 점이 약간 부담스러웠다. 그러나 1.13 이후 버전부터는 go module기능을 사용하여 $GOPATH이외의 위치에서 프로젝트를 생성할 수 있다.
+시작하기 우선 프로젝트를 만들 폴더를 만든다. 예제로 AwesomeBin 폴더를 만들고 보자.
+$ mkdir AwesomeBin $ cd AwesomeBin AwesomeBin 폴더에 진입한 다음에 우리가 만들 모듈의 이름. main package가 있는 곳이면 실행 파일의 이름으로 모듈을 초기화한다. awesome 실행파일이라고 가정해 보자.
+$ go mod init awesome go: creating new go.mod: module awesome 그러면 go." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.burt.pe.kr/posts/good-bye-gopath/" />
+<meta property="article:published_time" content="2019-11-02T20:14:00+09:00" />
+<meta property="article:modified_time" content="2019-11-02T20:14:00+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hello Go module, Goodbye GOPATH"/>
+<meta name="twitter:description" content="Go언어를 접하면서 $GOPATH를 설정하는 점이 약간 부담스러웠다. 그러나 1.13 이후 버전부터는 go module기능을 사용하여 $GOPATH이외의 위치에서 프로젝트를 생성할 수 있다.
+시작하기 우선 프로젝트를 만들 폴더를 만든다. 예제로 AwesomeBin 폴더를 만들고 보자.
+$ mkdir AwesomeBin $ cd AwesomeBin AwesomeBin 폴더에 진입한 다음에 우리가 만들 모듈의 이름. main package가 있는 곳이면 실행 파일의 이름으로 모듈을 초기화한다. awesome 실행파일이라고 가정해 보자.
+$ go mod init awesome go: creating new go.mod: module awesome 그러면 go."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://blog.burt.pe.kr/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://blog.burt.pe.kr/css/custom.css" />
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://blog.burt.pe.kr/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<h1 class="site-title"><a href="/">Burt.K</a></h1>
+	<div class="site-description"><h2>Awesome Discovery</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/skyfe79" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/skyfe79" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">Posts</a>
+			</li>
+			
+			<li>
+				<a href="/series">Series</a>
+			</li>
+			
+			<li>
+				<a href="/talks">Talks</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+		<div class="post-header">
+			<h1 class="title">Hello Go module, Goodbye GOPATH</h1>
+			<div class="meta">Posted at &mdash; Nov 2, 2019</div>
+		</div>
+
+		
+
+
+
+
+<h4 class="toc-heading">Table of Contents</h4>
+
+
+<nav id="TableOfContents">
+<ul>
+<li><a href="#시작하기">시작하기</a></li>
+<li><a href="#다른-예제">다른 예제</a></li>
+</ul>
+</nav>
+
+
+
+
+		<div class="markdown">
+			
+
+<p><code>Go</code>언어를 접하면서 <code>$GOPATH</code>를 설정하는 점이 약간 부담스러웠다. 그러나 1.13 이후 버전부터는 <code>go module</code>기능을 사용하여 <code>$GOPATH</code>이외의 위치에서 프로젝트를 생성할 수 있다.</p>
+
+<h2 id="시작하기">시작하기</h2>
+
+<p>우선 프로젝트를 만들 폴더를 만든다. 예제로 AwesomeBin 폴더를 만들고 보자.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ mkdir AwesomeBin
+$ cd AwesomeBin</pre></div>
+<p>AwesomeBin 폴더에 진입한 다음에 우리가 만들 모듈의 이름. main package가 있는 곳이면 실행 파일의 이름으로 모듈을 초기화한다. awesome 실행파일이라고 가정해 보자.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ go mod init awesome
+go: creating new go.mod: module awesome</pre></div>
+<p>그러면 <code>go.mod</code> 파일이 생성된다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ l
+drwxr-xr-x  3 burt  staff    96B 11  2 20:21 .
+drwxr-xr-x  4 burt  staff   128B 11  2 20:21 ..
+-rw-r--r--  1 burt  staff    24B 11  2 20:21 go.mod</pre></div>
+<p>go.mod 파일의 내용은 아래와 같다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module awesome
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span></code></pre></div>
+<p>여기에 디펜던시를 추가하려면 아래와 같이 <code>require</code>문을 사용하여 선언해준다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module awesome
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span>
+
+require github.com<span style="color:#000;font-weight:bold">/</span>cosiner<span style="color:#000;font-weight:bold">/</span>argv v0<span style="color:#099">.0.1</span></code></pre></div>
+<p>중요한 점은 버전을 꼭 명시해 주어야 한다. 버전 없이 기입하면 아래와 같이 <code>go build</code>를 할 때 오류가 발생한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">usage: require module/path v1.2.3</pre></div>
+<p>이제 main.go 파일을 만들고 아래와 같이 작성해 보자. 테스트로 작성하는 것이어서 구현 내용은 무시하자. :)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;fmt&#34;</span>
+	<span style="color:#d14">&#34;log&#34;</span>
+	<span style="color:#d14">&#34;os&#34;</span>
+
+	<span style="color:#d14">&#34;github.com/cosiner/argv&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;Testing Go module&#34;</span>)
+	args, err <span style="color:#000;font-weight:bold">:=</span> argv.<span style="color:#900;font-weight:bold">Argv</span>([]<span style="color:#0086b3">rune</span>(<span style="color:#d14">&#34; ls   `echo /`   |  wc  -l &#34;</span>), argv.<span style="color:#900;font-weight:bold">ParseEnv</span>(os.<span style="color:#900;font-weight:bold">Environ</span>()), argv.Run)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(args)
+}</code></pre></div>
+<p>main.go 파일을 저장한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ l
+drwxr-xr-x  4 burt  staff   128B 11  2 20:26 .
+drwxr-xr-x  4 burt  staff   128B 11  2 20:21 ..
+-rw-r--r--  1 burt  staff    57B 11  2 20:25 go.mod
+-rw-r--r--  1 burt  staff   282B 11  2 20:26 main.go</pre></div>
+<p><code>go build</code> 문으로 빌드를 한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ go build
+$</pre></div>
+<p>빌드가 끝나고 확인해 보면 <code>go mod init</code>으로 준 이름으로 실행파일이 생성된다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ l
+drwxr-xr-x  6 burt  staff   192B 11  2 20:28 .
+drwxr-xr-x  4 burt  staff   128B 11  2 20:21 ..
+-rwxr-xr-x  1 burt  staff   2.3M 11  2 20:28 awesome
+-rw-r--r--  1 burt  staff    64B 11  2 20:28 go.mod
+-rw-r--r--  1 burt  staff   165B 11  2 20:28 go.sum
+-rw-r--r--  1 burt  staff   282B 11  2 20:26 main.go</pre></div>
+<p>실행해 보면 아래와 같이 출력된다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ ./awesome
+Testing Go module
+[[ls /] [wc -l]]</pre></div>
+<p><code>$GOPATH</code>에서 해방되었다!!!</p>
+
+<h2 id="다른-예제">다른 예제</h2>
+
+<p><a href="https://velog.io/@kimmachinegun/Go-Go-Modules-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0-7cjn4soifk">Go Modules 살펴보기</a> 글에서 나온 예제도 만들어 보자.</p>
+
+<p><code>go mod init myecho</code>로 모듈을 초기화한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">module myecho
+
+<span style="color:#000;font-weight:bold">go</span> <span style="color:#099">1.13</span>
+
+require github.com<span style="color:#000;font-weight:bold">/</span>labstack<span style="color:#000;font-weight:bold">/</span>echo<span style="color:#000;font-weight:bold">/</span>v4 v4<span style="color:#099">.1.11</span></code></pre></div>
+<p><code>main.go</code>파일을 만들어 아래 코드를 입력한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;net/http&#34;</span>
+
+	<span style="color:#d14">&#34;github.com/labstack/echo/v4&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	e <span style="color:#000;font-weight:bold">:=</span> echo.<span style="color:#900;font-weight:bold">New</span>()
+	e.<span style="color:#900;font-weight:bold">GET</span>(<span style="color:#d14">&#34;/&#34;</span>, <span style="color:#000;font-weight:bold">func</span>(c echo.Context) <span style="color:#458;font-weight:bold">error</span> {
+		<span style="color:#000;font-weight:bold">return</span> c.<span style="color:#900;font-weight:bold">String</span>(http.StatusOK, <span style="color:#d14">&#34;Hello, World&#34;</span>)
+	})
+
+	e.Logger.<span style="color:#900;font-weight:bold">Fatal</span>(e.<span style="color:#900;font-weight:bold">Start</span>(<span style="color:#d14">&#34;:1323&#34;</span>))
+}</code></pre></div>
+<p><code>main.go</code> 파일을 저장하고 <code>go build</code>로 빌드한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ go build
+$ l
+drwxr-xr-x  6 burt  staff   192B 11  2 20:36 .
+drwxr-xr-x  5 burt  staff   160B 11  2 20:31 ..
+-rw-r--r--  1 burt  staff    68B 11  2 20:34 go.mod
+-rw-r--r--  1 burt  staff   2.8K 11  2 20:35 go.sum
+-rw-r--r--  1 burt  staff   232B 11  2 20:36 main.go
+-rwxr-xr-x  1 burt  staff   8.1M 11  2 20:36 myecho</pre></div>
+<p><code>myecho</code>를 실행한다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">$ ./myecho
+
+   ____    __
+  / __/___/ /  ___
+ / _// __/ _ \/ _ \
+/___/\__/_//_/\___/ v4.1.11
+High performance, minimalist Go web framework
+https://echo.labstack.com
+____________________________________O/_______
+                                    O\
+⇨ http server started on [::]:1323</pre></div>
+<p>브라우저에서 localhost:1323 으로 접속하면 결과가 출력된 화면을 볼 수 있다.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Hello, World</pre></div>
+<p>좀 더 다양한 얘기는 다음 글을 참고한다.</p>
+
+<ul>
+<li><a href="https://blog.golang.org/using-go-modules">Using Go Modules</a></li>
+<li><a href="https://velog.io/@kimmachinegun/Go-Go-Modules-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0-7cjn4soifk">Go Modules 살펴보기</a></li>
+<li><a href="https://aidanbae.github.io/code/golang/modules/">Go modules 시작하기</a></li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/go">go</a></li>
+								
+								<li><a href="/tags/gopath">gopath</a></li>
+								
+								<li><a href="/tags/gomodule">gomodule</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div><div id="disqus_thread"></div>
+<script src="https://utteranc.es/client.js"
+        repo="skyfe79/blog.contents"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright Sungcheol Kim |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151403685-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+</body>
+</html>
