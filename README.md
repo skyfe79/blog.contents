@@ -1,2 +1,2 @@
-# blog.contents
-My Blog Contents
+# skyfe79.github.io
+My blog
