@@ -30,9 +30,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
-          deploy_key: ${{ secrets.PERSONAL_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: skyfe79/skyfe79.github.io
           publish_branch: master
           publish_dir: ./
+          cname: blog.burt.pe.kr
