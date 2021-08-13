@@ -120,3 +120,7 @@ jobs:
 
 ![20210619_133757](https://user-images.githubusercontent.com/309935/129399943-24c8213a-e188-415d-81e2-5edef077726b.jpg)
   
+
+## Tags
+
+- 태그는 github issue에 붙이는 Label이 Hugo 의 태그로 변환됩니다. 😋
