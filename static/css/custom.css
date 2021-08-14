@@ -455,6 +455,10 @@ p code {
   margin-bottom: 2px;
 }
 
+.utterances {
+  max-width: 100%;
+}
+
 @media (max-width: 767px) {
     body {
         padding: 20px;
