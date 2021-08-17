@@ -14,7 +14,7 @@ Swift 로 UnitTest 작성 환경이 필요할 때, 가장 빠른 방법이 무�
 
 Swift Package Manager를 사용하면 쉽게 UnitTest 환경을 만들 수 있다. 아래처럼 테스팅을 위한 폴더를 만든 다음 Swift Package 로 초기화한다.
 
-```
+```bash
 $ mkdir collection-test
 $ cd collection-test
 $ swift package init 
@@ -62,7 +62,7 @@ Test Suite 'All tests' passed at 2021-08-17 23:36:38.864.
 
 ## 패키지 폴더 구조
 
-SPM 초기화한 패키지 폴더 구조는 아래와 같다.
+Swift Package Manager가 초기화한 패키지 폴더 구조는 아래와 같다.
 
 ```
 .
@@ -192,7 +192,7 @@ let package = Package(
 )
 ```
 
-`.testTarget` 에 `.product` 로 명확하게 `swift-collections`를 선언해 주는 것이 중요하다. 이렇게 하지 않으면 test타켓에서 `swift-collections`를 찾을 수 없다.. 디펜던시를 추가하고 `swift build` 또는 `swift test`를 실행하여 디펜던시를 설치한다.
+`.testTarget` 에 `.product` 로 명확하게 `swift-collections`를 선언해 주는 것이 중요하다. 이렇게 하지 않으면 test타겟에서 `swift-collections`를 찾을 수 없다.. 디펜던시를 추가하고 `swift build` 또는 `swift test`를 실행하여 디펜던시를 설치한다.
 
 ```
 $ swift test
