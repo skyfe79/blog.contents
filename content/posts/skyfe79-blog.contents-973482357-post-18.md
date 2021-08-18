@@ -57,7 +57,8 @@ $ code --install-extension sourcekit-lsp-development.vsix
 
 <img width="1136" alt="경고" src="https://user-images.githubusercontent.com/309935/129879581-2765650c-a00a-47f0-939e-e65d6e81afef.png">
 
-<img width="1136" alt="자동완성" src="https://user-images.githubusercontent.com/309935/129879829-222eb779-4fb1-438d-95db-284cc14e41fa.png">
+<img width="1136" alt="자동완성" src="https://user-images.githubusercontent.com/309935/129880607-de33121b-7ef7-45b4-bc4c-754f790cfb1d.png">
+
 
 
 ## 실행 결과
