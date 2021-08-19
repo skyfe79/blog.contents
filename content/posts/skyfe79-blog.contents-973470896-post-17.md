@@ -44,7 +44,7 @@ var cookies = [[Int]]()
 
 ```swift
 let myCookie = cookies[3][6]
-print(myCookie)
+XCTAssertEqual(myCookie, 0)
 ```
 
 물론 한 줄로 2차원 배열을 선언할 수 있다. 
@@ -52,7 +52,7 @@ print(myCookie)
 ```swift
 let cookies = [[Int]](repeating: [Int](repeating: 0, count: 7), count: 9)
 let myCookie = cookies[3][6]
-print(myCookie)
+XCTAssertEqual(myCookie, 0)
 ```
 
 그래도 C언어만큼 쉬워 보이진 않는다.
@@ -66,7 +66,7 @@ func dim<T>(_ count: Int, _ value: T) -> [T] {
 
 let cookies = dim(9, dim(7, 0))
 let myCookie = cookies[3][6]
-print(myCookie)
+XCTAssertEqual(myCookie, 0)
 ```
 
 dim 함수를 사용하면 2차원 보다 높은 고차원 배열을 쉽게 만들 수 있다.
@@ -74,7 +74,7 @@ dim 함수를 사용하면 2차원 보다 높은 고차원 배열을 쉽게 만�
 ```swift
 let threeDimensions = dim(2, dim(3, dim(4, 0)))
 let element = threeDimensions[1][1][1]
-print(element)
+XCTAssertEqual(element, 0)
 ```
 
 dim 함수 대신에 좀 더 명확한 Array2D 데이터 타입을 만들어 보자.
@@ -110,11 +110,15 @@ public struct Array2D<T> {
 
 ```swift
 var cookies = Array2D(columns: 9, rows: 7, initialValue: 0)
+XCTAssertEqual(cookies.columns, 9)
+XCTAssertEqual(cookies.rows, 9)
+
 var myCookie = cookies[3, 6]
-print(myCookie)
+XCTAssertEqual(myCookie, 0)
+
 cookies[3, 6] = 10
 myCookie = cookies[3, 6]
-print(myCookie)
+XCTAssertEqual(myCookie, 10)
 ```
 
 위 코드에서 [precondition](https://developer.apple.com/documentation/swift/1540960-precondition)은 `assert`와 비슷한 구문으로 조건이 false가 되면 프로그램은 실행을 멈추고 뒤의 메시지를 출력한다.
