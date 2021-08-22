@@ -5,7 +5,7 @@ draft: false
 tags: ["swift"]
 ---
 
-[Swift로 Command Line 앱 만들기 #1]() 글에서 배운 내용을 바탕으로 간단한 앱을 만들어 보자. 다음 두 가지 명령어를 지원하는 `random` 앱을 만들 것이다.
+[Swift로 Command Line 앱 만들기 #1](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-976285028-post-23/) 글에서 배운 내용을 바탕으로 간단한 앱을 만들어 보자. 다음 두 가지 명령어를 지원하는 `random` 앱을 만들 것이다.
 
 -  숫자를 입력하면 1부터 입력한 숫자 범위 내에서 임의로 숫자를 출력하는 명령어
 -  입력한 문자열 리스트 중에서 n개를 임의로 선택해 출력하는 명령어
