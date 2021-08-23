@@ -90,7 +90,7 @@ struct AsyncCommand: ParsableCommand {
     let group = DispatchGroup()
     asyncTask(group: group)
     group.notify(queue: .main, execute: {
-      AppInfo.exit()
+      AsyncCommand.exit()
     })
     dispatchMain()
   }
