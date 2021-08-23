@@ -73,7 +73,9 @@ Resolving https://github.com/Alamofire/Alamofire.git at 5.4.3
 
 `main.swift` 파일에 적은 함수 실행문은 메인스레드에서 순차적으로 동기로 실행된다. 만약 비동기로 실행하기 위해서는 비동기 실행을 한 다음 비동기 실행이 끝날 때까지 메인스레드를 잠시 멈추어야 한다. 그래야 비동기 실행이 마무리 될 때까지 프로그램이 종료되지 않고 대기할 수 있다.
 
-Swift에서는 이러한 내용을 [DispatchGroup](https://developer.apple.com/documentation/dispatch/dispatchgroup)을 사용하여 구현할 수 있다. 그 중 [dispatchMain()](https://developer.apple.com/documentation/dispatch/1452860-dispatchmain/) 함수는 메인스레드의 작업 실행을 블럭한다.
+Swift에서는 이러한 내용을 [DispatchGroup](https://developer.apple.com/documentation/dispatch/dispatchgroup)을 사용하여 구현할 수 있다. 일련의 비동기 작업을 하나의 DispatchGroup에 담아 실행하고 그룹에 담긴 모든 비동기 작업이 끝나면 DipatchGroup은 completion handler를 호출한다. [dispatchMain()](https://developer.apple.com/documentation/dispatch/1452860-dispatchmain/) 함수는 메인스레드의 작업 실행을 블럭한다. 
+
+따라서 `DispatchGroup`에 비동기 작업을 담아 실행하고 메인스레드는 `dispatchMain()`함수로 블럭해 놓는다. 그리고 그룹에 담긴 비동기 작업이 모두 끝나면 completion handler에서 `exit()` 함수를 호출해 프로그램을 종료한다.
 
 비동기 실행을 요하는 `ArgumentParser` 프로그램의 모습은 대략 아래와 같다.
 
