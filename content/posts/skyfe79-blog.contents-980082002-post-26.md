@@ -328,3 +328,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+## 예제 파일
+
+- [github-actions-starter-kit](https://github.com/skyfe79/github-actions-starter-kit)
