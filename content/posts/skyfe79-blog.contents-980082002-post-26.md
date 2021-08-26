@@ -177,6 +177,7 @@ const github = require('@actions/github');
     "@actions/github": "^5.0.0"
   }
 }
+```
 
 ### 액션 빌드
 
