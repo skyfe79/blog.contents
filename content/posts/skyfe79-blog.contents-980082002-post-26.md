@@ -83,7 +83,7 @@ runs:
   main: 'dist/index.js'
 ```
 
-위 파일의 내용은 Github Actions를 `hello-my-action`으로 명칭하고 입력으로는 `github-token`을 받는다. Action의 실행환경은 `node12`이며 실행파일은 `dist/index.js` 파일이다. 
+위 파일의 내용은 Github Actions를 `hello-my-action`으로 명칭하고 `github-token`을 입력해야 함을 의미한다. 그리고 액션의 실행환경은 `node12`이며 실행파일은 `dist/index.js` 파일임을 나타낸다. 
 
 더 자세한 내용은 [Github 문서](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action)를 참고한다. 
 
@@ -199,7 +199,7 @@ ncc: Compiling file index.js into CJS
 
 ### 액션 실행
 
-현재 액션을 실행할 때, `github-token`을 입력해야 한다. 그리고 액션은 `workflow_dispatch`일 때만 실행된다. `acc`로 이 상황을 쉽게 재현할 수 있다. `github-token`은 개인 github 설정에서 발급한다. 
+현재 정의한 워크플로우는 액션을 실행할 때, `github-token`을 입력해야 한다. 그리고 `workflow_dispatch` 이벤트가 발생할 때만 실행된다. `acc`로 이 상황을 쉽게 재현할 수 있다. `github-token`은 개인 github 설정에서 발급한다. 
 
 ```
 $ act workflow_dispatch -s GITHUB_TOKEN=abc..GJXJC
@@ -254,7 +254,7 @@ ncc: Compiling file index.js into CJS
 [main.yml/Hello My Actions]   🐳  docker exec cmd=[mkdir -p /Users/burt/github/skyfe79/github-actions-starter-kit] user=
 [main.yml/Hello My Actions] ⭐  Run checkout
 [main.yml/Hello My Actions]   ✅  Success - checkout
-[main.yml/Hello My Actions] ⭐  Run Greeting
+[main.yml/Hello My Actions] ⭐  Run Run My Actions
 [main.yml/Hello My Actions]   🐳  docker exec cmd=[node /Users/burt/github/skyfe79/github-actions-starter-kit/dist/index.js] user=
 | internal/modules/cjs/loader.js:985
 |   throw err;
@@ -273,7 +273,7 @@ Error: exit with `FAILURE`: 1
 ```
 
 실행하면 오류가 발생한다. `dist/index.js`를 찾을 수 없다는 오류이다. 왜 그럴까? 
-원인은 github에서 레포지토리를 생성할 때, 자동으로 만들어진 .gitignore 파일에 있다. `act`를 도커를 이용해 레포지토리 클론을 시뮬레이션하기 때문에 .gitignore에 포함되는 파일과 폴더는 도커로 복사하지 않아 `dist/index.js` 파일을 찾을 수 없는 것이다. 
+원인은 github에서 레포지토리를 생성할 때, 자동으로 만들어진 .gitignore 파일에 있다. `act`는 도커를 이용해 레포지토리 클론을 시뮬레이션하기 때문에 .gitignore에 포함되는 파일과 폴더는 도커로 복사하지 않아 `dist/index.js` 파일을 찾을 수 없는 것이다. 
 
 `.gitignore` 파일을 열고 `dist` 규칙을 삭제하거나 주석으로 변경한다.
 
