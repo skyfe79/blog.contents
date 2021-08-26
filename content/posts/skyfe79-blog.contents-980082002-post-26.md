@@ -312,6 +312,7 @@ ncc: Compiling file index.js into CJS
 
 - `.github/workflows/main.yml` 에 `uses: ./`는 수정하지 않아도 된다. 로컬에서 테스트하기 위해서 만든 액션 워크플로우이기 때문이다. 실제 적용할 레포지토리의 액션 워크플로우에서 아래처럼 `uses: ${repo_owner}/${action_name}@${action_version}`를 작성하면 된다.
 
+
 ```
 on:
   workflow_dispatch:
