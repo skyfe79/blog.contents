@@ -63,4 +63,4 @@ def func():
 func
 ```
 
-위 결과에 보이듯이 func.__name__이 wrapper가 아닌 func가 되었다. 데코레이터를 정의할 때는 꼭 functolls.wraps() 를 사용하자.
+위 결과에 보이듯이 func.__name__이 wrapper가 아닌 func가 되었다. 데코레이터를 정의할 때는 꼭 functools.wraps() 를 사용하자.
