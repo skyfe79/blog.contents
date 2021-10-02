@@ -17,6 +17,7 @@ tags: ["devops"]
 ## VPC :: 언제나 무료
 
 VPC의 많은 리소스는 생성하더라도 과금되지 않음.
+
 - VPC, Subnet, Route Table, VPC Peering
 - Internet Gateway, Virtual Gateway
 - DHCP Options Set
