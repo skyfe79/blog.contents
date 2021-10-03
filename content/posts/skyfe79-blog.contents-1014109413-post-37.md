@@ -58,7 +58,7 @@ Resources:
 ```
 
 
-## 게이트웨이 및 인터페이스 엔드포인트
+## VPC/Public & Private Subnet/RTB/IGW
 
 ```yaml
 Parameters:
