@@ -1,6 +1,7 @@
 ---
 title: "Swift 알고리즘 클럽: Array2D"
 date: 2021-08-18T09:36:20Z
+author: "skyfe79"
 draft: false
 tags: ["swift","알고리즘 클럽"]
 ---

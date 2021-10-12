@@ -1,6 +1,7 @@
 ---
 title: "파이썬 데코레이터 작성시 주의할 점"
 date: 2021-09-30T09:19:38Z
+author: "skyfe79"
 draft: false
 tags: ["python"]
 ---
