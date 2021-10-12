@@ -10,12 +10,13 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: Fetch issues and generate markdowns
-        uses: skyfe79/hugo-with-github-issues@v1.6
+        uses: skyfe79/hugo-with-github-issues@v1.7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repo: 'blog.contents'
           owner: 'skyfe79'
           skip-author: 'utterances-bot'
+          skip-pull-requests: 'true'
           use-issue-seperator: 'false'
           issue-state: 'all'
           output: 'content/posts'
