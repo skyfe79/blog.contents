@@ -35,12 +35,12 @@ $ vue create vue-electron
 
 아래 항목을 선택하고 Enter를 누른다.
  
- ◉ Choose Vue version
- ◉ Babel
- ◉ TypeScript
- ◉ Router
- ◉ Vuex
- ◉ Linter / Formatter
+ - ◉ Choose Vue version
+ - ◉ Babel
+ - ◉ TypeScript
+ - ◉ Router
+ - ◉ Vuex
+ - ◉ Linter / Formatter
 
 
 <img width="1368" alt="스크린샷 2021-10-28 오전 10 51 47" src="https://user-images.githubusercontent.com/309935/139172508-89450388-099b-40a0-96c0-a3db8399051d.png">
