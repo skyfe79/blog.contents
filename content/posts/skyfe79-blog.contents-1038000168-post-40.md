@@ -122,7 +122,7 @@ tailwind css 구성 파일을 minimal 로 선택한다.
 
 ## 제공하는 명령어 
 
-유명하진 않지만 [sl](https://www.npmjs.com/package/sl)을 사용하면 package.json이 제공하는 스크립트 명령어를 편하게 볼 수 있다.
+유명하진 않지만 [sl(script-list)](https://www.npmjs.com/package/script-list)을 사용하면 package.json이 제공하는 스크립트 명령어를 편하게 볼 수 있다.
 
 <img width="1368" alt="스크린샷 2021-10-28 오전 11 16 22" src="https://user-images.githubusercontent.com/309935/139174663-30323877-40a7-4ad1-98c9-6c77103f4b47.png">
 
@@ -139,3 +139,89 @@ $ npm run electron:serve
 <img width="912" alt="스크린샷 2021-10-28 오전 11 17 38" src="https://user-images.githubusercontent.com/309935/139174818-9d884250-c3a0-46cc-88b2-d67511a2564f.png">
 
 앱 빌드는 `npm run electron:build` 로 할 수 있다. 인증서 등이 필요하므로 자세한 내용은 [Electron Builder](https://www.electron.build/) 문서를 참고한다.
+
+## preload.js 설정
+
+preload.js 를 아래와 같이 설정하면 `preload.js` 파일을 찾을 수 없다는 오류가 발생한다.
+
+```javascript
+async function createWindow() {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      preload: path.resolve(__dirname, 'preload.js'),
+    },
+  });
+...
+}
+```
+<img width="912" alt="스크린샷 2021-11-02 오전 11 41 17" src="https://user-images.githubusercontent.com/309935/139778173-b0028471-aae6-4667-a0bd-4799e416ed9b.png"> 
+
+문제의 원인은 electron 배포 폴더에 preload.js 파일이 없기 때문이다. preload.js 파일이 src 폴더에 있을 때, 아래와 같이 vue.config.js를 설정하면 이슈가 해결된다.
+
+```javascript
+module.exports = {
+  pluginOptions: {
+    electronBuilder: {
+      preload: 'src/preload.js',
+    },
+  },
+};
+```
+
+<img width="1174" alt="스크린샷 2021-11-02 오전 11 45 26" src="https://user-images.githubusercontent.com/309935/139778500-ffb5c502-224a-42ef-b05e-05190cd7553d.png">
+
+`dist_electron` 폴더에 `preload.js` 파일이 따로 있는 것을 확인할 수 있다.
+
+
+## .vue 파일도 저장시 .prettier 내용 적용하기
+
+`.vscode/settings.json` 에 아래 내용을 추가한다.
+
+```json
+{
+  ...,
+  "editor.defaultFormatter": "octref.vetur",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.postcss": "prettier",
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatter.less": "prettier",
+  "vetur.format.defaultFormatter.stylus": "stylus-supremacy",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatter.ts": "prettier"
+}
+```
+
+## Electron, BrowserWindow 스크롤바 숨기기
+
+index.html 파일에 스타일을 지정해 주면 문제는 간단히 해결된다. 단, `overflow: hidden` 을 주면 스크롤이 동작하지 않는다. 그래서 `::-webkit-scrollbar`의 display를 none으로 처리하여 보이지 않게 하면, 스크롤바를 숨기면서 스크롤이 동작하도록 할 수 있다.
+
+```html
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>My Electron App</title>
+    <style>
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+
+```
