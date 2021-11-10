@@ -51,3 +51,74 @@ vscode에서 tailwindcss 를 사용할 때, `@tailwind` 같은 지시자를 오�
 
 - [Unknown at rule @tailwind 경고 회피하기](https://imkh.dev/vue-tailwind-rule/)을 참고한다.
 
+
+
+## 추천 도구: script-list
+
+`npm run`을 실행하면 package.json 에서 정의한 `scripts` 섹션의 내용을 보여준다.
+
+```
+$ npm run
+
+Lifecycle scripts included in nestjs-board-app:
+  start
+    nest start
+  test
+    jest
+
+available via `npm run-script`:
+  prebuild
+    rimraf dist
+  build
+    nest build
+  format
+    prettier --write "src/**/*.ts" "test/**/*.ts"
+  start:dev
+    nest start --watch
+  start:debug
+    nest start --debug --watch
+  start:prod
+    node dist/main
+  lint
+    eslint "{src,apps,libs,test}/**/*.ts" --fix
+  test:watch
+    jest --watch
+  test:cov
+    jest --coverage
+  test:debug
+    node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand
+  test:e2e
+    jest --config ./test/jest-e2e.json
+```
+
+보는 것이 좀 불편해서 주로 [script-list](https://www.npmjs.com/package/script-list) 도구를 사용한다. 결과가 깔금하게 나와서 좋다.
+
+```
+$ sl
+
+   my-nestjs-proj
+    - prebuild    : rimraf dist
+    - build       : nest build
+    - format      : prettier --write "src/**/*.ts" "test/**/*.ts"
+    - start       : nest start
+    - start:dev   : nest start --watch
+    - start:debug : nest start --debug --watch
+    - start:prod  : node dist/main
+    - lint        : eslint "{src,apps,libs,test}/**/*.ts" --fix
+    - test        : jest
+    - test:watch  : jest --watch
+    - test:cov    : jest --coverage
+    - test:debug  : node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand
+    - test:e2e    : jest --config ./test/jest-e2e.json
+```
+
+### script-list 설치
+
+글로벌로 설치하여 사용하면 편하다.
+
+```
+$ npm install -g script-list
+$ sl
+```
+
+자세한 내용은 [script-list](https://www.npmjs.com/package/script-list)에서 확인하자.
