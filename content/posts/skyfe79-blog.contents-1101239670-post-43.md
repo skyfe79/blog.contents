@@ -1,5 +1,5 @@
 ---
-title: "Google Sheet API 인증접근"
+title: "Google Sheet API 인증"
 date: 2022-01-13T05:53:58Z
 author: "skyfe79"
 draft: false
