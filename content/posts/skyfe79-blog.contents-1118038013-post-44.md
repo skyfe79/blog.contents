@@ -199,7 +199,7 @@ if let item = anyContainer.pop() {
     case is Double:
         print("Hi, I'm Double. and value is \(item)")
     default:
-        print("I don't know what am I")
+        print("I don't know what I am")
     }
 }
 ```
@@ -496,7 +496,7 @@ components.forEach { component in
         print(buttonComponent.layoutSize())
         print()
     default:
-        print("I don't know what am I")
+        print("I don't know what I am")
     }
 }
 ```
@@ -535,12 +535,12 @@ components.forEach { component in
         print(buttonComponent.layoutSize())
         print()
     default:
-        print("I don't know what am I")
+        print("I don't know what I am")
     }
 }
 ```
 
-실행하면 `SwitchComponent` 에 대해서는 `I don't know what am I` 가 출력된다. 
+실행하면 `SwitchComponent` 에 대해서는 `I don't know what I am` 가 출력된다. 
 
 ```swift
 MyLabel
@@ -551,7 +551,7 @@ MyButton
 <UIButton: 0x7fa47ff04e50; frame = (0 0; 0 0); opaque = NO; layer = <CALayer: 0x6000023e3760>>
 (200.0, 100.0)
 
-I don't know what am I
+I don't know what I am
 ```
 
 즉, `[Any]` 를 사용하면 새로운 컴포너트가 추가될 때마다 switch 문에 case를 추가해야 한다. 하지만 AnyCompoent를 사용하면 그렇지 않다.
