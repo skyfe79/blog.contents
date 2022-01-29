@@ -291,18 +291,18 @@ protocol Component {
 
 ### Abstract Base
 
-- Any 타입에서 지워지는 타입의 정보(속성과 메서드)를 가지고 있다.
-- 추상클래스로 구현한다.
+- 실제 구현되는 Component의 인스턴스를 담기 위한 Box의 타입 정보(속성과 메서드)를 가지고 있다.
+- 추상클래스 또는 프로토콜로 구현한다.
 
 ### Private Box
 
-- AbstractBase를 상속받는 클래스다.
-- Component 프로토콜을 채택하여 구현한 구체 인스턴스를 담는 상자다.
+- Component 프로토콜을 채택하여 구현한 구체 인스턴스를 담는 상자다. 따라서 타입 정보와 구현 내용을 담고 있다.
+- 클래스로 구현하면 AbstractBase를 상속받고 구조체로 구현하면 Abstract Base 프로토콜을 채택한다.
 - 위 그림에서 예를 들면 LabelComponent를 담게 되는 상자다.
 
 ### Public Wrapper
 
-- Protocol을 채택한다. 위 그림에서는 Component를 채택한다.
+- Protocol을 채택하여 타입정보를 갖는다. 위 그림에서는 Component를 채택한다.
 - 내부에 Private Box를 가지고 있다.
 - Private Box에 구체 인스턴스를 담는다.
 - Component 인터페이스 구현을 box를 통해 구현하다.
