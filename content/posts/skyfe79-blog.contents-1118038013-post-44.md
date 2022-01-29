@@ -297,7 +297,7 @@ protocol Component {
 ### Private Box
 
 - Component 프로토콜을 채택하여 구현한 구체 인스턴스를 담는 상자다. 따라서 타입 정보와 구현 내용을 담고 있다.
-- 클래스로 구현하면 AbstractBase를 상속받고 구조체로 구현하면 Abstract Base 프로토콜을 채택한다.
+- 클래스로 구현하면 Abstract Base를 상속받고 구조체로 구현하면 Abstract Base 프로토콜을 채택한다.
 - 위 그림에서 예를 들면 LabelComponent를 담게 되는 상자다.
 
 ### Public Wrapper
