@@ -307,7 +307,7 @@ protocol Component {
 - Private Box에 구체 인스턴스를 담는다.
 - Component 인터페이스 구현을 box를 통해 구현하다.
 
-Component 프로토콜의 Type Eraser Wrapper인 AnyComponent 를 구현해 보자. 제일 먼저 정의해야 할 것은 Abstract Base 클래스를 구현하는 것이다. 이 Base 클래스 역할을 Concrete Component를 담는 Box를 가리키기 위한 부모 포인터 역할을 한다. 
+Component 프로토콜의 Type Eraser Wrapper인 AnyComponent 를 구현해 보자. 제일 먼저 정의해야 할 것은 Abstract Base 클래스를 구현하는 것이다. 이 Base 클래스는 Concrete Component를 담는 Box를 가리키기 위한 부모 포인터 역할을 한다. 
 
 ```swift
 private class AnyComponentBase<Content>: Component {
