@@ -283,7 +283,7 @@ protocol Component {
 }
 ```
 
-아래 그림은 참고 문서에 기재한 [Breaking Down Type Eraser in Swift](https://bignerdranch.com/blog/breaking-down-type-erasure-in-swift/) 글에서 나오는 그림을 위 Component에 맞춰 그린 것으로 Swift 표준 라이브러리에서 Type Eraser Wrapper 를 만들 때 사용하는 패턴을 그림을 표현한 것이다.
+아래 그림은 참고 문서에 기재한 [Breaking Down Type Eraser in Swift](https://bignerdranch.com/blog/breaking-down-type-erasure-in-swift/) 글에서 나오는 그림을 위 Component에 맞춰 그린 것으로 Swift 표준 라이브러리에서 Type Eraser Wrapper 타입을 만들 때 사용하는 패턴을 그림으로 표현한 것이다.
 
 <img width="950" alt="swift-type-eraser-wrapper" src="https://user-images.githubusercontent.com/309935/151649032-9c7e4c3a-45a9-4ba2-a402-e8678cca5303.png">
 
