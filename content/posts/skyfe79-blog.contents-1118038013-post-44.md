@@ -246,23 +246,21 @@ Type Eraser Wrapper 패턴을 사용하면 위에서 보았던 문제를 어느�
 
 ```swift
 var dataCollection: [AnyCellModel<Int>] = [
-	AnyCellModel(IntCellModel1()),
-	AnyCellModel(IntCellModel2())
+    AnyCellModel(IntCellModel1()),
+    AnyCellModel(IntCellModel2())
 ]
 
 // 또는
 
 var dataCollection: [AnyCellModel] = [
-	AnyCellModel(IntCellModel)
-	AnyCellMidel(StringCellModel)
+    AnyCellModel(IntCellModel)
+    AnyCellMidel(StringCellModel)
 ]
 ```
 
 위 코드를 보면 하나는 제네릭 타입이 있는 Type Eraser Wrapper이고 다른 하나는 제네릭 타입이 없는 Type Eraser Wrapper 이다. 글을 진행하면서 왜 이렇게 두 경우로 나뉘는지도 설명한다.
 
-개인적으로 Type Eraser Wrapper 패턴을 잘 알아야 Swift를 좀 더 고급지게 사용할 수 있게 된다고 생각한다. 그리고 Swift 및 iOS 프래임워크는 이미 Type Eraser Wrapper 타입이 많이 있다. [Type-Erasing Wrappers](https://developer.apple.com/documentation/swift/swift_standard_library/collections/supporting_types) 
-
-문서를 보면 아래와 같은 타입이 있다.
+개인적으로 Type Eraser Wrapper 패턴을 잘 알아야 Swift를 좀 더 고급지게 사용할 수 있게 된다고 생각한다. 그리고 Swift 및 iOS 프래임워크는 이미 Type Eraser Wrapper 타입이 많이 있다. [Type-Erasing Wrappers](https://developer.apple.com/documentation/swift/swift_standard_library/collections/supporting_types)  문서를 보면 아래와 같은 타입이 있다.
 
 - AnySequence
 - AnyCollection
