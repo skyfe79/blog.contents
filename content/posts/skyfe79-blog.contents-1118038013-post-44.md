@@ -936,3 +936,8 @@ func component() -> AnyComponent {
 
 - **Breaking Down Type Erasure in Swift**
     - [https://bignerdranch.com/blog/breaking-down-type-erasure-in-swift/](https://bignerdranch.com/blog/breaking-down-type-erasure-in-swift/)
+
+## 예제 코드
+
+예제코드는 아래 URL에서 받을 수 있습니다.
+- https://github.com/skyfe79/SwiftTypeEraserWrapper
