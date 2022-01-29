@@ -891,7 +891,7 @@ flatMap의 기능을 생성자에 넣은 것이라 이해하면 된다.
 
 ## eraseToAnyComponent()
 
-Swift Combine의 eraseToAnyPublisher를 구현해 보자. Component에 확장 함수로 구현할 수 있다.
+Swift Combine의 eraseToAnyPublisher처럼 eraseToAnyComponent 함수를 구현해 보자. Component에 확장 함수로 구현할 수 있다.
 
 ```swift
 extension Component {
@@ -938,4 +938,5 @@ func component() -> AnyComponent {
 ## 예제 코드
 
 예제코드는 아래 URL에서 받을 수 있습니다.
-- https://github.com/skyfe79/SwiftTypeEraserWrapper
+ 
+ - https://github.com/skyfe79/SwiftTypeEraserWrapper
