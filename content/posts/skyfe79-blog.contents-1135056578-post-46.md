@@ -58,7 +58,7 @@ $ swift ArrayExtentionSample.swift
 
 swift 코드를 스크립트로 실행할 수 있다. 첫 줄에 `swift`를 해쉬뱅으로 설정하면 된다.
 
-```
+```swift
 #!/usr/bin/env swift
 
 import Foundation
@@ -96,7 +96,7 @@ print(["A", "B", "C"].customJoin())
 $ chmod +x ArrayExtentionSample.swift
 ```
 
- 단 한번만 실행 권을 주면 된다. 그 다음부터는 아래와 같이 실행한다.
+ 단 한번만 실행 권한을 주면 된다. 그 다음부터는 아래와 같이 실행한다.
 
 ```
 $ ./ArrayExtensionSample.swift
