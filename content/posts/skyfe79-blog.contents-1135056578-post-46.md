@@ -6,7 +6,7 @@ draft: false
 tags: ["swift"]
 ---
 
-이 글은 최적화에 대한 글이 아니다.😄 간단한 Swift 코드를 만들고 실행할 때, Xcode Playground 말고 다른 방법으로 Swift 코드를 빠르게 실행해 보는 방법에 관한 이야기다.
+이 글은 최적화에 관한 내용이 아니다. 간단한 Swift 코드를 작성하고 실행할 때, Xcode Playground 말고 다른 방법으로 Swift 코드를 빠르게 실행하는 방법에 관한 이야기다.
 
 ## Xcode Playground
 
