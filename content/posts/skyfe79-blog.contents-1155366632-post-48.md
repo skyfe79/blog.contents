@@ -6,7 +6,7 @@ draft: false
 tags: ["typescript"]
 ---
 
-타입스크립트는 enum 타입을 지원하지만 아쉽게도 Swift나 Rust 처럼 enum에 associated type(이하 연관타입) 을 지원하지 않는다. 연관 타입을 지원하는 언어는 Optional<T>를 아래와 같이 아주 쉽게 표현할  수 있다.
+타입스크립트는 enum 타입을 지원하지만 아쉽게도 Swift나 Rust 처럼 enum에 associated type(이하 연관타입) 을 지원하지 않는다. 연관 타입을 가진 enum을 지원하는 언어는 Optional<T>를 아래와 같이 아주 쉽게 표현할  수 있다.
 
 ```swift
 enum Optional<T> {
@@ -18,7 +18,7 @@ enum Optional<T> {
 
 ## 타입스크립트 `Optional<T>` 구현 - 1차
 
-타입스크립트는 associated type이 있는 enum을 지원하지 않기 때문에 class 활용해 비슷하게 흉내 낼 수 있다.
+타입스크립트는 연관 타입이 있는 enum을 지원하지 않기 때문에 class 활용해 비슷하게 흉내 낼 수 있다.
 
 ```typescript
 class Optional<T> {
