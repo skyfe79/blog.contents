@@ -6,7 +6,7 @@ draft: false
 tags: ["swift"]
 ---
 
-sync 방식으로 파일을 읽는 방법은 많다. 제일 간다한 방법은 `String(contentOfFile:)` 을 사용하는 것이다. Swfit 5.5 에 추가된 async/await 를 적용하면 비동기로 파일을 읽을 수 있다. 
+sync 방식으로 파일을 읽는 방법은 많다. 제일 간단한 방법은 `String(contentOfFile:)` 을 사용하는 것이다. Swift 5.5 에 추가된 async/await 를 적용하면 비동기로 파일을 읽을 수 있다. 
 
 현재 폴더에서 ReadLocalFile.swift 를 생성한다.
 
