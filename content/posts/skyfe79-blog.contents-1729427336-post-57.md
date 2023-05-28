@@ -222,7 +222,7 @@ eval('location.href="https://google.com"'); // google.com으로 이동합니다.
 
 Scope는 함수를 기반으로 합니다. Scope는 함수 내에서 변수에 대한 접근을 관리합니다. JavaScript에서는 전역 스코프와 함수 스코프(또는 지역 스코프) 두 가지 스코프만 있습니다.
 
-Execution Context는 객체 지향적입니다. Execution Context는 현재 코드가 실행되는 환경에 대한 정보를 가지는 추상적 개념입니다. 함수의 context는 해당 함수의 this 키워드 값입니다.
+Execution Context는 객체 지향적입니다. Execution Context는 현재 코드가 실행되는 환경에 대한 정보를 가지는 추상적 개념입니다. 함수의 context는 해당 함수의 this 포인터가 가리키는 값입니다.
 
 ## Scope의 예
 
@@ -245,7 +245,7 @@ console.log(b); // ReferenceError: b is not defined
 var a = 1;
 
 function example() {
-  console.log(this); // 전체 global 객체를 출력합니다.
+  console.log(this); // 전역 실행 컨텍스트 객체를 출력합니다.
 }
 
 example();
