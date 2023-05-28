@@ -6,25 +6,27 @@ draft: false
 tags: ["javascript"]
 ---
 
-자바스크립트를 사용하면서 제일 처음 경험한 어려움은 undefinded 와 null 구분이었다. 둘 다 비슷한 것 같은데 언제 어떻게 구분해서 사용하는지 판단하기 어려웠다.
+# 5. undefined와 null
+
+자바스크립트를 사용하면서 제일 처음 경험한 어려움은 undefinded 와 null 구분이었습니다. 둘 다 비슷한 것 같은데 언제 어떻게 구분해서 사용하는지 판단하기 어려웠습니다.
 
 ## 1. undefined
 
-undefined는 변수를 선언하지 않거나 값을 할당하지 않았을 때 **자동으로 생성**되는 값이다. 
+undefined는 변수를 선언하지 않거나 값을 할당하지 않았을 때 **자동으로 설정**되는 값입니다.
 
 ```javascript
 let a;
 console.log(a); // undefined
 ```
 
-위 코드에서 변수 a를 선언만 하고 값을 할당하지 않았기 때문에, 결과로 undefined가 출력된다. 객체의 속성값을 찾으려고 할 때 해당 속성값이 존재하지 않으면 undefined가 반환된다.
+위 코드에서 변수 a를 선언만 하고 값을 할당하지 않았기 때문에, 결과로 undefined가 출력됩니다. 객체의 속성값을 찾으려고 할 때 해당 속성값이 존재하지 않으면 undefined가 반환됩니다.
 
 ```javascript
 let obj = {name: 'John'};
 console.log(obj.age); // undefined
 ```
 
-함수가 값을 반환하지 않을 때도 undefined가 반환된다.
+함수가 값을 반환하지 않을 때도 undefined가 반환됩니다.
 
 ```js
 function odd(x) {
@@ -37,24 +39,24 @@ console.log(odd(2)); // undefined
 
 ## 2. null
 
-null은 **의도적으로** 값이 없음을 나타내는 데이터 타입이다. null은 어떤 변수나 속성값에 대해서도 할당 가능하며, 이를 통해 해당 변수나 속성값에 아직 값을 할당할 수 없음을 명시적으로 나타낼 수 있다.
+null은 **의도적으로** 값이 없음을 나타내는 데이터 타입입니다. null은 어떤 변수나 속성값에 대해서도 할당 가능하며, 이를 통해 해당 변수나 속성값에 아직 값을 할당할 수 없음을 명시적으로 나타낼 수 있습니다.
 
 ```javascript
 let b = null;
 console.log(b); // null
 ```
 
-위 코드에서 b 변수에 null 값을 할당했기 때문에, 결과로 null이 출력된다. 
+위 코드에서 b 변수에 null 값을 할당했기 때문에, 결과로 null이 출력됩니다.
 
 ## 3. 언제 undefined를 쓰고 null을 써야 할까?
 
-개인적으로 undefined와 null을 아래 기준으로 나누어 사용하고 있다. 
+개인적으로 undefined와 null을 아래 기준으로 나누어 사용하고 있습니다.
 
-undefined는 값이 할당되지 않은 변수나 객체의 속성값 등의 상황에서 자바스크립트 엔진이 자동으로 설정하는 값이다. 반면에, null은 의도적으로 값이 없음을 나타내기 위해 개발자가 명시적으로 할당하는 값이다.
+undefined는 값이 할당되지 않은 변수나 객체의 속성값 등의 상황에서 자바스크립트 엔진이 자동으로 설정하는 값인 반면에, null은 의도적으로 값이 없음을 나타내기 위해 개발자가 명시적으로 할당하는 값입니다.
 
-따라서 개발자가 명시적으로 undefined를 할당하는 것은 되도록이면 피해야 한다. 값이 없음을 명확하게 표현하기 위해서는 null 을 사용해야 한다. 그런데 이 규칙은 잘 지켜지지 않는 것 같다. 애초에 이렇게 구분해서 써야 하는 것 자체가 자바스크립트 언어의 문제가 아닐까...
+따라서 개발자가 명시적으로 undefined를 할당하는 것은 되도록이면 피해야 한합니다. 값이 없음을 명확하게 표현하기 위해서는 null 을 사용해야 합니다. 그런데 이 규칙은 강제성이 없기 때문에 지키기 어렵습니다. 애초에 이렇게 구분해서 써야 하는 것 자체가 자바스크립트 언어의 문제가 아닐까...생각합니다.
 
-undefined는 typeof 연산자를 이용해서 확인하면 `undefined`가 출력되지만, null은 이상하게도 `object`가 출력된다. 
+undefined는 typeof 연산자를 이용해서 확인하면 `undefined`가 출력되지만, null은 이상하게도 `object`가 출력됩니다.
 
 ```javascript
 let c;
@@ -64,7 +66,7 @@ let d = null;
 console.log(typeof d); // object
 ```
 
-`typeof null === 'null'` 이 출력되는 것은 자바스크립트의 버그로 자바스크립트 최초 구현이 담고 있던 문제였지만 이를 수정하게 되면 그로 인한 파장을 감당하기 어려워 아직까지 그대로 존재하고 있다고 한다.🥶
+`typeof null === 'null'` 이 출력되는 것은 자바스크립트의 버그로 자바스크립트 최초 구현이 담고 있던 문제였지만 이를 수정하게 되면 그로 인한 파장을 감당하기 어려워 아직까지 그대로 존재하고 있다고 합니다.🥶
 
 > In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was `0`. `null` was represented as the NULL pointer (`0x00` in most platforms). Consequently, `null` had `0` as type tag, hence the `typeof` return value `"object"`. ([reference](https://2ality.com/2013/10/typeof-null.html))
 > 
@@ -200,14 +202,14 @@ function findUser(id) {
 
 ## 6. isNullish
 
-undefined와 null을 비교할 때는 주의해야 한다. 다음 코드를 보자. 
+undefined와 null을 비교할 때는 주의해야 합니다. 다음 코드를 봅시다.
 
 ```js
 console.log(undefined == null); // true
 console.log(undefined === null); // false
 ```
 
-둘 다 false가 맞는 것 같지만 그렇지 않다. 따라서 값이 없음을 나타내는지 명확하게 검사하는 타입 검사 도구를 정의해 사용하는 것이 안전하다.
+둘 다 false가 맞는 것 같지만 결과는 그렇지 않습니다. 따라서 `값이 없음`을 명확하게 검사하는 타입 검사 도구를 정의해 사용하는 것이 안전합니다.
 
 ```js
 function isNullish(value) {
@@ -224,5 +226,9 @@ if (!isNullish(someValue)) {
 	// do something
 }
 ```
+
+
+
+
 
 
