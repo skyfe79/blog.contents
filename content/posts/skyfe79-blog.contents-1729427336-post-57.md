@@ -6,10 +6,7 @@ draft: false
 tags: ["javascript"]
 ---
 
-
-> 이 글은 [Understanding Execution Context in JavaScript](https://www.telerik.com/blogs/understanding-execution-context-javascript) 글을 편역한 것입니다.
-
-자바스크립트 엔진이 코드를 해석하고 실행하는 복잡성을 관리하기 위해 실행 컨텍스트가 사용됩니다. 실행 컨텍스트는 현재 코드가 실행되는 환경에 대한 정보를 담고 있는 추상적인 개념입니다.
+자바스크립트 엔진은 코드를 해석하고 실행하는 복잡성을 관리하기 위해 실행 컨텍스트를 사용합니다. 실행 컨텍스트는 현재 코드가 실행되는 환경에 대한 정보를 담고 있는 추상적인 개념입니다.
 
 자바스크립트에는 세 가지 실행 컨텍스트 유형이 있습니다:
 
