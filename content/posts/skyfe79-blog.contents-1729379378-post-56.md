@@ -6,8 +6,6 @@ draft: false
 tags: ["javascript"]
 ---
 
-# 5. undefined와 null
-
 자바스크립트를 사용하면서 제일 처음 경험한 어려움은 undefinded 와 null 구분이었습니다. 둘 다 비슷한 것 같은데 언제 어떻게 구분해서 사용하는지 판단하기 어려웠습니다.
 
 ## 1. undefined
