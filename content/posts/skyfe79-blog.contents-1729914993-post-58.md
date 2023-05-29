@@ -1,5 +1,5 @@
 ---
-title: "Prototype 이란?"
+title: "프로토타입(Prototype) 이란?"
 date: 2023-05-29T02:57:44Z
 author: "skyfe79"
 draft: false
