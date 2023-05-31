@@ -1,5 +1,5 @@
 ---
-title: "프로토타입 체인"
+title: "객체 상속과 프로토타입 체인"
 date: 2023-05-29T04:48:22Z
 author: "skyfe79"
 draft: false
