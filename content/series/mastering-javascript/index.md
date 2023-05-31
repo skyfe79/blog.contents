@@ -19,5 +19,5 @@ tags: ["자바스크립트", "javascript"]
 
 - [프로토타입(Prototype) 이란?](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1729914993-post-58/)
 - [객체 생성과 프로토타입](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1730022399-post-59/)
-- [프로토타입 체인](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1730042772-post-60/)
+- [객체 상속과 프로토타입 체인](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1730042772-post-60/)
 - [프로토타입과 속성 검색](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1730784606-post-61/)
