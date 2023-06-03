@@ -9,8 +9,9 @@ tags: ["javascript"]
 ## 1. 객체 속성
 
 자바스크립트 객체의 속성은 키와 값으로 구성되며, 이는 객체의 상태와 행동을 나타냅니다. 자바스크립트에서는 두 가지 방식으로 객체의 속성에 접근할 수 있습니다
-- 점 표기법(dot notation)
-- 대괄호 표기법(bracket notation)
+
+ - 점 표기법(dot notation)
+ - 대괄호 표기법(bracket notation)
 
 ## 2. 점 표기법으로 속성에 접근하기
 
