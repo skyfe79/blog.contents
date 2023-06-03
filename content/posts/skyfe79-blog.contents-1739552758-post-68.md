@@ -75,7 +75,7 @@ console.log(obj.myProp); // 'Hello, World!'
 
 ## 4. enumerable 속성
 
-`enumerable` 속성은 해당 속성이 열거 가능한지를 결정합니다. 이 값이 `true`일 때만 해당 속성을 `for...in` 루프나 `Object.keys()` 등으로 열거할 수있습니다.
+`enumerable` 속성은 해당 속성이 열거 가능한지를 결정합니다. 이 값이 `true`일 때만 해당 속성을 `for...in` 루프나 `Object.keys()` 등으로 열거할 수 있습니다.
 
 ```javascript
 var obj = Object.create({}, {
@@ -106,7 +106,7 @@ console.log(obj.myProp); // 'Hello, World!'
 
 ## 6. Object.create()와 객체 속성 설명자
 
-Object.create()의 두 번째 파라미터인 객체 속성 설명자를 사용하면 새로운 객체를 생성하는 동시에 그 객체의 속성들을 상세하게 설정할 수 있습니다. 따라서 객체 생성과 속성 설정을 한번에 할 수 있어 코드를 간결하게 작성할 수 있습니다. 
+`Object.create()`의 두 번째 파라미터인 객체 속성 설명자를 사용하면 새로운 객체를 생성하는 동시에 그 객체의 속성들을 상세하게 설정할 수 있습니다. 따라서 객체 생성과 속성 설정을 한번에 할 수 있어 코드를 간결하게 작성할 수 있습니다. 
 
 ```javascript
 var obj = Object.create({}, {
