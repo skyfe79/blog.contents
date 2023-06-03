@@ -1,17 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700|Roboto:400,700,900|Courier+Prime:400,700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 body {
-    font-family: "ubuntu",sans-serif;
+    background: transparent;
+    color: #303336;
+    font-size: 12.6pt;
+    font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
     font-weight: 400;
-    color: #333;
-    line-height: 1.8;
-    font-size: 18px;
-    letter-spacing: 1px;
-    word-spacing: 1px;
+    line-height: 1.75;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+html, body {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
 a, a:hover {
     color: #b00;
     text-decoration: none;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 html,button,input,select,textarea {
@@ -35,6 +46,7 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1rem 0;
     padding: 0;
+    
 }
 
 img {
@@ -63,19 +75,36 @@ textarea {
 }
 
 blockquote {
-    margin-left: 1rem;
     font-size: 1.1rem;
     font-style: unset;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    border-color: #d00;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    border-radius: 1rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
     background-color: rgba(0, 0, 0, 0.0);
+    border-width: 0.1rem;
+    border-color: rgba(128, 128, 128, 0.5);
 }
+
+blockquote p:before {
+    content: '\e244';
+    font-family: 'Material Icons';
+    display: inline-block;
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+    font-size: 1.2rem;
+    color: rgba(128, 128, 128, 0.5)
+}
+
+blockquote p:after {
+    content: '\e244';
+    font-family: 'Material Icons';
+    display: inline-block;
+    font-size: 1.2rem;
+    color: rgba(128, 128, 128, 0.5)
+}
+
 
 blockquote cite {
     font-size: 70%;
@@ -86,46 +115,49 @@ blockquote em {
     font-weight: 600;
 }
 
-a,a:hover {
-    color: #b00;
-    text-decoration: none
+a {
+    outline: 0; 
+    color: #b00; 
+    text-decoration: none;
 }
-
+a img {
+    border: 0px; text-decoration: none;
+}
 a:hover {
     text-decoration: underline
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: 'Noto Sans KR', sans-serif;
-    line-height: 1.2;
-    color: #333;
-    font-weight: 400;
-    margin-top: 48px;
-    margin-bottom: 16px;
+    font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-top: 7%;
+    margin-bottom: 2%;
+    word-break: keep-all;
 }
 
 h1 {
-    font-size: 2.75rem;
+    font-size: 2.4em;
 }
-
 h2 {
-    font-size: 2rem;
+    font-size: 2.1em;
 }
-
 h3 {
-    font-size: 1.6rem;
+    font-size: 1.8em
 }
-
 h4 {
-    font-size: 1.2rem;
+    font-size: 1.6em
 }
-
 h5 {
-    font-size: 1rem;
+    font-size: 1.4em
+}
+h6 {
+    font-size: 1.25em
 }
 
-h6 {
-    font-size: .9rem;
+.site-description > h2 {
+    font-size: 1.125rem;
+    font-weight: 400;
 }
 
 .align-center {
@@ -173,6 +205,8 @@ ul.flat li {
 
 ul {
     list-style: disc inside;
+    padding: 0.25em 1em 0.5em 1.5em;
+    margin: 0 0 0.25em;
 }
 
 .site-title a {
@@ -185,49 +219,61 @@ ul {
     font-style: italic;
 }
 
+strong, b {
+    font-weight: 700;
+}
+em, i {
+    font-style: italic;
+}
+
 .post ul li {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .post ul li p {
     display: inline;
 }
 
+span.mrow {
+    font-family: sans-serif !important;
+    font-style: italic !important;
+    font-size: 1rem;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+div.MathJax_Display span {
+    font-size: 1.2rem;    
+}
+
 p {
-    margin-bottom: 24px;
+    line-height:1.825; 
+    word-break: break-all;
+    word-wrap: none;
 }
 
 p code {
-    display: inline-block;
-    border: 0px solid rgb(205, 205, 205, 0.5);
-    background-color: rgb(205, 205, 205, 0.2);
+    font-family: monospace;
     border-radius: 4px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-    padding-right: 8px;
-    color: #333;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: #000;
     line-height: 22px;
-    text-decoration: none;
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-
-.highlight pre {
-    margin-bottom: 16px;
-    margin-top: 16px;
-    padding: 16px;
-    background-color: transparent !important;
+    
+    text-decoration: underline;
+    text-decoration-color: #F00;
+    text-underline-offset: 5px;
+    text-decoration-style: dashed;
 }
 
 .highlight {
-    background: 0 0;
-    background-color: rgba(128, 128, 128, 0.1);
-    border-radius: 0.3rem;
-    border-width: 3px;
-    border-style: solid;
-    border-color: rgb(205, 205, 205, 0.5);
-    margin-bottom: 16px;
+    border-radius: 0.2rem;
+    font-family: monospace;
+    background: #272822;
+    color: #f8f8f2;
+    box-shadow: 0px 2px 2px #000;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .wrapper {
@@ -430,15 +476,13 @@ p code {
 }
 
 #TableOfContents > ul {
-    margin-bottom: 100px;
+    font-size: 0.9rem;
+    margin-left: 0px;
 }
 
 #TableOfContents > ul li {
     list-style: none;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    padding: 2px;
-    line-height: 1.1;
+    line-height: 1.4;
 }
 
 .toc-heading {

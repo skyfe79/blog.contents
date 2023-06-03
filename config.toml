@@ -9,7 +9,7 @@ copyright = "© Copyright Sungcheol Kim"
 googleAnalytics = "G-X3Z7WBLG6V"
 
 # Enable syntax highlighting.
-pygmentsstyle = "github"
+pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
