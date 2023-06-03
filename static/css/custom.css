@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700|Roboto:400,700,900|Courier+Prime:400,700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@1,500&display=swap');
 
 body {
     background: transparent;
@@ -234,16 +235,14 @@ em, i {
     display: inline;
 }
 
-span.mrow {
-    font-family: sans-serif !important;
+mjx-container {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+} 
+mjx-math {
+    font-size: 1.1rem !important;
     font-style: italic !important;
-    font-size: 1rem;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-div.MathJax_Display span {
-    font-size: 1.2rem;    
+    
 }
 
 p {
