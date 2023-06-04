@@ -15,7 +15,7 @@ tags: ["javascript"]
 ```javascript
 let person = {
   firstName: "Kim",
-  lastName: "Minjun",
+  lastName: "Sungcheol",
   fullName: function() {
     return this.firstName + " " + this.lastName;
   }
@@ -32,7 +32,7 @@ let person = {
 ```javascript
 let person = {
   firstName: "Kim",
-  lastName: "Minjun",
+  lastName: "Sungcheol",
   fullName: function() {
     return this.firstName + " " + this.lastName;
   }
@@ -48,7 +48,7 @@ ES6에서는 메서드를 보다 간결하게 정의할 수 있는 문법이 도
 ```javascript
 let person = {
   firstName: "Kim",
-  lastName: "Minjun",
+  lastName: "Sungcheol",
   fullName() {
     return this.firstName + " " + this.lastName;
   }
