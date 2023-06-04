@@ -90,17 +90,24 @@ person.sayHello(); // "Hello, Kim"
 
 ## 4. this와 화살표 함수
 
-`this`는 화살표 함수에서 동작하는 방식이 다릅니다. 화살표 함수 내부에서 `this`는 화살표 함수를 감싸고 있는 외부 함수나 객체의 `this` 를 사용합니다. 만약 외부 함수나 객체가 없다면 `this`는 전역 객체를 참조합니다.
+`this`는 화살표 함수에서 동작하는 방식이 다릅니다. 화살표 함수 내부에서 `this`는 화살표 함수를 감싸고 있는 외부 함수(상위 스코프)의 `this` 를 사용합니다. 만약 외부 함수가 없다면 `this`는 `undefined` 로 바인딩 되지 않습니다.
 
 ```javascript
 let person = {
   name: "Kim",
   sayHello: () => {
-    console.log("Hello, " + this.name);
+    console.log("Hello, " + this.name); // this 는 undefined 입니다.
+  },
+  sayHello2() {
+   console.log(this); // sayHello2() 메서드의 this는 person 입니다.
+   return () => {
+      console.log("Hello, " + this.name); // this 는 상위 함수의 person 입니다.
+    }
   }
 };
 
-person.sayHello(); // "Hello, undefined"
+person.sayHello(); // "Hello, undefined" 또는 오류 발생
+person.sayHello()(); // "Hello, Kim"
 ```
 
 
