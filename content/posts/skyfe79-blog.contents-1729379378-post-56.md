@@ -64,7 +64,7 @@ let d = null;
 console.log(typeof d); // object
 ```
 
-`typeof null === 'null'` 이 출력되는 것은 자바스크립트의 버그로 자바스크립트 최초 구현이 담고 있던 문제였지만 이를 수정하게 되면 그로 인한 파장을 감당하기 어려워 아직까지 그대로 존재하고 있다고 합니다.🥶
+`typeof null === 'object'` 가 출력되는 것은 자바스크립트의 버그로 자바스크립트 최초 구현이 담고 있던 문제였지만 이를 수정하게 되면 그로 인한 파장을 감당하기 어려워 아직까지 그대로 존재하고 있다고 합니다.🥶
 
 > In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was `0`. `null` was represented as the NULL pointer (`0x00` in most platforms). Consequently, `null` had `0` as type tag, hence the `typeof` return value `"object"`. ([reference](https://2ality.com/2013/10/typeof-null.html))
 > 
