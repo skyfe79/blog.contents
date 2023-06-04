@@ -39,3 +39,6 @@ tags: ["자바스크립트", "javascript"]
 - [객체 메서드와 this](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740111571-post-70/)
 - [객체 속성과 속성 설명자](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740118854-post-71/)
 - [Object.getOwnPropertyDescriptor()](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740133587-post-72/)
+- [객체 복사](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740156657-post-73/)
+- [객체 불변성](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740156750-post-74/)
+- [객체 상속](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740161545-post-75/)
