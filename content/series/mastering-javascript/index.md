@@ -35,3 +35,7 @@ tags: ["자바스크립트", "javascript"]
 - [객체 속성 삭제하기](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1739493692-post-65/)
 - [객체 속성 열거하기](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1739504984-post-66/)
 - [객체 속성과 in 연산자](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1739513728-post-67/)
+- [객체 메서드](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740077304-post-69/)
+- [객체 메서드와 this](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740111571-post-70/)
+- [객체 속성과 속성 설명자](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740118854-post-71/)
+- [Object.getOwnPropertyDescriptor()](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-1740133587-post-72/)
