@@ -296,7 +296,7 @@ enum CustomError: Error { case message(String) }
 
 `expansion(of:in:)` 메서드는 ExprSyntax의 인스턴스를 반환합니다. 이는 SwiftSyntax에서 표현식을 나타내는 유형으로 StringLiteralConvertible 프로토콜을 준수합니다. 따라서 매크로 구현은 가벼운 문법으로 문자열 리터럴을 사용하여 결과를 생성합니다. 매크로에서 반환하는 SwiftSyntax 유형은 모두 StringLiteralConvertible 프로토콜을 준수하므로 모든 종류의 매크로를 구현할 때 이 접근 방식을 사용할 수 있습니다.
 
-# 매크로 개발 및 디버깅
+## 매크로 개발 및 디버깅
 
 매크로는 테스트를 사용하여 개발하기에 적합한 기능입니다. 매크로는 외부 상태에 의존하지 않으며, 외부 상태에 변경을 가하지 않으면서 하나의 AST를 다른 AST로 변환하기 때문입니다. 또한 문자열 리터럴로부터 구문 노드를 생성할 수 있으므로 테스트 입력을 설정하는 것을 단순화합니다. 또한 AST의 description 속성을 읽어서 예상 값과 비교하는 데 사용할 수 있습니다. 다음은 이전 섹션에서 설명한 `#fourCharacterCode` 매크로의 테스트 예시입니다.
 
