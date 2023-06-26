@@ -7,7 +7,6 @@ tags: ["swift","swift5.9"]
 ---
 
 
-
 Swift는 iOS, macOS, watchOS, tvOS 앱 개발을 위한 프로그래밍 언어입니다. C 또는 Objective-C 개발 경험이 있다면, Swift의 많은 부분이 친숙할 것입니다.
 
 Swift는 정수에 대한 Int, 부동 소수점 값에 대한 Double 및 Float, 불리언 값에 대한 Bool, 텍스트 데이터에 대한 String을 비롯한 모든 기본 C 및 Objective-C 타입의 자체 버전을 제공합니다. Swift는 [Collection Types](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/collectiontypes)에서 설명된 Array, Set 및 Dictionary의 세 가지 주요 컬렉션 타입의 강력한 버전도 제공합니다.
@@ -96,7 +95,7 @@ let 🐶🐮 = "dogcow"
 
 > 참고
 > 
-> Swift 예약어와 동일한 이름을 가진 상수 또는 변수를 지정해야 할 경우, 이름을 사용할 때 예약어를 역 따옴표`(```)`로 묶어 이스케이프합니다. 그러나 절대적으로 선택할 수 없는 경우를 제외하고는 키워드를 이름으로 사용하지 않는 것이 좋습니다.
+> Swift 예약어와 동일한 이름을 가진 상수 또는 변수를 지정해야 할 경우, 이름을 사용할 때 예약어를 역 따옴표`(̀)`로 묶어 이스케이프합니다. 그러나 절대적으로 선택할 수 없는 경우를 제외하고는 키워드를 이름으로 사용하지 않는 것이 좋습니다.
 
 호환 가능한 타입의 값이라면 다른 값을 저장할 수 있습니다. 이 예제에서 friendlyWelcome의 값은 "Hello!"에서 "Bonjour!"로 변경됩니다.
 
