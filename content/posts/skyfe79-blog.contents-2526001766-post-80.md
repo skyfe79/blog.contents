@@ -6,10 +6,6 @@ draft: false
 tags: ["react"]
 ---
 
-> 알림
-> 이 글은 [What’s new in React 19](https://vercel.com/blog/whats-new-in-react-19) 글을 한국어로 편역한 내용을 담고 있습니다.
-
-
 React 19가 곧 출시됩니다. React 코어 팀이 지난 4월에 [React 19 릴리즈 후보(RC)를 공개했습니다](https://react.dev/blog/2024/04/25/react-19#new-feature-use). 이번 메이저 버전은 성능, 사용성, 그리고 개발자 경험을 개선하기 위해 여러 업데이트와 새로운 패턴을 도입했습니다.
 
 React 18에서 실험적으로 선보였던 많은 기능들이 이제 React 19에서 안정화 단계에 접어들었습니다. 개발자 여러분이 알아두면 좋을 주요 변경 사항들을 간단히 정리해 보겠습니다.
@@ -552,3 +548,8 @@ React 19는 커스텀 엘리먼트를 완전히 지원하며 [Custom Elements Ev
 - `onUncaughtError`: 오류가 발생했지만 오류 경계에서 잡지 못했을 때 실행됩니다.
 - `onRecoverableError`: 오류가 발생했지만 자동으로 복구되었을 때 실행됩니다.
 
+
+
+## 알림
+
+이 글은 [What’s new in React 19](https://vercel.com/blog/whats-new-in-react-19) 글을 한국어로 편역한 내용을 담고 있습니다.
