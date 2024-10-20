@@ -92,7 +92,7 @@ CSS 처리에 걸리는 시간을 알아보려면 DevTools에서 타임라인을
 
 ![DevTools에서 CSSOM 구축 추적](https://github.com/user-attachments/assets/0f6d6617-66e7-4426-999e-9d754bb82dd7)
 
-우리의 간단한 스타일시트를 처리하는 데 약 0.6ms가 걸리고 페이지의 8개 엘리먼트에 영향을 미친다. 많지 않지만 여전히 무료는 아니다. 그러나 8개의 엘리먼트는 어디서 왔을까? CSSOM과 DOM은 독립적인 데이터 구조다! 알고 보니 브라우저는 중요한 단계를 숨기고 있다. 다음으로 [렌더 트리](https://web.dev/articles/critical-rendering-path/render-tree-construction)가 DOM과 CSSOM을 어떻게 연결하는지 살펴볼 것이다.
+우리의 간단한 스타일시트를 처리하는 데 약 0.6ms가 걸리고 페이지의 8개 엘리먼트에 영향을 미친다. 많지 않지만 여전히 무료는 아니다. 그러나 8개의 엘리먼트는 어디서 왔을까? CSSOM과 DOM은 독립적인 데이터 구조다! 알고 보니 브라우저는 중요한 단계를 숨기고 있다. 다음으로 [렌더 트리](https://blog.burt.pe.kr/posts/skyfe79-blog.contents-2600376447-post-82/)가 DOM과 CSSOM을 어떻게 연결하는지 살펴볼 것이다.
 
 ## 알림
 
