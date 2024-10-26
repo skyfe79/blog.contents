@@ -3,7 +3,7 @@ title: "Promise.prototype.finally"
 date: 2024-10-21T13:03:55Z
 author: "skyfe79"
 draft: false
-tags: ["javascript","web","V8","\bECMAScript"]
+tags: ["javascript","web","아마추어 번역","V8","\bECMAScript"]
 ---
 
 `Promise.prototype.finally`는 Promise가 *처리됐을 때*(즉, resolve되거나 reject됐을 때) 실행할 콜백을 등록할 수 있게 한다.

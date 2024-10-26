@@ -3,7 +3,7 @@ title: "Intl.PluralRules"
 date: 2024-10-21T12:57:49Z
 author: "skyfe79"
 draft: false
-tags: ["javascript","web","V8","\bECMAScript"]
+tags: ["javascript","web","아마추어 번역","V8","\bECMAScript"]
 ---
 
 국제화는 쉽지 않다. 복수형 처리는 언뜻 간단해 보이지만, 실제로 모든 언어마다 고유한 복수형 규칙이 있어 복잡하다.
