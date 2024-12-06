@@ -37,7 +37,7 @@ ___
 
 # React 19의 새로운 기능
 
-### 액션(Actions)
+## 액션(Actions)
 
 React 앱에서 자주 발생하는 패턴은 데이터를 변경하고 그에 따라 상태를 업데이트하는 것이다. 예를 들어, 사용자가 이름을 변경하기 위해 폼을 제출할 때 API 요청을 보내고 응답을 처리한다. 이전에는 대기 상태, 오류, 낙관적 업데이트, 연속적인 요청 등을 수동으로 처리해야 했다.
 
@@ -111,9 +111,9 @@ function UpdateName({}) {
 
 비동기 트랜지션은 즉시 `isPending` 상태를 true로 설정하고, 비동기 요청을 실행한 후, 모든 트랜지션이 완료되면 `isPending`을 false로 전환한다. 이를 통해 데이터가 변경되는 동안에도 현재 UI를 반응적이고 상호작용 가능한 상태로 유지할 수 있다.
 
-### 참고
+## 참고
 
-#### 관례상 비동기 트랜지션을 사용하는 함수를 "액션"이라고 부른다.
+### 관례상 비동기 트랜지션을 사용하는 함수를 "액션"이라고 부른다.
 
 액션은 데이터 제출을 자동으로 관리한다:
 
@@ -153,7 +153,7 @@ function ChangeName({ name, setName }) {
 
 다음 섹션에서는 React 19의 새로운 액션 기능을 하나씩 자세히 살펴본다.
 
-### 새로운 훅: `useActionState`
+## 새로운 훅: `useActionState`
 
 액션의 일반적인 사용 사례를 더 쉽게 만들기 위해 새로운 훅 `useActionState`를 추가했다:
 
@@ -175,7 +175,7 @@ const [error, submitAction, isPending] = useActionState(
 
 `useActionState`는 함수(액션)를 받고 호출할 수 있는 래핑된 액션을 반환한다. 액션은 합성이 가능하기 때문에 이러한 방식이 작동한다. 래핑된 액션이 호출되면, `useActionState`는 액션의 마지막 결과를 `data`로, 액션의 대기 상태를 `pending`으로 반환한다.
 
-### 참고
+## 참고
 
 `React.useActionState`는 이전 Canary 릴리스에서 `ReactDOM.useFormState`로 불렸지만, 이름이 변경되었고 `useFormState`는 더 이상 사용되지 않는다.
 
@@ -195,7 +195,7 @@ const [error, submitAction, isPending] = useActionState(
 
 자세한 내용은 `react-dom`의 [`<form>`](https://react.dev/reference/react-dom/components/form), [`<input>`](https://react.dev/reference/react-dom/components/input), `<button>` 문서를 참조한다.
 
-### React DOM: 새로운 훅: `useFormStatus`
+## React DOM: 새로운 훅: `useFormStatus`
 
 디자인 시스템에서는 props를 컴포넌트까지 전달하지 않고도 포함된 `<form>`에 대한 정보에 접근해야 하는 디자인 컴포넌트를 작성하는 것이 일반적이다. 이는 Context를 통해 수행할 수 있지만, 일반적인 사용 사례를 더 쉽게 만들기 위해 새로운 훅 `useFormStatus`를 추가했다:
 
@@ -212,7 +212,7 @@ function DesignButton() {
 
 자세한 내용은 `react-dom`의 [`useFormStatus`](https://react.dev/reference/react-dom/hooks/useFormStatus) 문서를 참조한다.
 
-### 새로운 훅: `useOptimistic`
+## 새로운 훅: `useOptimistic`
 
 데이터 변경을 수행할 때 또 다른 일반적인 UI 패턴은 비동기 요청이 진행되는 동안 최종 상태를 낙관적으로 보여주는 것이다. React 19에서는 이를 더 쉽게 만들기 위해 `useOptimistic`이라는 새로운 훅을 추가했다:
 
@@ -247,7 +247,7 @@ function ChangeName({currentName, onUpdateName}) {
 
 자세한 내용은 [`useOptimistic`](https://react.dev/reference/react/useOptimistic) 문서를 참조한다.
 
-### 새로운 API: `use`
+## 새로운 API: `use`
 
 React 19에서는 렌더링 중에 리소스를 읽는 새로운 API인 `use`를 도입한다.
 
@@ -273,9 +273,9 @@ function Page({commentsPromise}) {
 }
 ```
 
-### 참고
+## 참고
 
-#### `use`는 렌더링 중에 생성된 Promise를 지원하지 않는다.
+### `use`는 렌더링 중에 생성된 Promise를 지원하지 않는다.
 
 렌더링 중에 생성된 Promise를 `use`에 전달하려고 하면 React는 경고를 표시한다:
 
