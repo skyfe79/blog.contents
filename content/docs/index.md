@@ -10,3 +10,5 @@ type: "page"
 - [NestJS 한글 문서](https://nestjs.burt.pe.kr)
 - [Drizzle ORM 한글 문서](https://drizzle-orm.burt.pe.kr/)
 - [NodeJS 한글 문서](https://github.com/skyfe79/nodejs-ko-docs)
+- [sst.dev 가이드 한글 문서](https://sst-guide.burt.pe.kr)
+  
