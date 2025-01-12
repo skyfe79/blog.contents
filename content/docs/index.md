@@ -11,4 +11,4 @@ type: "page"
 - [Drizzle ORM 한글 문서](https://drizzle-orm.burt.pe.kr)
 - [NodeJS 한글 문서](https://github.com/skyfe79/nodejs-ko-docs)
 - [sst.dev 한글 가이드 문서](https://sst-guide.burt.pe.kr)
-- [wxt 한글 가이드 문서](https://wxt.burt.pe.kr)
+- [WXT 한글 가이드 문서](https://wxt.burt.pe.kr)
