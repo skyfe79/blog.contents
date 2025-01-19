@@ -13,3 +13,6 @@ type: "page"
 - [NodeJS 한글 문서](https://github.com/skyfe79/nodejs-ko-docs)
 - [sst.dev 한글 가이드 문서](https://sst-guide.burt.pe.kr)
 - [WXT 한글 가이드 문서](https://wxt.burt.pe.kr)
+- [NextAuthJS 한글 문서(번역중)](https://next-auth.burt.pe.kr)
+- [React Hook Form 한글 문서](https://react-hook-form.burt.pe.kr)
+- [MSW 한글 문서(번역중)](https://msw.burt.pe.kr)
