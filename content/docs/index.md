@@ -7,7 +7,7 @@ type: "page"
 
 > 제가 한국어로 번역한 개발자 문서 링크 목록입니다.
 
-- [Tailwindcss 한글 문서](https://tailwindcss.burt.pe.kr/docs/installation)
+- [Tailwindcss 한글 문서](https://tailwindcss.burt.pe.kr)
 - [NestJS 한글 문서](https://nestjs.burt.pe.kr)
 - [Drizzle ORM 한글 문서](https://drizzle-orm.burt.pe.kr)
 - [NodeJS 한글 문서](https://github.com/skyfe79/nodejs-ko-docs)
@@ -16,3 +16,4 @@ type: "page"
 - [NextAuthJS 한글 문서(번역중)](https://next-auth.burt.pe.kr)
 - [React Hook Form 한글 문서](https://react-hook-form.burt.pe.kr)
 - [MSW 한글 문서(번역중)](https://msw.burt.pe.kr)
+- [Jotai 한글 문서](https://jotai.burt.pe.kr)
