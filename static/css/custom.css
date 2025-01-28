@@ -269,6 +269,47 @@ p code {
     margin-bottom: 2rem;
 }
 
+/* 테이블 스타일 추가 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95em;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: 700;
+    text-align: left;
+    padding: 12px 8px;
+    border: 1px solid #e1e1e8;
+}
+
+td {
+    padding: 10px 8px;
+    border: 1px solid #e1e1e8;
+    line-height: 1.4;
+}
+
+tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* 모바일 환경을 위한 테이블 반응형 스타일 */
+@media (max-width: 767px) {
+    table {
+        font-size: 0.85em;
+    }
+    
+    th, td {
+        padding: 8px 6px;
+    }
+}
+
 .wrapper {
     max-width: 960px;
     margin: 0 auto;
