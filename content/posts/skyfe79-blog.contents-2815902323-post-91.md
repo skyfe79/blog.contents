@@ -1,5 +1,5 @@
 ---
-title: "PostgreSQL 튜토리얼"
+title: "[PostgreSQL] 제1부. 튜토리얼"
 date: 2025-01-28T14:48:05Z
 author: "skyfe79"
 draft: false

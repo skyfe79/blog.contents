@@ -1,5 +1,5 @@
 ---
-title: "PostgresSQL 서문"
+title: "[PostgresSQL] 서문"
 date: 2025-01-28T14:36:00Z
 author: "skyfe79"
 draft: false
