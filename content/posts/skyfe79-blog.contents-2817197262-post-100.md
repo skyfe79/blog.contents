@@ -10,11 +10,13 @@ tags: ["ai"]
 
 > 알림: [RAG Chatbot Guide](https://sdk.vercel.ai/docs/guides/rag-chatbot#rag-chatbot-guide)를 한국어로 번역한 글입니다.
 
-![Image](https://github.com/user-attachments/assets/722c5b9d-23f7-4b79-8b6c-daef42e01840)
-
 ## RAG 챗봇 가이드
 
-이 가이드에서는 검색 기반 생성(Retrieval-Augmented Generation, RAG) 챗봇 애플리케이션을 구축하는 방법을 배운다. 본격적인 내용에 들어가기 전에 RAG가 무엇이고 왜 필요한지 알아보자.
+이 가이드에서는 검색 기반 생성(Retrieval-Augmented Generation, RAG) 챗봇 애플리케이션을 구축하는 방법을 배운다. 
+
+![Image](https://github.com/user-attachments/assets/722c5b9d-23f7-4b79-8b6c-daef42e01840)
+
+본격적인 내용에 들어가기 전에 RAG가 무엇이고 왜 필요한지 알아보자.
 
 ### RAG란 무엇인가?
 
