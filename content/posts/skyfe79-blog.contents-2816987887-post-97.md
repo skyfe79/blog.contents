@@ -16,8 +16,8 @@ Node.js HTTP 서버에서 AI SDK를 활용하여 텍스트를 생성하고 클�
 curl -X POST http://localhost:8080
 ```
 
-##### 참고
-  이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
+> 참고
+> 이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
 
 **전체 예제**: [github.com/vercel/ai/examples/node-http-server](https://github.com/vercel/ai/tree/main/examples/node-http-server)
 
@@ -102,8 +102,8 @@ Express 서버에서 AI SDK를 활용하여 텍스트와 객체를 생성하고 
 curl -X POST http://localhost:8080
 ```
 
-##### 참고
-  이 예제에서는 OpenAI의 `gpt-4o` 모델을 사용한다. 실행하기 전에 `OPENAI_API_KEY` 환경 변수에 OpenAI API 키를 설정해야 한다.
+> 참고
+> 이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
 
 
 **전체 예제 코드**: [github.com/vercel/ai/examples/express](https://github.com/vercel/ai/tree/main/examples/express)
@@ -207,8 +207,8 @@ Hono 서버에서 AI SDK를 사용하여 텍스트와 객체를 생성하고 클
 curl -X POST http://localhost:8080
 ```
 
-##### 참고
-  이 예제들은 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
+> 참고
+> 이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
 
 
 **전체 예제**: [github.com/vercel/ai/examples/hono](https://github.com/vercel/ai/tree/main/examples/hono)
@@ -326,8 +326,8 @@ Fastify 서버에서 AI SDK를 활용하여 텍스트와 객체를 생성하고 
 curl -X POST http://localhost:8080
 ```
 
-##### 참고
-  이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키를 `OPENAI_API_KEY` 환경 변수에 설정해야 한다.
+> 참고
+> 이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
 
 
 **전체 예제**: [github.com/vercel/ai/examples/fastify](https://github.com/vercel/ai/tree/main/examples/fastify)
@@ -435,8 +435,8 @@ Nest.js 서버에서 AI SDK를 활용하면 텍스트와 객체를 생성하고 
 
 **전체 예제 코드**: [github.com/vercel/ai/examples/nest](https://github.com/vercel/ai/tree/main/examples/nest)
 
-##### 참고
-이 예제는 OpenAI의 gpt-4o 모델을 사용한다. OpenAI API 키를 OPENAI_API_KEY 환경 변수에 설정해야 한다.
+> 참고
+> 이 예제는 OpenAI의 `gpt-4o` 모델을 사용한다. OpenAI API 키가 `OPENAI_API_KEY` 환경 변수에 설정되어 있는지 확인한다.
 
 ### 데이터 스트림
 
