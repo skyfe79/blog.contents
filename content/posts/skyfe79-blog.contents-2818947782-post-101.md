@@ -1012,7 +1012,7 @@ GRANT SELECT (col1), UPDATE (col1) ON mytable TO miriam_rw;
 
 "Access privileges" 컬럼은 객체의 권한 항목이 null이 아니지만 비어 있는 경우 `(none)`을 표시한다. 이는 심지어 객체 소유자에게도 아무런 권한이 부여되지 않았음을 의미한다 — 매우 드문 상황이다. (이 경우에도 소유자는 여전히 암시적 grant option을 가지고 있으므로 자신의 권한을 다시 부여할 수 있지만, 현재는 아무런 권한도 가지고 있지 않다.)
 
-### 5.9. 행 수준 보안 정책
+## 5.9. 행 수준 보안 정책
 
 테이블은 SQL 표준의 [GRANT](https://www.postgresql.org/docs/17/sql-grant.html "GRANT") 명령을 통한 [권한 시스템](https://www.postgresql.org/docs/17/ddl-priv.html "5.8. Privileges") 외에도 행 수준 보안 정책(Row Security Policies)을 설정할 수 있다. 이 정책은 사용자별로 일반 쿼리가 반환하는 행이나 데이터 수정 명령으로 삽입, 갱신, 삭제할 수 있는 행을 제한한다. 이 기능을 행 수준 보안(Row-Level Security)이라고도 한다. 기본적으로 테이블에는 어떤 정책도 설정되어 있지 않아서, SQL 권한 시스템에 따라 테이블에 접근 권한이 있는 사용자는 모든 행에 동등하게 쿼리나 갱신을 수행할 수 있다.
 
