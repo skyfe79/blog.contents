@@ -7,6 +7,7 @@ type: "page"
 
 > 제가 한국어로 번역한 개발자 문서 링크 목록입니다.
 
+- [Swift 알고리즘 클럽 한글 문서](https://swift-algorithm-club.burt.pe.kr)
 - [Tailwindcss 한글 문서](https://tailwindcss.burt.pe.kr)
 - [NestJS 한글 문서](https://nestjs.burt.pe.kr)
 - [Drizzle ORM 한글 문서](https://drizzle-orm.burt.pe.kr)
