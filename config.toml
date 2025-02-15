@@ -1,6 +1,6 @@
 baseURL = "https://blog.burt.pe.kr/"
 languageCode = "ko-kr"
-defaultContentLanguage = "en-us"
+defaultContentLanguage = "ko-kr"
 title = "Burt.K"
 theme = "ezhil"
 
