@@ -49,37 +49,37 @@ paginate = 20
 
 # Main menu which appears below site header.
 [[menu.main]]
-name = "Home"
+name = "처음"
 url = "/"
 weight = 1
 
 [[menu.main]]
-name = "Posts"
+name = "글모음"
 url = "/posts"
 weight = 2
 
 [[menu.main]]
-name = "Series"
+name = "연재"
 url = "/series"
 weight = 3
 
 [[menu.main]]
-name = "Docs"
+name = "한글 번역 문서"
 url = "/docs"
 weight = 4
 
 [[menu.main]]
-name = "Talks"
+name = "이야기"
 url = "/talks"
 weight = 5
 
 [[menu.main]]
-name = "About"
+name = "안녕하세요"
 url = "/about"
 weight = 6
 
 [[menu.main]]
-name = "Tags"
+name = "태그"
 url = "/tags"
 weight = 7
 
