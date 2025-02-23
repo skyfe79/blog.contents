@@ -7,6 +7,7 @@ type: "page"
 
 > 제가 한국어로 번역한 개발자 문서 링크 목록입니다.
 
+- [uv 한글 문서](https://uv.burt.pe.kr)
 - [ReactNative 한글 문서](https://reactnative.burt.pe.kr)
 - [ElectronJS 한글 문서](https://electronjs.burt.pe.kr)
 - [CrewAI 한글 문서](https://crewai.burt.pe.kr)
