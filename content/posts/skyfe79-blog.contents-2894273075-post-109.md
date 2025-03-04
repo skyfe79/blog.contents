@@ -16,7 +16,7 @@ tags: ["ai"]
 
 ![Image](https://github.com/user-attachments/assets/de8922af-39d4-41af-b8ee-c40b02206242)
 
-> 그림: 베티 진 제닝스와 프란시스 빌라스(오른쪽)가 1946년 ENIAC을 프로그래밍하고 있다. [컴퓨터 역사 박물관 제공](https://www.computerhistory.org/revolution/birth-of-the-computer/4/78)
+> 베티 진 제닝스와 프란시스 빌라스(오른쪽)가 1946년 ENIAC을 프로그래밍하고 있다. [컴퓨터 역사 박물관 제공](https://www.computerhistory.org/revolution/birth-of-the-computer/4/78)
 
 결국 디버깅이 훨씬 쉬운 인터프리터 언어가 표준이 되었다.
 
