@@ -7,6 +7,7 @@ type: "page"
 
 > 제가 한국어로 번역한 개발자 문서 링크 목록입니다.
 
+- [Rust 프로그래밍 가이드](https://rust.burt.pe.kr)
 - [Swift 6.1 프로그래밍 가이드](https://swift.burt.pe.kr/documentation/the-swift-programming-language)
 - [uv 한글 문서](https://uv.burt.pe.kr)
 - [ReactNative 한글 문서](https://reactnative.burt.pe.kr)
