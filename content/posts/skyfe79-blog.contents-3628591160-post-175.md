@@ -67,7 +67,7 @@ LLM에게 지시 없이 랜딩 페이지를 만들도록 요청하면, 거의 �
 
 **기본 프롬프트로 생성된 결과:**
 
-<img width="1949" height="1999" alt="Image" src="https://github.com/user-attachments/assets/707adfc7-dc24-4959-85b6-26abd002a8d3" />
+<img alt="Image" src="https://github.com/user-attachments/assets/707adfc7-dc24-4959-85b6-26abd002a8d3" />
 
 
 **타이포그래피 섹션이 추가된 기본 프롬프트로 생성된 결과** 
@@ -98,7 +98,7 @@ RPG 테마로 항상 디자인한다:
 
 이렇게 하면 다음과 같은 RPG 테마의 UI가 만들어진다:
 
-<img width="1999" height="1052" alt="Image" src="https://github.com/user-attachments/assets/ff53b00a-4349-424b-84d8-b6a13b837986" />
+<img alt="Image" src="https://github.com/user-attachments/assets/ff53b00a-4349-424b-84d8-b6a13b837986" />
 
 타이포그래피와 테마를 적용하면 목적에 맞는 디자인을 만들 수 있다. 하지만 각 요소를 수동으로 지정하는 것은 번거롭다. 이러한 모든 개선 사항을 하나의 재사용 가능한 자산으로 결합할 수는 없을까?
 
@@ -140,32 +140,32 @@ RPG 테마로 항상 디자인한다:
 
 #### 예제 1: SaaS 랜딩 페이지
 
-<img width="1600" height="877" alt="Image" src="https://github.com/user-attachments/assets/9b7e4c4e-8d6f-46a1-9160-39c3e37a2f78" />
+<img alt="Image" src="https://github.com/user-attachments/assets/9b7e4c4e-8d6f-46a1-9160-39c3e37a2f78" />
 
 AI가 생성한 일반적인 SaaS 랜딩 페이지. Inter 폰트, 보라색 그라데이션, 표준 레이아웃 사용. 스킬 미적용 상태.
 
 
-<img width="1600" height="945" alt="Image" src="https://github.com/user-attachments/assets/9eacf89a-8470-4fbe-8cd4-ca11799c9970" />
+<img alt="Image" src="https://github.com/user-attachments/assets/9eacf89a-8470-4fbe-8cd4-ca11799c9970" />
 
 동일한 프롬프트에 프론트엔드 스킬을 적용해 생성한 결과. 독특한 타이포그래피, 통일된 색상 구성, 레이어링된 배경이 특징이다.
 
 #### 예제 2: 블로그 레이아웃
 
-<img width="1600" height="898" alt="Image" src="https://github.com/user-attachments/assets/4b4fad4d-9c21-4492-8170-d2add28e66e6" />
+<img alt="Image" src="https://github.com/user-attachments/assets/4b4fad4d-9c21-4492-8170-d2add28e66e6" />
 
 AI가 생성한 기본 시스템 폰트와 평면적 흰색 배경의 블로그 레이아웃. 스킬 미적용.
 
-<img width="1600" height="1013" alt="Image" src="https://github.com/user-attachments/assets/26bd11bf-2c91-437c-879f-0b890f7b2636" />
+<img alt="Image" src="https://github.com/user-attachments/assets/26bd11bf-2c91-437c-879f-0b890f7b2636" />
 
 동일한 프롬프트와 프론트엔드 스킬을 사용해 생성한 블로그 레이아웃. 에디토리얼 타이포그래피와 공간 감각이 살아있다.
 
 #### 예제 3: 관리자 대시보드
 
-<img width="1600" height="858" alt="Image" src="https://github.com/user-attachments/assets/5f5ce98e-3f06-4a16-a1d8-ab4304c8a8e0" />
+<img alt="Image" src="https://github.com/user-attachments/assets/5f5ce98e-3f06-4a16-a1d8-ab4304c8a8e0" />
 
 AI가 생성한 표준 UI 컴포넌트와 최소한의 시각적 계층 구조를 가진 관리자 대시보드. 스킬 미적용.
 
-<img width="1600" height="912" alt="Image" src="https://github.com/user-attachments/assets/f0080ecf-c6ae-4d8b-9c73-684f5ef017e4" />
+<img alt="Image" src="https://github.com/user-attachments/assets/f0080ecf-c6ae-4d8b-9c73-684f5ef017e4" />
 
 동일한 프롬프트와 프론트엔드 스킬을 사용해 생성한 관리자 대시보드. 강렬한 타이포그래피와 통일된 다크 테마, 의도적인 모션 효과가 적용되었다.
 
@@ -184,28 +184,28 @@ AI가 생성한 표준 UI 컴포넌트와 최소한의 시각적 계층 구조�
 ### 예제 1: 화이트보드 앱 
 웹-아티팩트-빌더 스킬 없이 화이트보드 앱 생성 요청 시 클로드는 매우 기본적인 인터페이스를 출력했다:
 
-<img width="1600" height="821" alt="Image" src="https://github.com/user-attachments/assets/c8c17d9c-12d6-4473-aba7-34a4f4d7ea87" />
+<img alt="Image" src="https://github.com/user-attachments/assets/c8c17d9c-12d6-4473-aba7-34a4f4d7ea87" />
 
 반면 새 웹-아티팩트-빌더 스킬을 사용하면 클로드는 다양한 도형과 텍스트 그리기 기능이 포함된 더 깔끔하고 기능적인 애플리케이션을 바로 생성했다:  
 
 
-<img width="1600" height="845" alt="Image" src="https://github.com/user-attachments/assets/3680e099-eb36-4124-a6b2-64eee7a3d600" />
+<img alt="Image" src="https://github.com/user-attachments/assets/3680e099-eb36-4124-a6b2-64eee7a3d600" />
 
 
 ### 예제 2: 작업 관리 앱
 마찬가지로 작업 관리 앱 생성 요청 시, 스킬 없이는 기능적이지만 매우 최소한의 애플리케이션이 생성되었다:
 
 
-<img width="1600" height="816" alt="Image" src="https://github.com/user-attachments/assets/ced119d0-e31a-473f-ad16-f3ba56e3c16c" />
+<img alt="Image" src="https://github.com/user-attachments/assets/ced119d0-e31a-473f-ad16-f3ba56e3c16c" />
 
 
 
 스킬을 사용하면 클로드는 더 다양한 기능을 갖춘 앱을 바로 생성한다. 예를 들어 사용자가 작업에 카테고리와 마감일을 설정할 수 있는 "새 작업 생성" 폼 컴포넌트가 포함된다:  
 
 
-<img width="1600" height="818" alt="Image" src="https://github.com/user-attachments/assets/5bbe4f65-d126-4683-bf78-2fdb8dcb1939" />
+<img alt="Image" src="https://github.com/user-attachments/assets/5bbe4f65-d126-4683-bf78-2fdb8dcb1939" />
 
-<img width="1600" height="821" alt="Image" src="https://github.com/user-attachments/assets/c5d33117-11ff-41ea-9f59-e111dbd2ae89" />
+<img alt="Image" src="https://github.com/user-attachments/assets/c5d33117-11ff-41ea-9f59-e111dbd2ae89" />
 
 [Claude.ai](http://claude.ai)에서 이 새 스킬을 사용해보려면 스킬을 활성화한 후 아티팩트 생성 시 "웹-아티팩트-빌더 스킬 사용"이라고 요청하면 된다.
 
