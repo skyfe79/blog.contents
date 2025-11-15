@@ -72,7 +72,7 @@ LLM에게 지시 없이 랜딩 페이지를 만들도록 요청하면, 거의 �
 
 **타이포그래피 섹션이 추가된 기본 프롬프트로 생성된 결과** 
 
-<img width="1999" height="1984" alt="Image" src="https://github.com/user-attachments/assets/cebb78c3-fee6-46b7-a386-782ee23250c5" />
+<img alt="Image" src="https://github.com/user-attachments/assets/cebb78c3-fee6-46b7-a386-782ee23250c5" />
 
 ‍
 
